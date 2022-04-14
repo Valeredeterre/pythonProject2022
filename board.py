@@ -15,5 +15,6 @@ class Board:
                 str += self.board[j][k]
         return str
 
+
 board1 = Board()
 print(board1)
