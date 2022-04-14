@@ -28,19 +28,5 @@ class Board:
                 str += self.board[j][k]
         return str
 
-    def get_case_value(self, x, y):
-        return self.board[x][y]
-
-    def case_status(self, x ,y): # a return value of 0 refers to an empty case
-        if (self.get_case_value(x, y) != "X"):
-            return 1
-        else:
-            return 0
-
-
-chessboard = Board()
-print(chessboard)
-case_value = Board.get_case_value(chessboard, 3, 0)
-print(case_value)
-case_status = Board.case_status(chessboard, 3, 3)
-print(case_status)
+board1 = Board()
+print(board1)
