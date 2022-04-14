@@ -11,7 +11,7 @@ class Board:
         str = ""
         for k in range(8):
             self.board.append("\n")
-            for j in range (8):
+            for j in range(8):
                 str += self.board[j][k]
         return str
 
