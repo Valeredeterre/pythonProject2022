@@ -10,7 +10,7 @@ class Board:
     def __repr__(self):
         str = ""
         for k in range(8):
-            self.board.append("\n")
+            str += "\n"
             for j in range(8):
                 str += self.board[j][k]
         return str
