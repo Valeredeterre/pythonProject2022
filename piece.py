@@ -5,7 +5,7 @@ class Piece:
         self.y = y
 
     def __str__(self):
-        return f" Equipe : {self.colour} \n Position : ({self.x}, {self.y})"
+        return f" Equipe : {self.colour} |  Position : ({self.x}, {self.y}) | Type : {self.type}"
 
 class Pion(Piece):
 
