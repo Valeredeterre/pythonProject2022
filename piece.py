@@ -8,8 +8,9 @@ class Piece:
         return f" Equipe : {self.colour} \n Position : ({self.x}, {self.y})"
 
 class Pion(Piece):
-    pion = "P"
+
     value = 1
+    type = "P"
 
     def __init__(self, colour, x, y):
         super().__init__(colour, x, y)
@@ -19,8 +20,9 @@ class Pion(Piece):
 
 
 class Roi(Piece):
-    roi = "R"
+
     value = 0
+    type = "R"
 
     def __init__(self, colour, x, y):
         super().__init__(colour, x, y)
@@ -31,7 +33,7 @@ class Roi(Piece):
 
 class Dame(Piece):
     value = 9
-    dame = "D"
+    type = "D"
 
     def __init__(self, colour, x, y):
         super().__init__(colour, x, y)
@@ -42,7 +44,8 @@ class Dame(Piece):
 class Fou(Piece):
 
     value = 3
-    fou = "F"
+    type = "F"
+
     def __init__(self, colour, x, y):
         super().__init__(colour, x, y)
 
@@ -52,7 +55,8 @@ class Fou(Piece):
 class Tour(Piece):
 
     value = 5
-    tour = "T"
+    type = "T"
+
     def __init__(self, colour, x, y):
         super().__init__(colour, x, y)
 
@@ -62,7 +66,8 @@ class Tour(Piece):
 class Cavalier(Piece):
 
     value = 3
-    cavalier = "C"
+    type = "C"
+
     def __init__(self, colour, x, y):
         super().__init__(colour, x, y)
 
@@ -70,5 +75,5 @@ class Cavalier(Piece):
         super.__repr__(self)
 
 
-roi = Roi("B", 3, 2)
+roi = Cavalier("B", 3, 2)
 print(roi)
