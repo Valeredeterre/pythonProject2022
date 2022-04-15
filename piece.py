@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 class Piece:
     def __init__(self, colour, x, y): #colour is either "B" or "W", case is x,y coordinates
         self.colour = colour
@@ -57,3 +58,6 @@ class Cavalier(Piece):
 
 roi = Roi("B", 3, 2)
 print(roi)
+=======
+
+>>>>>>> 01cc218 (Create piece.py)
