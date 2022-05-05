@@ -16,21 +16,29 @@ class Board:
     def initialize(self):
         board = [["X" for i in range(8)] for j in range(8)]
         for i in range(8):
-            board[i][1] = "P"
-            board[i][6] = "P"
-
+            board[i][1] = Pion("B", i, 1)
+            board[i][6] = Pion("B", i, 6)
         for i in range(0, 8, 7): # i = 0 then i = 0 + 7
             if(i == 0):
                 colour = "B"
                 board[0][i] = Tour(colour, 0, i)
                 board[1][i] = Cavalier(colour, 1, i)
-                board[2][i] = Fou(colour, 2, i )
-                board[3][i] = Roi(colour,3 , i)
-                board[4][i] = Dame(colour ,4 , i)
-                board[5][i] = Fou(colour ,5, i)
-                board[6][i] = Cavalier(colour ,6,i)
-                board[7][i] = Tour(colour , 7, i)
+                board[2][i] = Fou(colour, 2,i)
+                board[3][i] = Roi(colour, 3, i)
+                board[4][i] = Dame(colour, 4, i)
+                board[5][i] = Fou(colour, 5, i)
+                board[6][i] = Cavalier(colour, 6, i)
+                board[7][i] = Tour(colour, 7, i)
             else:
+                colour = "W"
+                board[0][i] = Tour(colour, 0, i)
+                board[1][i] = Cavalier(colour, 1, i)
+                board[2][i] = Fou(colour, 2, i)
+                board[3][i] = Roi(colour, 3, i)
+                board[4][i] = Dame(colour, 4, i)
+                board[5][i] = Fou(colour, 5, i)
+                board[6][i] = Cavalier(colour, 6, i)
+                board[7][i] = Tour(colour, 7, i)
 
         return board
 
@@ -39,7 +47,10 @@ class Board:
         for k in range(8):
             str += "\n"
             for j in range(8):
-                str += self.board[j][k]
+                if self.board[j][k] == "X":
+                    str += "X"
+                else:
+                    str += self.board[j][k].type
         return str
 
     def get_case_value(self, x, y):
@@ -54,7 +65,3 @@ class Board:
 
 chessboard = Board()
 print(chessboard)
-case_value = Board.get_case_value(chessboard, 3, 0)
-print(case_value)
-case_status = Board.case_status(chessboard, 3, 3)
-print(case_status)
