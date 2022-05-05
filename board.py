@@ -1,3 +1,13 @@
+from piece import Piece
+from piece import Pion
+from piece import Roi
+from piece import Dame
+from piece import Fou
+from piece import Tour
+from piece import Cavalier
+
+
+
 
 class Board:
     def __init__(self):
@@ -10,14 +20,18 @@ class Board:
             board[i][6] = "P"
 
         for i in range(0, 8, 7): # i = 0 then i = 0 + 7
-            board[0][i] = "T"
-            board[1][i] = "C"
-            board[2][i] = "F"
-            board[3][i] = "R"
-            board[4][i] = "D"
-            board[5][i] = "F"
-            board[6][i] = "C"
-            board[7][i] = "T"
+            if(i == 0):
+                colour = "B"
+                board[0][i] = Tour(colour, 0, i)
+                board[1][i] = Cavalier(colour, 1, i)
+                board[2][i] = Fou(colour, 2, i )
+                board[3][i] = Roi(colour,3 , i)
+                board[4][i] = Dame(colour ,4 , i)
+                board[5][i] = Fou(colour ,5, i)
+                board[6][i] = Cavalier(colour ,6,i)
+                board[7][i] = Tour(colour , 7, i)
+            else:
+
         return board
 
     def __repr__(self):

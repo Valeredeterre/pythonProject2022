@@ -5,7 +5,10 @@ class Piece:
         self.y = y
 
     def __str__(self):
-        return f" Equipe : {self.colour} |  Position : ({self.x}, {self.y}) | Type : {self.type}"
+        return f"{self.type}"
+
+    def deplacement(self):
+        pass
 
 class Pion(Piece):
 
@@ -17,6 +20,9 @@ class Pion(Piece):
 
     def __repr__(self):
         super.__repr__(self)
+
+    def deplacement(self):
+        pass
 
 
 class Roi(Piece):
@@ -30,6 +36,9 @@ class Roi(Piece):
     def __repr__(self):
         super.__repr__(self)
 
+    def deplacement(self):
+        pass
+
 
 class Dame(Piece):
     value = 9
@@ -40,6 +49,9 @@ class Dame(Piece):
 
     def __repr__(self):
         super.__repr__(self)
+
+    def deplacement(self):
+        pass
 
 class Fou(Piece):
 
@@ -52,6 +64,9 @@ class Fou(Piece):
     def __repr__(self):
         super.__repr__(self)
 
+    def deplacement(self):
+        pass
+
 class Tour(Piece):
 
     value = 5
@@ -62,6 +77,9 @@ class Tour(Piece):
 
     def __repr__(self):
         super.__repr__(self)
+
+    def deplacement(self):
+        pass
 
 class Cavalier(Piece):
 
@@ -74,6 +92,5 @@ class Cavalier(Piece):
     def __repr__(self):
         super.__repr__(self)
 
-
-roi = Cavalier("B", 3, 2)
-print(roi)
+    def deplacement(self):
+        pass
