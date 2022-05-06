@@ -125,3 +125,15 @@ class Cavalier(Piece):
     def get_piece_colour(self):
         return f"{self.colour}"
 
+class Vide(Piece):
+
+    value = 0
+
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+        self.type = "X"
+        self.colour = None
+
+    def __repr__(self):
+        super().__repr__(self)
