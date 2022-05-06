@@ -58,7 +58,7 @@ class Board:
             if self.board[new_x][new_y].type == "X":
                 self.board[x][y] = Vide(x, y)
                 self.board[new_x][new_y] = Cavalier(colour, new_x, new_y)
-            elif self.board[x + 1][y + 2].colour == Board.board[x][y]:
+            elif self.board[x + 1][y + 2].colour == Board.board[x][y].colour:
                 return 'La case est prise'
 
 
