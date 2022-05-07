@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="bc002ee0-b2c1-496f-9201-a310b93c1959" name="Changes" comment="Ajout d'une classe case vide et d'une méthode partielle de déplacement pour le cavalier">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="bc002ee0-b2c1-496f-9201-a310b93c1959" name="Changes" comment="Méthode deplacement_cavalier">
       <change beforePath="$PROJECT_DIR$/board.py" beforeDir="false" afterPath="$PROJECT_DIR$/board.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -119,7 +118,14 @@
       <option name="project" value="LOCAL" />
       <updated>1651874072197</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Méthode deplacement_cavalier">
+      <created>1651943694994</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1651943694995</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -135,7 +141,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Ajout d'une classe case vide et d'une méthode partielle de déplacement pour le cavalier" />
-    <option name="LAST_COMMIT_MESSAGE" value="Ajout d'une classe case vide et d'une méthode partielle de déplacement pour le cavalier" />
+    <MESSAGE value="Méthode deplacement_cavalier" />
+    <option name="LAST_COMMIT_MESSAGE" value="Méthode deplacement_cavalier" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
