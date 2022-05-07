@@ -59,6 +59,8 @@ class Board:
                 new_x != x + 2 and new_y == y - 1) or (new_x != x + 2 and new_y == y + 1) or (
                 new_x != x - 2 and new_y == y - 1) or (new_x != x - 2 and new_y == y + 1):
             if self.board[new_x][new_y].colour != self.board[x][y].colour:
+                if self.board[new_x][new_y].type != 'X':
+                    print(f"{self.board[new_x][new_y].type} a été mangé(e)")
                 self.board[new_x][new_y] = Cavalier(self.board[x][y].colour, new_x, new_y)
                 self.board[x][y] = Vide(x, y)
             else:
@@ -68,7 +70,7 @@ class Board:
 
 
 chessboard = Board()
-chessboard.board[2][2] = Cavalier("B",2,2)
+chessboard.board[2][2] = Cavalier("W",2,2)
 chessboard.deplacement_cavalier(1, 0, 2, 2)
 print(chessboard.board[2][2].type)
 print(chessboard.board[1][0].type)
