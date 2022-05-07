@@ -52,15 +52,15 @@ class Board:
                 str += self.board[j][k].type
         return str
 
-    def deplacement_cavalier(self, colour, x, y, new_x, new_y):
+    def deplacement_cavalier(self, x, y, new_x, new_y):
 
         if (new_x == x + 1 and new_y == y + 2) or (new_x == x - 1 and new_y == y + 2) or (
                 new_x != x + 1 and new_y == y - 2) or (new_x != x - 1 and new_y == y - 2) or (
                 new_x != x + 2 and new_y == y - 1) or (new_x != x + 2 and new_y == y + 1) or (
                 new_x != x - 2 and new_y == y - 1) or (new_x != x - 2 and new_y == y + 1):
             if self.board[new_x][new_y].type == "X":
+                self.board[new_x][new_y] = Cavalier(self.board[x][y].colour, new_x, new_y)
                 self.board[x][y] = Vide(x, y)
-                self.board[new_x][new_y] = Cavalier(colour, new_x, new_y)
             elif self.board[new_x][new_y].colour == Board.board[x][y].colour:
                 return 'La case est prise'
         else:
@@ -68,7 +68,7 @@ class Board:
 
 
 chessboard = Board()
-chessboard.deplacement_cavalier("B", 1, 0, 2, 4)
+chessboard.deplacement_cavalier(1, 0, 2, 2)
 print(chessboard.board[2][2].type)
 print(chessboard.board[1][0].type)
 print(chessboard)
