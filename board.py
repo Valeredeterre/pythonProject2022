@@ -9,7 +9,6 @@ from piece import Vide
 
 
 class Board:
-
     board = [["X" for i in range(8)] for j in range(8)]
     for i in range(8):
         board[i][2] = Vide(i, 2)
@@ -50,22 +49,26 @@ class Board:
         for k in range(8):
             str += "\n"
             for j in range(8):
-                    str += self.board[j][k].type
+                str += self.board[j][k].type
         return str
 
     def deplacement_cavalier(self, colour, x, y, new_x, new_y):
-        if new_x == x + 1 and new_y == y + 2:
+
+        if (new_x == x + 1 and new_y == y + 2) or (new_x == x - 1 and new_y == y + 2) or (
+                new_x != x + 1 and new_y == y - 2) or (new_x != x - 1 and new_y == y - 2) or (
+                new_x != x + 2 and new_y == y - 1) or (new_x != x + 2 and new_y == y + 1) or (
+                new_x != x - 2 and new_y == y - 1) or (new_x != x - 2 and new_y == y + 1):
             if self.board[new_x][new_y].type == "X":
                 self.board[x][y] = Vide(x, y)
                 self.board[new_x][new_y] = Cavalier(colour, new_x, new_y)
-            elif self.board[x + 1][y + 2].colour == Board.board[x][y].colour:
+            elif self.board[new_x][new_y].colour == Board.board[x][y].colour:
                 return 'La case est prise'
+        else:
+            return print("Deplacement non valide")
 
 
 chessboard = Board()
-chessboard.deplacement_cavalier("B", 1, 0, 2, 2)
+chessboard.deplacement_cavalier("B", 1, 0, 2, 4)
 print(chessboard.board[2][2].type)
 print(chessboard.board[1][0].type)
 print(chessboard)
-
-
