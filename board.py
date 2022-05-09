@@ -92,20 +92,8 @@ class Board:
             return print("Deplacement non valide")
 
     def deplacement_pion(self, x, y, new_x, new_y):
-        if self.board[x][y].colour == "w":
-            if (((new_x == x - 1 and new_y == y) or (self.board[new_x][new_y].colour == "W") and new_x == x - 1 and new_y == y + 1) or ((self.board[new_x][new_y].colour == "W") and new_x == x - 1 and new_y == y - 1)) and (
-                    new_x >= 0 and new_y >= 0 and new_x < 8 and new_y < 8):
-                if self.board[new_x][new_y].colour != self.board[x][y].colour:
-                    if self.board[new_x][new_y].type != 'X':
-                        print(f"{self.board[new_x][new_y].type} a été mangé(e)")
-                    self.board[new_x][new_y] = Pion(self.board[x][y].colour, new_x, new_y)
-                    self.board[x][y] = Vide(x, y)
-                else:
-                    return print('La case est prise')
-            else:
-                return print("Deplacement non valide")
         if self.board[x][y].colour == "B":
-            if (((new_x  == x+1 and new_y == y) or (self.board[new_x][new_y].colour == "W") and new_x == x+1 and new_y == y+1) or ((self.board[new_x][new_y].colour == "W") and new_x == x+1 and new_y == y-1))  and (new_x >= 0 and new_y >= 0 and new_x < 8 and new_y < 8):
+            if (((new_x == x - 1  or (x==7 and new_x == 5)and new_y == y) or (self.board[new_x][new_y].colour == "W") and new_x == x - 1 and new_y == y + 1) or ((self.board[new_x][new_y].colour == "W") and new_x == x - 1 and new_y == y - 1)) and (new_x >= 0 and new_y >= 0 and new_x < 8 and new_y < 8):
                 if self.board[new_x][new_y].colour != self.board[x][y].colour:
                     if self.board[new_x][new_y].type != 'X':
                         print(f"{self.board[new_x][new_y].type} a été mangé(e)")
@@ -115,6 +103,18 @@ class Board:
                     return print('La case est prise')
             else:
                 return print("Deplacement non valide")
+        if self.board[x][y].colour == "W":
+            if ((((new_x  == x+1 or (x==1 and new_x == 3)) and new_y == y) or ((self.board[new_x][new_y].colour == "W") and new_x == x+1 and new_y == y+1)) or ((self.board[new_x][new_y].colour == "W") and new_x == x+1 and new_y == y-1))  and (new_x >= 0 and new_y >= 0 and new_x < 8 and new_y < 8):
+                if self.board[new_x][new_y].colour != self.board[x][y].colour:
+                    if self.board[new_x][new_y].type != 'X':
+                        print(f"{self.board[new_x][new_y].type} a été mangé(e)")
+                    self.board[new_x][new_y] = Pion(self.board[x][y].colour, new_x, new_y)
+                    self.board[x][y] = Vide(x, y)
+                else:
+                    return print('La case est prise')
+            else:
+                return print("Deplacement non valide")
+
 
 chessboard = Board()
 chessboard.board[2][2] = Cavalier("W",2,2)
