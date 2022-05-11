@@ -115,6 +115,40 @@ class Board:
             else:
                 return print("Deplacement non valide")
 
+    def deplacement_tour(self, x, y, new_x, new_y):
+        blocking = 0
+
+        if new_x == x and new_y > y:
+            for i in range(abs(new_x - x)):
+                if self.board[x][y + i].type != "X":
+                    blocking = 1
+
+        if new_x == x and new_y < y:
+            for i in range(abs(new_x - x)):
+                if self.board[x][y - i].type != "X":
+                    blocking = 1
+
+        if new_y == y and new_x > x:
+            for i in range(abs(new_x - x)):
+                if self.board[x + i][y].type != "X":
+                    blocking = 1
+
+        if new_y == y and new_x < x:
+            for i in range(abs(new_x - x)):
+                if self.board[x - i][y].type != "X":
+                    blocking = 1
+
+        if ((new_x == x and new_y > y) or (new_x == x and new_y < y) or ) and blocking==0 and (new_x >= 0 and new_y >= 0 and new_x < 8 and new_y < 8):
+                if self.board[new_x][new_y].colour != self.board[x][y].colour:
+                    if self.board[new_x][new_y].type != 'X':
+                        print(f"{self.board[new_x][new_y].type} a été mangé(e)")
+                    self.board[new_x][new_y] = Roi(self.board[x][y].colour, new_x, new_y)
+                    self.board[x][y] = Vide(x, y)
+                else:
+                    return print('La case est prise')
+        else:
+            return print("Deplacement non valide")
+
 
 chessboard = Board()
 chessboard.board[2][2] = Cavalier("W",2,2)
