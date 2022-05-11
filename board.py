@@ -41,9 +41,6 @@ class Board:
             board[6][i] = Cavalier(colour, 6, i)
             board[7][i] = Tour(colour, 7, i)
 
-    # def __init__(self):
-    # self.board = self.initialize()
-
     def __repr__(self):
         str = ""
         for k in range(8):
@@ -183,7 +180,7 @@ class Board:
             return print('Ce deplacement est unique au Fou')
         elif new_x > 7 or new_x < 0 or new_y > 7 or new_y < 0:
             return print('La case destination est inappropriee')
-        elif self.board[new_x][new_y].colour == self.board[new_x][new_y].colour:
+        elif self.board[x][y].colour == self.board[new_x][new_y].colour:
             return print("Cette case est déjà prise")
 
 
