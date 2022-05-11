@@ -148,7 +148,7 @@ class Board:
     def deplacement_fou(self, x, y, new_x, new_y):
         old_x = x
         old_y = y
-        if 0 <= new_x < 8 and 0 <= new_y < 8 and (new_y - (new_y - y) == y) and (new_x - (new_x - x) == x):
+        if 0 <= new_x < 8 and 0 <= new_y < 8 and (new_y - (new_y - y) == y) and (new_x - (new_x - x) == x) and self.board[x][y].type == "F":
             while x != new_x and y != new_y:
                 if new_x > old_x and new_y > old_y:
                     x = x + 1
@@ -177,14 +177,23 @@ class Board:
                 else:
                     self.board[x+k1*(int((new_x-old_x)/(new_x-old_x)))][y+k2*(int((new_y-old_y)/(new_y-old_y)))] = Vide(x, y)
                     self.board[x][y] = Fou(self.board[old_x][old_y].colour, new_x, new_y)
+        elif (new_y - (new_y - y) != y) and (new_x - (new_x - x) != x):
+            return print("Deplacement invalide")
+        elif self.board[x][y].type != "F":
+            return print('Ce deplacement est unique au Fou')
+        elif new_x > 7 or new_x < 0 or new_y > 7 or new_y < 0:
+            return print('La case destination est inappropriee')
+        elif self.board[new_x][new_y].colour == self.board[new_x][new_y].colour:
+            return print("Cette case est déjà prise")
+
 
 
 
 
 chessboard = Board()
-chessboard.board[5][3] = Fou("B", 0, 2)
-chessboard.deplacement_fou(3, 5, 0, 2)
-print(chessboard.board[5][3].type)
+chessboard.board[0][2] = Fou("B", 0, 2)
+chessboard.deplacement_fou(0, 2, 40, 6)
 print(chessboard.board[3][5].type)
+print(chessboard.board[0][2].type)
 print(chessboard)
 
