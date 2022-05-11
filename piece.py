@@ -60,7 +60,7 @@ class Dame(Piece):
 
     def __init__(self, colour, x, y):
         super().__init__(colour, x, y)
-        self.type= "P"
+        self.type= "D"
 
     def __repr__(self):
         super.__repr__(self)

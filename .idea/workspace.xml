@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="bc002ee0-b2c1-496f-9201-a310b93c1959" name="Changes" comment="Méthode deplacement_cavalier" />
+    <list default="true" id="bc002ee0-b2c1-496f-9201-a310b93c1959" name="Changes" comment="Méthode deplacement_cavalier précise si une pièce a été mangée">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/board.py" beforeDir="false" afterPath="$PROJECT_DIR$/board.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/piece.py" beforeDir="false" afterPath="$PROJECT_DIR$/piece.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -137,7 +141,14 @@
       <option name="project" value="LOCAL" />
       <updated>1651944216882</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Méthode deplacement_cavalier précise si une pièce a été mangée">
+      <created>1651944626779</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1651944626779</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -154,7 +165,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Ajout d'une classe case vide et d'une méthode partielle de déplacement pour le cavalier" />
     <MESSAGE value="Méthode deplacement_cavalier" />
-    <option name="LAST_COMMIT_MESSAGE" value="Méthode deplacement_cavalier" />
+    <MESSAGE value="Méthode deplacement_cavalier précise si une pièce a été mangée" />
+    <option name="LAST_COMMIT_MESSAGE" value="Méthode deplacement_cavalier précise si une pièce a été mangée" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -163,6 +175,11 @@
           <url>file://$PROJECT_DIR$/main.py</url>
           <line>8</line>
           <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/board.py</url>
+          <line>147</line>
+          <option name="timeStamp" value="2" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
