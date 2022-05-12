@@ -1,13 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="bc002ee0-b2c1-496f-9201-a310b93c1959" name="Changes" comment="" />
+    <list default="true" id="bc002ee0-b2c1-496f-9201-a310b93c1959" name="Changes" comment="méthode deplacement_fou">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/board.py" beforeDir="false" afterPath="$PROJECT_DIR$/board.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="Git.Settings">
+    <favorite-branches>
+      <branch-storage>
+        <map>
+          <entry type="REMOTE">
+            <value>
+              <list>
+                <branch-info repo="$PROJECT_DIR$" source="origin/Camil" />
+              </list>
+            </value>
+          </entry>
+        </map>
+      </branch-storage>
+    </favorite-branches>
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
@@ -27,7 +48,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/piece.py" />
   </component>
-  <component name="RunManager" selected="Python.main">
+  <component name="RunManager" selected="Python.board">
     <configuration name="board" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="pythonProject" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -41,27 +62,6 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/board.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="main" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
-      <module name="pythonProject" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -93,19 +93,89 @@
     </configuration>
     <list>
       <item itemvalue="Python.board" />
-      <item itemvalue="Python.main" />
       <item itemvalue="Python.piece" />
     </list>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="19a767fe-c4aa-4bd7-bb48-7b95bc0ab7b2" name="Changes" comment="" />
+      <changelist id="bc002ee0-b2c1-496f-9201-a310b93c1959" name="Changes" comment="Ajout d'une classe case vide et d'une méthode partielle de déplacement pour le cavalier" />
       <created>1649940231080</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1649940231080</updated>
     </task>
+    <task id="LOCAL-00001" summary="Ajout d'une classe case vide et d'une méthode partielle de déplacement pour le cavalier">
+      <created>1651873915712</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1651873915712</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Ajout d'une classe case vide et d'une méthode partielle de déplacement pour le cavalier">
+      <created>1651874072197</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1651874072197</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Méthode deplacement_cavalier">
+      <created>1651943694994</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1651943694995</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Méthode deplacement_cavalier">
+      <created>1651943888252</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1651943888253</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Méthode deplacement_cavalier">
+      <created>1651944216882</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1651944216882</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Méthode deplacement_cavalier précise si une pièce a été mangée">
+      <created>1651944626779</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1651944626779</updated>
+    </task>
+    <task id="LOCAL-00007" summary="méthode deplacement_fou">
+      <created>1652304909867</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1652304909867</updated>
+    </task>
+    <task id="LOCAL-00008" summary="méthode deplacement_fou">
+      <created>1652306133798</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1652306133798</updated>
+    </task>
+    <task id="LOCAL-00009" summary="méthode deplacement_fou">
+      <created>1652306197882</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1652306197882</updated>
+    </task>
+    <task id="LOCAL-00010" summary="méthode deplacement_fou">
+      <created>1652364972395</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1652364972395</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -119,6 +189,13 @@
       </map>
     </option>
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Ajout d'une classe case vide et d'une méthode partielle de déplacement pour le cavalier" />
+    <MESSAGE value="Méthode deplacement_cavalier" />
+    <MESSAGE value="Méthode deplacement_cavalier précise si une pièce a été mangée" />
+    <MESSAGE value="méthode deplacement_fou" />
+    <option name="LAST_COMMIT_MESSAGE" value="méthode deplacement_fou" />
+  </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
@@ -126,6 +203,11 @@
           <url>file://$PROJECT_DIR$/main.py</url>
           <line>8</line>
           <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/board.py</url>
+          <line>144</line>
+          <option name="timeStamp" value="2" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

@@ -3,77 +3,137 @@ class Piece:
         self.colour = colour
         self.x = x
         self.y = y
+        self.type = None
 
-    def __str__(self):
-        return f" Equipe : {self.colour} |  Position : ({self.x}, {self.y}) | Type : {self.type}"
+    def __repr__(self):
+        return f"{self.type}"
+
+    def deplacement(self):
+        pass
+
+    def get_piece_colour(self):
+       pass
+
 
 class Pion(Piece):
 
     value = 1
-    type = "P"
 
     def __init__(self, colour, x, y):
         super().__init__(colour, x, y)
+        self.type = "P"
 
     def __repr__(self):
-        super.__repr__(self)
+        return super.__repr__(self)
+
+    def deplacement(self):
+        pass
+
+    def get_piece_colour(self):
+        return f"{self.colour}"
+
+
+
 
 
 class Roi(Piece):
 
     value = 0
-    type = "R"
 
     def __init__(self, colour, x, y):
         super().__init__(colour, x, y)
+        self.type = "R"
 
     def __repr__(self):
         super.__repr__(self)
+
+    def deplacement(self):
+        pass
+
+    def get_piece_colour(self):
+        return f"{self.colour}"
+
 
 
 class Dame(Piece):
     value = 9
-    type = "D"
 
     def __init__(self, colour, x, y):
         super().__init__(colour, x, y)
+        self.type= "D"
 
     def __repr__(self):
         super.__repr__(self)
+
+    def deplacement(self):
+        pass
+
+    def get_piece_colour(self):
+        return f"{self.colour}"
+
 
 class Fou(Piece):
 
     value = 3
-    type = "F"
 
     def __init__(self, colour, x, y):
         super().__init__(colour, x, y)
+        self.type = "F"
 
     def __repr__(self):
         super.__repr__(self)
+
+    def deplacement(self):
+        pass
+
+    def get_piece_colour(self):
+        return f"{self.colour}"
+
 
 class Tour(Piece):
 
     value = 5
-    type = "T"
 
     def __init__(self, colour, x, y):
         super().__init__(colour, x, y)
+        self.type = "T"
 
     def __repr__(self):
-        super.__repr__(self)
+        super().__repr__(self)
+
+    def deplacement(self):
+        pass
+
+    def get_piece_colour(self):
+        return f"{self.colour}"
+
 
 class Cavalier(Piece):
 
     value = 3
-    type = "C"
 
     def __init__(self, colour, x, y):
         super().__init__(colour, x, y)
+        self.type = "C"
 
     def __repr__(self):
-        super.__repr__(self)
+        super().__repr__(self)
 
+    def deplacement(self):
+        pass
 
-roi = Cavalier("B", 3, 2)
-print(roi)
+    def get_piece_colour(self):
+        return f"{self.colour}"
+
+class Vide(Piece):
+
+    value = 0
+
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+        self.type = "X"
+        self.colour = None
+
+    def __repr__(self):
+        super().__repr__(self)
