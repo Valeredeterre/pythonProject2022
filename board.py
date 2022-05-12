@@ -18,7 +18,7 @@ class Board:
 
     for i in range(8):
         board[i][1] = Pion("B", i, 1)
-        board[i][6] = Pion("B", i, 6)
+        board[i][6] = Pion("W", i, 6)
     for i in range(0, 8, 7):  # i = 0 then i = 0 + 7
         if (i == 0):
             colour = "B"
@@ -108,6 +108,7 @@ class Board:
 
     def deplacement_tour(self, x, y, new_x, new_y):
         blocking = 0
+        check = new_x >= 0 and new_y >= 0 and new_x < 8 and new_y < 8
 
         if new_x == x and new_y > y:
             for i in range(1,abs(new_y - y)-1):
@@ -129,7 +130,7 @@ class Board:
                 if self.board[x - i][y].type != "X":
                     blocking = 1
 
-        if ((new_x == x and new_y > y) or (new_x == x and new_y < y) or (new_y == y and new_x > x) or (new_y == y and new_x < x))  and blocking == 0 and new_x >= 0 and new_y >= 0 and new_x < 8 and new_y < 8:
+        if ((new_x == x and new_y != y) or (new_y == y and new_x != x))  and blocking == 0 and check:
                 if self.board[new_x][new_y].colour != self.board[x][y].colour:
                     if self.board[new_x][new_y].type != 'X':
                         print(f"{self.board[new_x][new_y].type} a été mangé(e)")
@@ -142,48 +143,49 @@ class Board:
 
     def deplacement_Dame(self, x, y, new_x, new_y):
         blocking = 0
+        check = new_x >= 0 and new_y >= 0 and new_x < 8 and new_y < 8
 
         if new_x == x and new_y > y:
-            for i in range(1,abs(new_y - y)-1):
+            for i in range(1,abs(new_y - y)):
                 if self.board[x][y + i].type != "X":
                     blocking = 1
 
         if new_x == x and new_y < y:
-            for i in range(1,abs(new_y - y)-1):
+            for i in range(1,abs(new_y - y)):
                 if self.board[x][y - i].type != "X":
                     blocking = 1
 
         if new_y == y and new_x > x:
-            for i in range(1,abs(new_x - x)-1):
+            for i in range(1,abs(new_x - x)):
                 if self.board[x + i][y].type != "X":
                     blocking = 1
 
         if new_y == y and new_x < x:
-            for i in range(1,abs(new_x - x)-1):
+            for i in range(1,abs(new_x - x)):
                 if self.board[x - i][y].type != "X":
                     blocking = 1
 
         if (new_x - x) == (new_y - y) and (new_y - y) >= 0:
-            for i in range(1,abs(new_y - y)-1):
+            for i in range(1,abs(new_y - y)):
                 if self.board[x + i ][y + i].type != "X":
                     blocking = 1
 
         if (new_x - x) == (new_y - y) and (new_y - y) <= 0:
-            for i in range(1,abs(new_y - y)-1):
+            for i in range(1,abs(new_y - y)):
                 if self.board[x - i][y - i].type != "X":
                     blocking = 1
 
         if (new_x - x) == -(new_y - y) and (new_y - y) >= 0:
-            for i in range(1,abs(new_y - y)-1):
+            for i in range(1,abs(new_y - y)):
                 if self.board[x+i][y-i].type != "X":
                     blocking = 1
 
         if (new_x - x) == -(new_y - y) and (new_y - y) <= 0:
-            for i in range(1,abs(new_y - y)-1):
+            for i in range(1,abs(new_y - y)):
                 if self.board[x-i][y+i].type != "X":
                     blocking = 1
 
-        if ((new_x == x and new_y > y) or (new_x == x and new_y < y) or (new_y == y and new_x > x) or (new_y == y and new_x < x) or (new_x - x) == -(new_y - y) or (new_x - x) == (new_y - y) and (new_y - y))  and blocking == 0 and new_x >= 0 and new_y >= 0 and new_x < 8 and new_y < 8:
+        if ((new_x == x and new_y != y) or (new_y == y and new_x != x)) or ((new_y - (new_y - y) == y) and (new_x - (new_x - x) == x)) and blocking == 0 and check:
                 if self.board[new_x][new_y].colour != self.board[x][y].colour:
                     if self.board[new_x][new_y].type != 'X':
                         print(f"{self.board[new_x][new_y].type} a été mangé(e)")
