@@ -185,7 +185,7 @@ class Board:
                 if self.board[x-i][y+i].type != "X":
                     blocking = 1
 
-        if ((new_x == x and new_y != y) or (new_y == y and new_x != x)) or ((new_y - (new_y - y) == y) and (new_x - (new_x - x) == x)) and blocking == 0 and check:
+        if (((new_x == x and new_y != y) or (new_y == y and new_x != x)) or (new_y - (new_y - y) == y) and (new_x - (new_x - x) == x)) and blocking == 0 and check:
                 if self.board[new_x][new_y].colour != self.board[x][y].colour:
                     if self.board[new_x][new_y].type != 'X':
                         print(f"{self.board[new_x][new_y].type} a été mangé(e)")
@@ -195,9 +195,3 @@ class Board:
                     return print('La case est prise')
         else:
             return print("Deplacement non valide")
-
-chessboard = Board()
-chessboard.board[4][1] = Vide(4,1)
-print(chessboard)
-chessboard.deplacement_Dame(4,0,4,6)
-print(chessboard)
