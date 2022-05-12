@@ -193,11 +193,3 @@ class Board:
         elif new_x > 7 or new_x < 0 or new_y > 7 or new_y < 0:
             return print('La case destination est inappropriee')
 
-
-chessboard = Board()
-chessboard.board[2][4] = Fou("B", 0, 2)
-chessboard.deplacement_fou(2, 4, 0, 3)
-print(chessboard.board[0][3].type)
-print(chessboard.board[2][4].type)
-
-print(chessboard)
