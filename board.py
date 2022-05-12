@@ -18,7 +18,7 @@ class Board:
 
     for i in range(8):
         board[i][1] = Pion("B", i, 1)
-        board[i][6] = Pion("B", i, 6)
+        board[i][6] = Pion("W", i, 6)
     for i in range(0, 8, 7):  # i = 0 then i = 0 + 7
         if (i == 0):
             colour = "B"
@@ -145,7 +145,10 @@ class Board:
     def deplacement_fou(self, x, y, new_x, new_y):
         old_x = x
         old_y = y
-        if 0 <= new_x < 8 and 0 <= new_y < 8 and (new_y - (new_y - y) == y) and (new_x - (new_x - x) == x) and self.board[x][y].type == "F":
+        a = abs(new_x - x) == abs(new_y - y)
+        print(a)
+        if 0 <= new_x < 8 and 0 <= new_y < 8 and (new_y - (new_y - y) == y) and abs(new_x - x) == abs(new_y - y) and (new_x - (new_x - x) == x) and \
+                self.board[x][y].type == "F":
             while x != new_x and y != new_y:
                 if new_x > old_x and new_y > old_y:
                     x = x + 1
@@ -167,17 +170,23 @@ class Board:
                     y = y - 1
                     k1 = 1
                     k2 = 1
-                if self.board[x][y].type != 'X' and self.board[x][y].colour != self.board[x+k1*(int((new_x-old_x)/(new_x-old_x)))][y+k2*(int((new_y-old_y)/(new_y-old_y)))].colour:
+                if self.board[x][y].type != 'X' and self.board[x][y].colour != \
+                        self.board[x + k1 * (int((new_x - old_x) / (new_x - old_x)))][
+                            y + k2 * (int((new_y - old_y) / (new_y - old_y)))].colour:
                     print(f"{self.board[x][y].type} a été mangé(e)")
-                    self.board[x+k1*(int((new_x-old_x)/(new_x-old_x)))][y+k2*(int((new_y-old_y)/(new_y-old_y)))] = Vide(x-1, y-1)
+                    self.board[x + k1 * (int((new_x - old_x) / (new_x - old_x)))][
+                        y + k2 * (int((new_y - old_y) / (new_y - old_y)))] = Vide(x - 1, y - 1)
                     self.board[x][y] = Fou(self.board[old_x][old_y].colour, new_x, new_y)
                     return 1
-                elif self.board[x][y].type != 'X' and self.board[x][y].colour == self.board[x+k1*(int((new_x-old_x)/(new_x-old_x)))][y+k2*(int((new_y-old_y)/(new_y-old_y)))].colour:
+                elif self.board[x][y].type != 'X' and self.board[x][y].colour == \
+                        self.board[x + k1 * (int((new_x - old_x) / (new_x - old_x)))][
+                            y + k2 * (int((new_y - old_y) / (new_y - old_y)))].colour:
                     return print('Cette case est déjà prise')
                 else:
-                    self.board[x+k1*(int((new_x-old_x)/(new_x-old_x)))][y+k2*(int((new_y-old_y)/(new_y-old_y)))] = Vide(x, y)
+                    self.board[x + k1 * (int((new_x - old_x) / (new_x - old_x)))][
+                        y + k2 * (int((new_y - old_y) / (new_y - old_y)))] = Vide(x, y)
                     self.board[x][y] = Fou(self.board[old_x][old_y].colour, new_x, new_y)
-        elif (new_y - (new_y - y) != y) and (new_x - (new_x - x) != x):
+        elif (new_y - (new_y - y) != y) or (new_x - (new_x - x) != x) or abs(new_x - x) != abs(new_y - y):
             return print('Deplacement invalide')
         elif self.board[x][y].type != "F":
             return print('Ce deplacement est unique au Fou')
@@ -185,11 +194,10 @@ class Board:
             return print('La case destination est inappropriee')
 
 
-
-
 chessboard = Board()
 chessboard.board[2][4] = Fou("B", 0, 2)
-chessboard.board[1][3] = Pion("B", 1, 3)
-chessboard.deplacement_fou(2, 4, 0, 2)
-print(chessboard)
+chessboard.deplacement_fou(2, 4, 0, 3)
+print(chessboard.board[0][3].type)
+print(chessboard.board[2][4].type)
 
+print(chessboard)
