@@ -150,47 +150,46 @@ class Board:
                 if new_x > old_x and new_y > old_y:
                     x = x + 1
                     y = y + 1
-                    k1= -1
+                    k1 = -1
                     k2 = -1
                 elif new_x < old_x and new_y > old_y:
                     x = x - 1
                     y = y + 1
-                    k1= 1
+                    k1 = 1
                     k2 = -1
                 elif new_x > old_x and new_y < old_y:
                     x = x + 1
                     y = y - 1
-                    k1= -1
+                    k1 = -1
                     k2 = 1
                 elif new_x < old_x and new_y < old_y:
                     x = x - 1
                     y = y - 1
-                    k1= 1
+                    k1 = 1
                     k2 = 1
                 if self.board[x][y].type != 'X' and self.board[x][y].colour != self.board[x+k1*(int((new_x-old_x)/(new_x-old_x)))][y+k2*(int((new_y-old_y)/(new_y-old_y)))].colour:
-                    print(f"{self.board[new_x][new_y].type} a été mangé(e)")
+                    print(f"{self.board[x][y].type} a été mangé(e)")
                     self.board[x+k1*(int((new_x-old_x)/(new_x-old_x)))][y+k2*(int((new_y-old_y)/(new_y-old_y)))] = Vide(x-1, y-1)
                     self.board[x][y] = Fou(self.board[old_x][old_y].colour, new_x, new_y)
+                    return 1
+                elif self.board[x][y].type != 'X' and self.board[x][y].colour == self.board[x+k1*(int((new_x-old_x)/(new_x-old_x)))][y+k2*(int((new_y-old_y)/(new_y-old_y)))].colour:
+                    return print('Cette case est déjà prise')
                 else:
                     self.board[x+k1*(int((new_x-old_x)/(new_x-old_x)))][y+k2*(int((new_y-old_y)/(new_y-old_y)))] = Vide(x, y)
                     self.board[x][y] = Fou(self.board[old_x][old_y].colour, new_x, new_y)
         elif (new_y - (new_y - y) != y) and (new_x - (new_x - x) != x):
-            return print("Deplacement invalide")
+            return print('Deplacement invalide')
         elif self.board[x][y].type != "F":
             return print('Ce deplacement est unique au Fou')
         elif new_x > 7 or new_x < 0 or new_y > 7 or new_y < 0:
             return print('La case destination est inappropriee')
-        elif self.board[x][y].colour == self.board[new_x][new_y].colour:
-            return print("Cette case est déjà prise")
-
 
 
 
 
 chessboard = Board()
-chessboard.board[0][2] = Fou("B", 0, 2)
-chessboard.deplacement_fou(0, 2, 40, 6)
-print(chessboard.board[3][5].type)
-print(chessboard.board[0][2].type)
+chessboard.board[2][4] = Fou("B", 0, 2)
+chessboard.board[1][3] = Pion("B", 1, 3)
+chessboard.deplacement_fou(2, 4, 0, 2)
 print(chessboard)
 
