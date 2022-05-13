@@ -6,6 +6,7 @@ from piece import Fou
 from piece import Tour
 from piece import Cavalier
 from piece import Vide
+import pygame
 
 
 class Board:
@@ -41,39 +42,6 @@ class Board:
             board[6][i] = Cavalier(colour, 6, i)
             board[7][i] = Tour(colour, 7, i)
 
-    # def __init__(self):
-    # self.board = self.initialize()
-    board = [["X" for i in range(8)] for j in range(8)]
-    for i in range(8):
-        board[i][2] = Vide(i, 2)
-        board[i][3] = Vide(i, 3)
-        board[i][4] = Vide(i, 4)
-        board[i][5] = Vide(i, 5)
-
-    for i in range(8):
-        board[i][1] = Pion("B", i, 1)
-        board[i][6] = Pion("W", i, 6)
-    for i in range(0, 8, 7):  # i = 0 then i = 0 + 7
-        if (i == 0):
-            colour = "B"
-            board[0][i] = Tour(colour, 0, i)
-            board[1][i] = Cavalier(colour, 1, i)
-            board[2][i] = Fou(colour, 2, i)
-            board[3][i] = Roi(colour, 3, i)
-            board[4][i] = Dame(colour, 4, i)
-            board[5][i] = Fou(colour, 5, i)
-            board[6][i] = Cavalier(colour, 6, i)
-            board[7][i] = Tour(colour, 7, i)
-        else:
-            colour = "W"
-            board[0][i] = Tour(colour, 0, i)
-            board[1][i] = Cavalier(colour, 1, i)
-            board[2][i] = Fou(colour, 2, i)
-            board[3][i] = Roi(colour, 3, i)
-            board[4][i] = Dame(colour, 4, i)
-            board[5][i] = Fou(colour, 5, i)
-            board[6][i] = Cavalier(colour, 6, i)
-            board[7][i] = Tour(colour, 7, i)
 
     def __repr__(self):
         str = ""
@@ -297,3 +265,20 @@ class Board:
             return print("Deplacement non valide")
 
 
+chessboard = Board()
+
+screen = pygame.display.set_mode((400, 400))
+pygame.display.set_caption('test')
+running = True
+
+while running:
+    for event in pygame.event.get():
+        font = pygame.image.load("ImagesPieces/chess.jpg")
+        screen.blit(font, (0, 0))
+        for i in range (7):
+            for j in range (7):
+                screen.blit(chessboard.board[i][j].image,(50*i,50*j))
+        pygame.display.update()
+
+        if event.type == pygame.QUIT:
+            running = False

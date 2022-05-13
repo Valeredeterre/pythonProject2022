@@ -1,18 +1,16 @@
+import pygame
+
+
 class Piece:
     def __init__(self, colour, x, y): #colour is either "B" or "W", case is x,y coordinates
         self.colour = colour
         self.x = x
         self.y = y
         self.type = None
+        self.image = None
 
     def __repr__(self):
         return f"{self.type}"
-
-    def deplacement(self):
-        pass
-
-    def get_piece_colour(self):
-       pass
 
 
 class Pion(Piece):
@@ -22,18 +20,14 @@ class Pion(Piece):
     def __init__(self, colour, x, y):
         super().__init__(colour, x, y)
         self.type = "P"
+        if self.colour == "W":
+            self.image = pygame.image.load("ImagesPieces/pionBlanc.png")
+        else:
+            self.image = pygame.image.load("ImagesPieces/pionNoir.png")
+
 
     def __repr__(self):
         return super.__repr__(self)
-
-    def deplacement(self):
-        pass
-
-    def get_piece_colour(self):
-        return f"{self.colour}"
-
-
-
 
 
 class Roi(Piece):
@@ -43,15 +37,13 @@ class Roi(Piece):
     def __init__(self, colour, x, y):
         super().__init__(colour, x, y)
         self.type = "R"
+        if self.colour == "W":
+            self.image = pygame.image.load("ImagesPieces/roiBlanc.png")
+        else:
+            self.image = pygame.image.load("ImagesPieces/roiNoir.png")
 
     def __repr__(self):
         super.__repr__(self)
-
-    def deplacement(self):
-        pass
-
-    def get_piece_colour(self):
-        return f"{self.colour}"
 
 
 
@@ -61,15 +53,13 @@ class Dame(Piece):
     def __init__(self, colour, x, y):
         super().__init__(colour, x, y)
         self.type= "D"
+        if self.colour == "W":
+            self.image = pygame.image.load("ImagesPieces/reineBlanche.png")
+        else:
+            self.image = pygame.image.load("ImagesPieces/reineNoire.png")
 
     def __repr__(self):
         super.__repr__(self)
-
-    def deplacement(self):
-        pass
-
-    def get_piece_colour(self):
-        return f"{self.colour}"
 
 
 class Fou(Piece):
@@ -79,15 +69,14 @@ class Fou(Piece):
     def __init__(self, colour, x, y):
         super().__init__(colour, x, y)
         self.type = "F"
+        if self.colour == "W":
+            self.image = pygame.image.load("ImagesPieces/fouBlanc.png")
+        else:
+            self.image = pygame.image.load("ImagesPieces/fouNoir.png")
 
     def __repr__(self):
         super.__repr__(self)
 
-    def deplacement(self):
-        pass
-
-    def get_piece_colour(self):
-        return f"{self.colour}"
 
 
 class Tour(Piece):
@@ -97,15 +86,14 @@ class Tour(Piece):
     def __init__(self, colour, x, y):
         super().__init__(colour, x, y)
         self.type = "T"
+        if self.colour == "W":
+            self.image = pygame.image.load("ImagesPieces/tourBlanche.png")
+        else:
+            self.image = pygame.image.load("ImagesPieces/tourNoire.png")
 
     def __repr__(self):
         super().__repr__(self)
 
-    def deplacement(self):
-        pass
-
-    def get_piece_colour(self):
-        return f"{self.colour}"
 
 
 class Cavalier(Piece):
@@ -115,15 +103,13 @@ class Cavalier(Piece):
     def __init__(self, colour, x, y):
         super().__init__(colour, x, y)
         self.type = "C"
+        if self.colour == "W":
+            self.image = pygame.image.load("ImagesPieces/cavaBlanc.png")
+        else:
+            self.image = pygame.image.load("ImagesPieces/CavaNoir.png")
 
     def __repr__(self):
         super().__repr__(self)
-
-    def deplacement(self):
-        pass
-
-    def get_piece_colour(self):
-        return f"{self.colour}"
 
 class Vide(Piece):
 
@@ -134,6 +120,7 @@ class Vide(Piece):
         self.y = y
         self.type = "X"
         self.colour = None
+        self.image = pygame.image.load("ImagesPieces/PieceVide.png")
 
     def __repr__(self):
         super().__repr__(self)
