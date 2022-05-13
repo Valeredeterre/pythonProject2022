@@ -20,7 +20,7 @@ class Board:
         board[i][1] = Pion("B", i, 1)
         board[i][6] = Pion("W", i, 6)
     for i in range(0, 8, 7):  # i = 0 then i = 0 + 7
-        if (i == 0):
+        if i == 0:
             colour = "B"
             board[0][i] = Tour(colour, 0, i)
             board[1][i] = Cavalier(colour, 1, i)
@@ -81,7 +81,7 @@ class Board:
             if (((new_x == x - 1 or (x == 7 and new_x == 5) and new_y == y) or (
                     self.board[new_x][new_y].colour == "W") and new_x == x - 1 and new_y == y + 1) or (
                         (self.board[new_x][new_y].colour == "W") and new_x == x - 1 and new_y == y - 1)) and (
-                    new_x >= 0 and new_y >= 0 and new_x < 8 and new_y < 8):
+                    0 <= new_x < 8 and 0 <= new_y < 8):
                 if self.board[new_x][new_y].colour != self.board[x][y].colour:
                     if self.board[new_x][new_y].type != 'X':
                         print(f"{self.board[new_x][new_y].type} a été mangé(e)")
@@ -95,7 +95,7 @@ class Board:
             if ((((new_x == x + 1 or (x == 1 and new_x == 3)) and new_y == y) or (
                     (self.board[new_x][new_y].colour == "W") and new_x == x + 1 and new_y == y + 1)) or (
                         (self.board[new_x][new_y].colour == "W") and new_x == x + 1 and new_y == y - 1)) and (
-                    new_x >= 0 and new_y >= 0 and new_x < 8 and new_y < 8):
+                    8 > new_x >= 0 and 0 <= new_y < 8):
                 if self.board[new_x][new_y].colour != self.board[x][y].colour:
                     if self.board[new_x][new_y].type != 'X':
                         print(f"{self.board[new_x][new_y].type} a été mangé(e)")
@@ -145,8 +145,6 @@ class Board:
     def deplacement_fou(self, x, y, new_x, new_y):
         old_x = x
         old_y = y
-        a = abs(new_x - x) == abs(new_y - y)
-        print(a)
         if 0 <= new_x < 8 and 0 <= new_y < 8 and (new_y - (new_y - y) == y) and abs(new_x - x) == abs(new_y - y) and (new_x - (new_x - x) == x) and \
                 self.board[x][y].type == "F":
             while x != new_x and y != new_y:
@@ -193,3 +191,7 @@ class Board:
         elif new_x > 7 or new_x < 0 or new_y > 7 or new_y < 0:
             return print('La case destination est inappropriee')
 
+chessboard = Board()
+chessboard.board[0][2] = Fou("B",0,0)
+chessboard.deplacement_fou(0,2,3,5)
+print(chessboard)

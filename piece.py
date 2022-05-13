@@ -4,15 +4,10 @@ class Piece:
         self.x = x
         self.y = y
         self.type = None
+        self.png = None
 
     def __repr__(self):
         return f"{self.type}"
-
-    def deplacement(self):
-        pass
-
-    def get_piece_colour(self):
-       pass
 
 
 class Pion(Piece):
@@ -22,18 +17,10 @@ class Pion(Piece):
     def __init__(self, colour, x, y):
         super().__init__(colour, x, y)
         self.type = "P"
+        self.png = None
 
     def __repr__(self):
         return super.__repr__(self)
-
-    def deplacement(self):
-        pass
-
-    def get_piece_colour(self):
-        return f"{self.colour}"
-
-
-
 
 
 class Roi(Piece):
@@ -43,15 +30,10 @@ class Roi(Piece):
     def __init__(self, colour, x, y):
         super().__init__(colour, x, y)
         self.type = "R"
+        self.png = None
 
     def __repr__(self):
         super.__repr__(self)
-
-    def deplacement(self):
-        pass
-
-    def get_piece_colour(self):
-        return f"{self.colour}"
 
 
 
@@ -61,15 +43,10 @@ class Dame(Piece):
     def __init__(self, colour, x, y):
         super().__init__(colour, x, y)
         self.type= "D"
+        self.png = None
 
     def __repr__(self):
         super.__repr__(self)
-
-    def deplacement(self):
-        pass
-
-    def get_piece_colour(self):
-        return f"{self.colour}"
 
 
 class Fou(Piece):
@@ -79,15 +56,11 @@ class Fou(Piece):
     def __init__(self, colour, x, y):
         super().__init__(colour, x, y)
         self.type = "F"
+        self.png = None
 
     def __repr__(self):
         super.__repr__(self)
 
-    def deplacement(self):
-        pass
-
-    def get_piece_colour(self):
-        return f"{self.colour}"
 
 
 class Tour(Piece):
@@ -97,15 +70,11 @@ class Tour(Piece):
     def __init__(self, colour, x, y):
         super().__init__(colour, x, y)
         self.type = "T"
+        self.png = None
 
     def __repr__(self):
         super().__repr__(self)
 
-    def deplacement(self):
-        pass
-
-    def get_piece_colour(self):
-        return f"{self.colour}"
 
 
 class Cavalier(Piece):
@@ -115,15 +84,10 @@ class Cavalier(Piece):
     def __init__(self, colour, x, y):
         super().__init__(colour, x, y)
         self.type = "C"
+        self.png = None
 
     def __repr__(self):
         super().__repr__(self)
-
-    def deplacement(self):
-        pass
-
-    def get_piece_colour(self):
-        return f"{self.colour}"
 
 class Vide(Piece):
 
@@ -134,6 +98,7 @@ class Vide(Piece):
         self.y = y
         self.type = "X"
         self.colour = None
+        self.png = None
 
     def __repr__(self):
         super().__repr__(self)
