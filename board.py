@@ -1,4 +1,3 @@
-from piece import Piece
 from piece import Pion
 from piece import Roi
 from piece import Dame
@@ -9,7 +8,7 @@ from piece import Vide
 
 
 class Board:
-    board = [["X" for i in range(8)] for j in range(8)]
+    board = [["" for i in range(8)] for j in range(8)]
     for i in range(8):
         board[i][2] = Vide(i, 2)
         board[i][3] = Vide(i, 3)
@@ -49,6 +48,7 @@ class Board:
                 str += self.board[j][k].type
         return str
 
+
     def deplacement_cavalier(self, x, y, new_x, new_y):
         if (new_x == x + 1 and new_y == y + 2) or (new_x == x - 1 and new_y == y + 2) or (
                 new_x != x + 1 and new_y == y - 2) or (new_x != x - 1 and new_y == y - 2) or (
@@ -65,7 +65,7 @@ class Board:
             return print("Deplacement non valide")
 
     def deplacement_roi(self, x, y, new_x, new_y):
-        if (abs(new_x - x) < 1 and abs(new_y - y) < 1) and (new_x >= 0 and new_y >= 0 and new_x < 8 and new_y < 8):
+        if (abs(new_x - x) < 1 and abs(new_y - y) < 1) and (8 > new_x >= 0 and 0 <= new_y < 8):
             if self.board[new_x][new_y].colour != self.board[x][y].colour:
                 if self.board[new_x][new_y].type != 'X':
                     print(f"{self.board[new_x][new_y].type} a été mangé(e)")
