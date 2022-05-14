@@ -51,9 +51,9 @@ class Board:
 
     def deplacement_cavalier(self, x, y, new_x, new_y):
         if (new_x == x + 1 and new_y == y + 2) or (new_x == x - 1 and new_y == y + 2) or (
-                new_x != x + 1 and new_y == y - 2) or (new_x != x - 1 and new_y == y - 2) or (
-                new_x != x + 2 and new_y == y - 1) or (new_x != x + 2 and new_y == y + 1) or (
-                new_x != x - 2 and new_y == y - 1) or (new_x != x - 2 and new_y == y + 1):
+                new_x == x + 1 and new_y == y - 2) or (new_x == x - 1 and new_y == y - 2) or (
+                new_x == x + 2 and new_y == y - 1) or (new_x == x + 2 and new_y == y + 1) or (
+                new_x == x - 2 and new_y == y - 1) or (new_x == x - 2 and new_y == y + 1):
             if self.board[new_x][new_y].colour != self.board[x][y].colour:
                 if self.board[new_x][new_y].type != 'X':
                     print(f"{self.board[new_x][new_y].type} a été mangé(e)")
