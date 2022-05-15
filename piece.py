@@ -97,7 +97,7 @@ class Vide(Piece):
         self.x = x
         self.y = y
         self.type = "X"
-        self.colour = None
+        self.colour = "V"
         self.png = None
 
     def __repr__(self):

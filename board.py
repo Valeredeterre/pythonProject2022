@@ -145,6 +145,7 @@ class Board:
     def deplacement_fou(self, x, y, new_x, new_y):
         old_x = x
         old_y = y
+        old_colour = self.board[x][y].colour
         if 0 <= new_x < 8 and 0 <= new_y < 8 and (new_y - (new_y - y) == y) and abs(new_x - x) == abs(new_y - y) and (new_x - (new_x - x) == x) and \
                 self.board[x][y].type == "F":
             while x != new_x and y != new_y:
@@ -169,21 +170,29 @@ class Board:
                     k1 = 1
                     k2 = 1
                 if self.board[x][y].type != 'X' and self.board[x][y].colour != \
+                        old_colour:
+                    a = self.board[x][y].colour != \
                         self.board[x + k1 * (int((new_x - old_x) / (new_x - old_x)))][
-                            y + k2 * (int((new_y - old_y) / (new_y - old_y)))].colour:
+                            y + k2 * (int((new_y - old_y) / (new_y - old_y)))].colour
+                    print(a)
+                    print(self.board[x][y].colour)
+                    print(self.board[x + k1 * (int((new_x - old_x) / (new_x - old_x)))][
+                            y + k2 * (int((new_y - old_y) / (new_y - old_y)))].colour)
                     print(f"{self.board[x][y].type} a été mangé(e)")
                     self.board[x + k1 * (int((new_x - old_x) / (new_x - old_x)))][
                         y + k2 * (int((new_y - old_y) / (new_y - old_y)))] = Vide(x - 1, y - 1)
                     self.board[x][y] = Fou(self.board[old_x][old_y].colour, new_x, new_y)
                     return 1
-                elif self.board[x][y].type != 'X' and self.board[x][y].colour == \
-                        self.board[x + k1 * (int((new_x - old_x) / (new_x - old_x)))][
-                            y + k2 * (int((new_y - old_y) / (new_y - old_y)))].colour:
+                elif self.board[x][y].type != 'X' and self.board[x][y].colour == old_colour:
+                    self.board[old_x][old_y] = Fou(self.board[old_x][old_y].colour, old_x, old_y)
+                    self.board[x + k1 * (int((new_x - old_x) / (new_x - old_x)))][
+                        y + k2 * (int((new_y - old_y) / (new_y - old_y)))] = Vide(x - 1, y - 1)
                     return print('Cette case est déjà prise')
                 else:
                     self.board[x + k1 * (int((new_x - old_x) / (new_x - old_x)))][
                         y + k2 * (int((new_y - old_y) / (new_y - old_y)))] = Vide(x, y)
                     self.board[x][y] = Fou(self.board[old_x][old_y].colour, new_x, new_y)
+
         elif (new_y - (new_y - y) != y) or (new_x - (new_x - x) != x) or abs(new_x - x) != abs(new_y - y):
             return print('Deplacement invalide')
         elif self.board[x][y].type != "F":
@@ -193,5 +202,7 @@ class Board:
 
 chessboard = Board()
 chessboard.board[0][2] = Fou("B",0,0)
-chessboard.deplacement_fou(0,2,3,5)
+chessboard.board[3][5] = Fou("W",0,0)
+
+chessboard.deplacement_fou(3,5,8,0)
 print(chessboard)
