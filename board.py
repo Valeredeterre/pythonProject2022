@@ -169,15 +169,7 @@ class Board:
                     y = y - 1
                     k1 = 1
                     k2 = 1
-                if self.board[x][y].type != 'X' and self.board[x][y].colour != \
-                        old_colour:
-                    a = self.board[x][y].colour != \
-                        self.board[x + k1 * (int((new_x - old_x) / (new_x - old_x)))][
-                            y + k2 * (int((new_y - old_y) / (new_y - old_y)))].colour
-                    print(a)
-                    print(self.board[x][y].colour)
-                    print(self.board[x + k1 * (int((new_x - old_x) / (new_x - old_x)))][
-                            y + k2 * (int((new_y - old_y) / (new_y - old_y)))].colour)
+                if self.board[x][y].type != 'X' and self.board[x][y].colour != old_colour:
                     print(f"{self.board[x][y].type} a été mangé(e)")
                     self.board[x + k1 * (int((new_x - old_x) / (new_x - old_x)))][
                         y + k2 * (int((new_y - old_y) / (new_y - old_y)))] = Vide(x - 1, y - 1)
