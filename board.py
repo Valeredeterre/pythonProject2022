@@ -173,17 +173,17 @@ class Board:
                     print(f"{self.board[x][y].type} a été mangé(e)")
                     self.board[x + k1 * (int((new_x - old_x) / (new_x - old_x)))][
                         y + k2 * (int((new_y - old_y) / (new_y - old_y)))] = Vide(x - 1, y - 1)
-                    self.board[x][y] = Fou(self.board[old_x][old_y].colour, new_x, new_y)
+                    self.board[x][y] = Fou(old_colour, new_x, new_y)
                     return 1
                 elif self.board[x][y].type != 'X' and self.board[x][y].colour == old_colour:
-                    self.board[old_x][old_y] = Fou(self.board[old_x][old_y].colour, old_x, old_y)
+                    self.board[old_x][old_y] = Fou(old_colour, old_x, old_y)
                     self.board[x + k1 * (int((new_x - old_x) / (new_x - old_x)))][
                         y + k2 * (int((new_y - old_y) / (new_y - old_y)))] = Vide(x - 1, y - 1)
                     return print('Cette case est déjà prise')
                 else:
                     self.board[x + k1 * (int((new_x - old_x) / (new_x - old_x)))][
                         y + k2 * (int((new_y - old_y) / (new_y - old_y)))] = Vide(x, y)
-                    self.board[x][y] = Fou(self.board[old_x][old_y].colour, new_x, new_y)
+                    self.board[x][y] = Fou(old_colour, new_x, new_y)
 
         elif (new_y - (new_y - y) != y) or (new_x - (new_x - x) != x) or abs(new_x - x) != abs(new_y - y):
             return print('Deplacement invalide')
@@ -193,8 +193,9 @@ class Board:
             return print('La case destination est inappropriee')
 
 chessboard = Board()
-chessboard.board[0][2] = Fou("B",0,0)
+
 chessboard.board[3][5] = Fou("W",0,0)
 
-chessboard.deplacement_fou(3,5,8,0)
+chessboard.deplacement_fou(3,5,0,2)
 print(chessboard)
+print(chessboard.board[0][2].colour)
