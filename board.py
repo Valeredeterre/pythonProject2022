@@ -20,6 +20,7 @@ class Board:
     for i in range(8):
         board[i][1] = Pion("B", i, 1)
         board[i][6] = Pion("W", i, 6)
+
     for i in range(0, 8, 7):  # i = 0 then i = 0 + 7
         if (i == 0):
             colour = "B"
@@ -69,7 +70,7 @@ class Board:
 
     def deplacement_roi(self, x, y, new_x, new_y):
         check = (new_x >= 0 and new_y >= 0 and new_x < 8 and new_y < 8)
-        if (abs(new_x - x) < 1 and abs(new_y - y) < 1) and check:
+        if (abs(new_x - x) <= 1 and abs(new_y - y) <= 1) and check:
             if self.board[new_x][new_y].colour != self.board[x][y].colour:
                 if self.board[new_x][new_y].type != 'X':
                     print(f"{self.board[new_x][new_y].type} a été mangé(e)")
@@ -81,9 +82,11 @@ class Board:
             return print("Deplacement non valide")
 
     def deplacement_pion(self, x, y, new_x, new_y):
+
         check = (new_x >= 0 and new_y >= 0 and new_x < 8 and new_y < 8)
-        if self.board[x][y].colour == "B":
-            if (((new_x == x - 1  or (x==7 and new_x == 5)and new_y == y) or (self.board[new_x][new_y].colour == "W") and new_x == x - 1 and new_y == y + 1) or ((self.board[new_x][new_y].colour == "W") and new_x == x - 1 and new_y == y - 1)) and check:
+
+        if self.board[x][y].colour == "W":
+            if (new_y == y and new_x == x+1 and self.board[new_x][new_y].type == 'X') or (self.board[new_x][new_y].colour == "B" and (new_y == y+1 or new_y == y-1) and new_x == x+1) and check:
                 if self.board[new_x][new_y].colour != self.board[x][y].colour:
                     if self.board[new_x][new_y].type != 'X':
                         print(f"{self.board[new_x][new_y].type} a été mangé(e)")
@@ -93,8 +96,9 @@ class Board:
                     return print('La case est prise')
             else:
                 return print("Deplacement non valide")
-        if self.board[x][y].colour == "W":
-            if ((((new_x  == x+1 or (x==1 and new_x == 3)) and new_y == y) or ((self.board[new_x][new_y].colour == "W") and new_x == x+1 and new_y == y+1)) or ((self.board[new_x][new_y].colour == "W") and new_x == x+1 and new_y == y-1))  and check:
+
+        if self.board[x][y].colour == "B":
+            if (new_y == y and new_x == x-1 and self.board[new_x][new_y].type == 'X') or (self.board[new_x][new_y].colour == "W" and (new_y == y+1 or new_y == y-1) and new_x == x-1) and check:
                 if self.board[new_x][new_y].colour != self.board[x][y].colour:
                     if self.board[new_x][new_y].type != 'X':
                         print(f"{self.board[new_x][new_y].type} a été mangé(e)")
@@ -209,7 +213,7 @@ class Board:
         else:
             return print("Deplacement non valide")
 
-    def deplacement_Dame(self, x, y, new_x, new_y):
+    def deplacement_dame(self, x, y, new_x, new_y):
         blocking = 0
         check = new_x >= 0 and new_y >= 0 and new_x < 8 and new_y < 8
 
@@ -264,21 +268,13 @@ class Board:
         else:
             return print("Deplacement non valide")
 
-
-chessboard = Board()
-
-screen = pygame.display.set_mode((400, 400))
-pygame.display.set_caption('test')
-running = True
-
-while running:
-    for event in pygame.event.get():
-        font = pygame.image.load("ImagesPieces/chess.jpg")
-        screen.blit(font, (0, 0))
-        for i in range (7):
-            for j in range (7):
-                screen.blit(chessboard.board[i][j].image,(50*i,50*j))
+    def print_board(self,screen):
+        screen.blit(pygame.image.load("ImagesPieces/chess.jpg"), (0, 0))
+        for i in range(8):
+            for j in range(8):
+                screen.blit(self.board[i][j].image, (50 * i, 50 * j))
         pygame.display.update()
 
-        if event.type == pygame.QUIT:
-            running = False
+
+
+

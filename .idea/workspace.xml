@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bc002ee0-b2c1-496f-9201-a310b93c1959" name="Changes" comment="toutes les fonctions de deplacement reunies">
+    <list default="true" id="bc002ee0-b2c1-496f-9201-a310b93c1959" name="Changes" comment="debut pypage">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/board.py" beforeDir="false" afterPath="$PROJECT_DIR$/board.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,10 +31,11 @@
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/DUMONT/PycharmProjects/pythonProject2022/jeu.py&quot;
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/DUMONT/PycharmProjects/pythonProject2022/jeu.py&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
   }
 }</component>
-  <component name="RunManager" selected="Python.board">
+  <component name="RunManager" selected="Python.jeu">
     <configuration name="board" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="pythonProject" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -41,7 +43,7 @@
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
-      <option name="SDK_HOME" value="C:\Users\benam\PycharmProjects\pythonProject2022\venv\Scripts\python.exe" />
+      <option name="SDK_HOME" value="C:\Users\DUMONT\PycharmProjects\pythonProject2022\venv\Scripts\python.exe" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
@@ -83,7 +85,7 @@
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
-      <option name="SDK_HOME" value="C:\Users\benam\PycharmProjects\pythonProject2022\venv\Scripts\python.exe" />
+      <option name="SDK_HOME" value="C:\Users\DUMONT\PycharmProjects\pythonProject2022\venv\Scripts\python.exe" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
@@ -106,7 +108,7 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="19a767fe-c4aa-4bd7-bb48-7b95bc0ab7b2" name="Changes" comment="" />
+      <changelist id="bc002ee0-b2c1-496f-9201-a310b93c1959" name="Changes" comment="debut pypage" />
       <created>1649940231080</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
@@ -136,16 +138,5 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="toutes les fonctions de deplacement reunies" />
     <option name="LAST_COMMIT_MESSAGE" value="toutes les fonctions de deplacement reunies" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/main.py</url>
-          <line>8</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>
