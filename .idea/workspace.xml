@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="bc002ee0-b2c1-496f-9201-a310b93c1959" name="Changes" comment="correctif sur deplacement_fou&#10;Les cases vides ont la couleur &quot;V&quot;" />
+    <list default="true" id="bc002ee0-b2c1-496f-9201-a310b93c1959" name="Changes" comment="workspace.xml update" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -224,7 +224,21 @@
       <option name="project" value="LOCAL" />
       <updated>1652620534295</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="correctif sur deplacement_fou">
+      <created>1652620760397</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1652620760397</updated>
+    </task>
+    <task id="LOCAL-00018" summary="workspace.xml update">
+      <created>1652620893039</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1652620893039</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -248,7 +262,9 @@
     <MESSAGE value="initiation de class Player" />
     <MESSAGE value="correctif sur deplacement_cavalier" />
     <MESSAGE value="correctif sur deplacement_fou&#10;Les cases vides ont la couleur &quot;V&quot;" />
-    <option name="LAST_COMMIT_MESSAGE" value="correctif sur deplacement_fou&#10;Les cases vides ont la couleur &quot;V&quot;" />
+    <MESSAGE value="correctif sur deplacement_fou" />
+    <MESSAGE value="workspace.xml update" />
+    <option name="LAST_COMMIT_MESSAGE" value="workspace.xml update" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
