@@ -24,10 +24,13 @@ class Chess:
             if self.tour == "W":
                 print(f'Aux {self.tour} de jouer')
                 while self.fin_tour == 0:
-                    x = int(input('Entrez x :'))
-                    y = int(input('Entrez y :'))
-                    new_x = int(input('Entrez new_x :'))
-                    new_y = int(input('Entrez new_y :'))
+                    try:
+                        x = int(input('Entrez x :'))
+                        y = int(input('Entrez y :'))
+                        new_x = int(input('Entrez new_x :'))
+                        new_y = int(input('Entrez new_y :'))
+                    except Exception as e:
+                        print(e)
                     if chessboard.board[x][y].colour == self.tour:
                         self.fin_tour = chessboard.deplacement_pion(x, y, new_x, new_y)
                         self.fin_tour = chessboard.deplacement_tour(x, y, new_x, new_y)
@@ -36,7 +39,7 @@ class Chess:
                         self.fin_tour = chessboard.deplacement_roi(x, y, new_x, new_y)
                         self.fin_tour = chessboard.deplacement_fou(x, y, new_x, new_y)
                         print(chessboard)
-            self.game_over = 1
+                        self.game_over = 1
 
 
     def ischeckmate(self):
