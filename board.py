@@ -146,7 +146,7 @@ class Board:
 
         if ((new_x == x and new_y > y) or (new_x == x and new_y < y) or (new_y == y and new_x > x) or (
                 new_y == y and new_x < x)) and blocking == 0 and (
-                new_x >= 0 and new_y >= 0 and new_x < 8 and new_y < 8):
+                new_x >= 0 and new_y >= 0 and new_x < 8 and new_y < 8) and self.board[x][y].type == 'T':
             if self.board[new_x][new_y].colour != self.board[x][y].colour:
                 if self.board[new_x][new_y].type != 'X':
                     print(f"{self.board[new_x][new_y].type} a été mangé(e)")
@@ -261,7 +261,7 @@ class Board:
                     blocking = 1
 
         if (((new_x == x and new_y != y) or (new_y == y and new_x != x)) or (new_y - (new_y - y) == y) and (
-                new_x - (new_x - x) == x)) and blocking == 0 and check:
+                new_x - (new_x - x) == x)) and blocking == 0 and check and self.board[x][y].type == 'D':
             if self.board[new_x][new_y].colour != self.board[x][y].colour:
                 if self.board[new_x][new_y].type != 'X':
                     print(f"{self.board[new_x][new_y].type} a été mangé(e)")
