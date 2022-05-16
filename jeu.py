@@ -13,6 +13,7 @@ import math
 chessboard = Board()
 pygame.display.set_caption('Chess')
 screen = pygame.display.set_mode((400, 400))
+chessboard.board[1][1] = Vide(0, 0)
 
 
 

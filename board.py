@@ -55,9 +55,9 @@ class Board:
     def deplacement_cavalier(self, x, y, new_x, new_y):
         check = (new_x >= 0 and new_y >= 0 and new_x < 8 and new_y < 8)
         if ((new_x == x + 1 and new_y == y + 2) or (new_x == x - 1 and new_y == y + 2) or (
-                new_x != x + 1 and new_y == y - 2) or (new_x != x - 1 and new_y == y - 2) or (
-                new_x != x + 2 and new_y == y - 1) or (new_x != x + 2 and new_y == y + 1) or (
-                new_x != x - 2 and new_y == y - 1) or (new_x != x - 2 and new_y == y + 1)) and check:
+                new_x == x + 1 and new_y == y - 2) or (new_x == x - 1 and new_y == y - 2) or (
+                new_x == x + 2 and new_y == y - 1) or (new_x == x + 2 and new_y == y + 1) or (
+                new_x == x - 2 and new_y == y - 1) or (new_x == x - 2 and new_y == y + 1)) and check:
             if self.board[new_x][new_y].colour != self.board[x][y].colour:
                 if self.board[new_x][new_y].type != 'X':
                     print(f"{self.board[new_x][new_y].type} a été mangé(e)")
@@ -86,28 +86,28 @@ class Board:
         check = (new_x >= 0 and new_y >= 0 and new_x < 8 and new_y < 8)
 
         if self.board[x][y].colour == "W":
-            if (new_y == y and new_x == x+1 and self.board[new_x][new_y].type == 'X') or (self.board[new_x][new_y].colour == "B" and (new_y == y+1 or new_y == y-1) and new_x == x+1) and check:
+            if ((new_x == x and new_y == y-1 and self.board[new_x][new_y].type == 'X') or (new_x == x and new_y == 4 and y == 6 and self.board[new_x][new_y].type == 'X') or (self.board[new_x][new_y].colour == "B" and (new_x == x+1 or new_x == x-1) and new_y == y-1)) and check:
                 if self.board[new_x][new_y].colour != self.board[x][y].colour:
                     if self.board[new_x][new_y].type != 'X':
                         print(f"{self.board[new_x][new_y].type} a été mangé(e)")
                     self.board[new_x][new_y] = Pion(self.board[x][y].colour, new_x, new_y)
                     self.board[x][y] = Vide(x, y)
                 else:
-                    return print('La case est prise')
+                    return 0
             else:
-                return print("Deplacement non valide")
+                return 0
 
         if self.board[x][y].colour == "B":
-            if (new_y == y and new_x == x-1 and self.board[new_x][new_y].type == 'X') or (self.board[new_x][new_y].colour == "W" and (new_y == y+1 or new_y == y-1) and new_x == x-1) and check:
+            if ((new_x == x and new_y == y+1 and self.board[new_x][new_y].type == 'X') or (new_x == x and new_y == 3 and y == 1 and self.board[new_x][new_y].type == 'X') or (self.board[new_x][new_y].colour == "W" and (new_x == x+1 or new_x == x-1) and new_y == y+1)) and check:
                 if self.board[new_x][new_y].colour != self.board[x][y].colour:
                     if self.board[new_x][new_y].type != 'X':
                         print(f"{self.board[new_x][new_y].type} a été mangé(e)")
                     self.board[new_x][new_y] = Pion(self.board[x][y].colour, new_x, new_y)
                     self.board[x][y] = Vide(x, y)
                 else:
-                    return print('La case est prise')
+                    return 0
             else:
-                return print("Deplacement non valide")
+                return 0
 
 
     def deplacement_tour(self, x, y, new_x, new_y):
@@ -149,9 +149,9 @@ class Board:
     def deplacement_fou(self, x, y, new_x, new_y):
         old_x = x
         old_y = y
-        a = abs(new_x - x) == abs(new_y - y)
-        print(a)
-        if 0 <= new_x < 8 and 0 <= new_y < 8 and (new_y - (new_y - y) == y) and abs(new_x - x) == abs(new_y - y) and (new_x - (new_x - x) == x) and \
+        old_colour = self.board[x][y].colour
+        if 0 <= new_x < 8 and 0 <= new_y < 8 and (new_y - (new_y - y) == y) and abs(new_x - x) == abs(new_y - y) and (
+                new_x - (new_x - x) == x) and \
                 self.board[x][y].type == "F":
             while x != new_x and y != new_y:
                 if new_x > old_x and new_y > old_y:
@@ -174,44 +174,28 @@ class Board:
                     y = y - 1
                     k1 = 1
                     k2 = 1
-                if self.board[x][y].type != 'X' and self.board[x][y].colour != \
-                        self.board[x + k1 * (int((new_x - old_x) / (new_x - old_x)))][
-                            y + k2 * (int((new_y - old_y) / (new_y - old_y)))].colour:
+                if self.board[x][y].type != 'X' and self.board[x][y].colour != old_colour:
                     print(f"{self.board[x][y].type} a été mangé(e)")
                     self.board[x + k1 * (int((new_x - old_x) / (new_x - old_x)))][
                         y + k2 * (int((new_y - old_y) / (new_y - old_y)))] = Vide(x - 1, y - 1)
-                    self.board[x][y] = Fou(self.board[old_x][old_y].colour, new_x, new_y)
+                    self.board[x][y] = Fou(old_colour, new_x, new_y)
                     return 1
-                elif self.board[x][y].type != 'X' and self.board[x][y].colour == \
-                        self.board[x + k1 * (int((new_x - old_x) / (new_x - old_x)))][
-                            y + k2 * (int((new_y - old_y) / (new_y - old_y)))].colour:
+                elif self.board[x][y].type != 'X' and self.board[x][y].colour == old_colour:
+                    self.board[old_x][old_y] = Fou(old_colour, old_x, old_y)
+                    self.board[x + k1 * (int((new_x - old_x) / (new_x - old_x)))][
+                        y + k2 * (int((new_y - old_y) / (new_y - old_y)))] = Vide(x - 1, y - 1)
                     return print('Cette case est déjà prise')
                 else:
                     self.board[x + k1 * (int((new_x - old_x) / (new_x - old_x)))][
                         y + k2 * (int((new_y - old_y) / (new_y - old_y)))] = Vide(x, y)
-                    self.board[x][y] = Fou(self.board[old_x][old_y].colour, new_x, new_y)
+                    self.board[x][y] = Fou(old_colour, new_x, new_y)
+
         elif (new_y - (new_y - y) != y) or (new_x - (new_x - x) != x) or abs(new_x - x) != abs(new_y - y):
             return print('Deplacement invalide')
         elif self.board[x][y].type != "F":
             return print('Ce deplacement est unique au Fou')
         elif new_x > 7 or new_x < 0 or new_y > 7 or new_y < 0:
             return print('La case destination est inappropriee')
-
-        if new_y == y and new_x < x:
-            for i in range(1,abs(new_x - x)-1):
-                if self.board[x - i][y].type != "X":
-                    blocking = 1
-
-        if ((new_x == x and new_y != y) or (new_y == y and new_x != x))  and blocking == 0 and check:
-                if self.board[new_x][new_y].colour != self.board[x][y].colour:
-                    if self.board[new_x][new_y].type != 'X':
-                        print(f"{self.board[new_x][new_y].type} a été mangé(e)")
-                    self.board[new_x][new_y] = Tour(self.board[x][y].colour, new_x, new_y)
-                    self.board[x][y] = Vide(x, y)
-                else:
-                    return print('La case est prise')
-        else:
-            return print("Deplacement non valide")
 
     def deplacement_dame(self, x, y, new_x, new_y):
         blocking = 0
@@ -274,7 +258,3 @@ class Board:
             for j in range(8):
                 screen.blit(self.board[i][j].image, (50 * i, 50 * j))
         pygame.display.update()
-
-
-
-
