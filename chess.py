@@ -8,7 +8,6 @@ class Player:
 
 
 class Chess:
-
     chessboard = Board()
 
     def __init__(self):
@@ -22,30 +21,49 @@ class Chess:
     def chessgame(self):
         print(self.start)
         while self.game_over != 1:
-            if self.tour == "W":
+            while self.tour == "W":
                 print(self.chessboard)
                 print(f'Aux {self.tour} de jouer')
-                while self.fin_tour == 0:
+                try:
+                    x = int(input('Entrez x :'))
+                    y = int(input('Entrez y :'))
+                    new_x = int(input('Entrez new_x :'))
+                    new_y = int(input('Entrez new_y :'))
+                except Exception as e:
+                    print(e)
+                    self.chessgame()
 
-                    try:
-                        x = int(input('Entrez x :'))
-                        y = int(input('Entrez y :'))
-                        new_x = int(input('Entrez new_x :'))
-                        new_y = int(input('Entrez new_y :'))
-                    except Exception as e:
-                        print(e)
-                        self.chessgame()
+                if self.chessboard.board[x][y].colour == self.tour:
+                    self.fin_tour = self.chessboard.deplacement_pion(x, y, new_x, new_y)
+                    self.fin_tour = self.chessboard.deplacement_tour(x, y, new_x, new_y)
+                    self.fin_tour = self.chessboard.deplacement_cavalier(x, y, new_x, new_y)
+                    self.fin_tour = self.chessboard.deplacement_dame(x, y, new_x, new_y)
+                    self.fin_tour = self.chessboard.deplacement_roi(x, y, new_x, new_y)
+                    self.fin_tour = self.chessboard.deplacement_fou(x, y, new_x, new_y)
+                    print(self.chessboard)
+                    self.tour = "B"
 
-                    if chessboard.board[x][y].colour == self.tour:
-                        self.fin_tour = self.chessboard.deplacement_pion(x, y, new_x, new_y)
-                        self.fin_tour = self.chessboard.deplacement_tour(x, y, new_x, new_y)
-                        self.fin_tour = self.chessboard.deplacement_cavalier(x, y, new_x, new_y)
-                        self.fin_tour = self.chessboard.deplacement_dame(x, y, new_x, new_y)
-                        self.fin_tour = self.chessboard.deplacement_roi(x, y, new_x, new_y)
-                        self.fin_tour = self.chessboard.deplacement_fou(x, y, new_x, new_y)
-                        print(self.chessboard)
-                        self.game_over = 1
+            while self.tour == "B":
+                print(self.chessboard)
+                print(f'Aux {self.tour} de jouer')
+                try:
+                    x = int(input('Entrez x :'))
+                    y = int(input('Entrez y :'))
+                    new_x = int(input('Entrez new_x :'))
+                    new_y = int(input('Entrez new_y :'))
+                except Exception as e:
+                    print(e)
+                    self.chessgame()
 
+                if self.chessboard.board[x][y].colour == self.tour:
+                    self.fin_tour = self.chessboard.deplacement_pion(x, y, new_x, new_y)
+                    self.fin_tour = self.chessboard.deplacement_tour(x, y, new_x, new_y)
+                    self.fin_tour = self.chessboard.deplacement_cavalier(x, y, new_x, new_y)
+                    self.fin_tour = self.chessboard.deplacement_dame(x, y, new_x, new_y)
+                    self.fin_tour = self.chessboard.deplacement_roi(x, y, new_x, new_y)
+                    self.fin_tour = self.chessboard.deplacement_fou(x, y, new_x, new_y)
+                    print(self.chessboard)
+                    self.tour = "W"
 
     def ischeckmate(self):
         for k in range(8):
