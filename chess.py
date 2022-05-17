@@ -9,21 +9,24 @@ class Player:
 
 class Chess:
 
+    chessboard = Board()
 
     def __init__(self):
         self.player1 = Player("Player1")
         self.player2 = Player("Player2")
         self.game_over = 0
         self.fin_tour = 0
+        self.start = 0
         self.tour = "W"
 
     def chessgame(self):
-        chessboard = Board()
+        print(self.start)
         while self.game_over != 1:
-            print(chessboard)
             if self.tour == "W":
+                print(self.chessboard)
                 print(f'Aux {self.tour} de jouer')
                 while self.fin_tour == 0:
+
                     try:
                         x = int(input('Entrez x :'))
                         y = int(input('Entrez y :'))
@@ -31,14 +34,16 @@ class Chess:
                         new_y = int(input('Entrez new_y :'))
                     except Exception as e:
                         print(e)
+                        self.chessgame()
+
                     if chessboard.board[x][y].colour == self.tour:
-                        self.fin_tour = chessboard.deplacement_pion(x, y, new_x, new_y)
-                        self.fin_tour = chessboard.deplacement_tour(x, y, new_x, new_y)
-                        self.fin_tour = chessboard.deplacement_cavalier(x, y, new_x, new_y)
-                        self.fin_tour = chessboard.deplacement_dame(x, y, new_x, new_y)
-                        self.fin_tour = chessboard.deplacement_roi(x, y, new_x, new_y)
-                        self.fin_tour = chessboard.deplacement_fou(x, y, new_x, new_y)
-                        print(chessboard)
+                        self.fin_tour = self.chessboard.deplacement_pion(x, y, new_x, new_y)
+                        self.fin_tour = self.chessboard.deplacement_tour(x, y, new_x, new_y)
+                        self.fin_tour = self.chessboard.deplacement_cavalier(x, y, new_x, new_y)
+                        self.fin_tour = self.chessboard.deplacement_dame(x, y, new_x, new_y)
+                        self.fin_tour = self.chessboard.deplacement_roi(x, y, new_x, new_y)
+                        self.fin_tour = self.chessboard.deplacement_fou(x, y, new_x, new_y)
+                        print(self.chessboard)
                         self.game_over = 1
 
 
@@ -48,5 +53,7 @@ class Chess:
                 if self.board[j][k].type == "R" and self.board[j][k].colour == "B":
                     return 0
 
+
 chess = Chess()
+
 chess.chessgame()

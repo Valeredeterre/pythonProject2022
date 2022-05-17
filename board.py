@@ -69,7 +69,7 @@ class Board:
 
     def deplacement_roi(self, x, y, new_x, new_y):
         check = (new_x >= 0 and new_y >= 0 and new_x < 8 and new_y < 8)
-        if (abs(new_x - x) <= 1 and abs(new_y - y) <= 1) and check:
+        if (abs(new_x - x) <= 1 and abs(new_y - y) <= 1) and self.board[x][y].type == 'R' and check:
             if self.board[new_x][new_y].colour != self.board[x][y].colour:
                 if self.board[new_x][new_y].type != 'X':
                     print(f"{self.board[new_x][new_y].type} a été mangé(e)")
@@ -89,7 +89,7 @@ class Board:
             if ((new_x == x and new_y == y - 1 and self.board[new_x][new_y].type == 'X') or (
                     new_x == x and new_y == 4 and y == 6 and self.board[new_x][new_y].type == 'X') or (
                         self.board[new_x][new_y].colour == "B" and (
-                        new_x == x + 1 or new_x == x - 1) and new_y == y - 1)) and check:
+                        new_x == x + 1 or new_x == x - 1) and new_y == y - 1)) and self.board[x][y].type == 'P' and check:
                 if self.board[new_x][new_y].colour != self.board[x][y].colour:
                     if self.board[new_x][new_y].type != 'X':
                         print(f"{self.board[new_x][new_y].type} a été mangé(e)")
@@ -107,7 +107,7 @@ class Board:
             if ((new_x == x and new_y == y + 1 and self.board[new_x][new_y].type == 'X') or (
                     new_x == x and new_y == 3 and y == 1 and self.board[new_x][new_y].type == 'X') or (
                         self.board[new_x][new_y].colour == "W" and (
-                        new_x == x + 1 or new_x == x - 1) and new_y == y + 1)) and check:
+                        new_x == x + 1 or new_x == x - 1) and new_y == y + 1)) and self.board[x][y].type == 'P' and check:
                 if self.board[new_x][new_y].colour != self.board[x][y].colour:
                     if self.board[new_x][new_y].type != 'X':
                         print(f"{self.board[new_x][new_y].type} a été mangé(e)")
