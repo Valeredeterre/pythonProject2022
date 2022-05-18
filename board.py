@@ -264,7 +264,7 @@ class Board:
                 new_x - (new_x - x) == x)) and blocking == 0 and check and self.board[x][y].type == 'D':
             if self.board[new_x][new_y].colour != self.board[x][y].colour:
                 if self.board[new_x][new_y].type != 'X':
-                    print(f"{self.board[new_x][new_y].type} a été mangé(e)")
+                    print(f"{  self.board[new_x][new_y].type} a été mangé(e)")
                 self.board[new_x][new_y] = Dame(self.board[x][y].colour, new_x, new_y)
                 self.board[x][y] = Vide(x, y)
                 return 1
@@ -274,4 +274,21 @@ class Board:
         else:
             #print("Deplacement non valide")
             return 0
+
+        def check_black():
+            for k in range(7):
+                for j in range(7):
+                    if self.board[k][j].type == 'K' and self.board[k][j].colour == 'B':
+                        b_king_x = k
+                        b_king_y = j
+
+            for x in range(7):
+                for y in range(7):
+                    if self.board[x][y].colour == 'B':
+                        self.deplacement_pion(x, y, b_king_x, b_king_y)
+                        self.deplacement_tour(x, y, b_king_x, b_king_y)
+                        self.deplacement_cavalier(x, y, b_king_x, b_king_y)
+                        self.deplacement_dame(x, y, b_king_x, b_king_y)
+                        self.deplacement_roi(x, y, b_king_x, b_king_y)
+                        self.deplacement_fou(x, y, b_king_x, b_king_y)
 
