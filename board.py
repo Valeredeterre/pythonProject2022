@@ -49,7 +49,7 @@ class Board:
         return str
 
     def deplacement_cavalier(self, x, y, new_x, new_y):
-        check = (new_x >= 0 and new_y >= 0 and new_x < 8 and new_y < 8)
+        check = (0 <= new_x < 8 and 0 <= new_y < 8)
         if ((new_x == x + 1 and new_y == y + 2) or (new_x == x - 1 and new_y == y + 2) or (
                 new_x == x + 1 and new_y == y - 2) or (new_x == x - 1 and new_y == y - 2) or (
                     new_x == x + 2 and new_y == y - 1) or (new_x == x + 2 and new_y == y + 1) or (
@@ -275,20 +275,53 @@ class Board:
             #print("Deplacement non valide")
             return 0
 
-        def check_black():
-            for k in range(7):
-                for j in range(7):
-                    if self.board[k][j].type == 'K' and self.board[k][j].colour == 'B':
-                        b_king_x = k
-                        b_king_y = j
+    def check(self, colour):
+        check = 0
+        for j in range(8):
+            for k in range(8):
+                if self.board[k][j].type == 'R' and self.board[k][j].colour == colour:
+                    king_x = k
+                    king_y = j
 
-            for x in range(7):
-                for y in range(7):
-                    if self.board[x][y].colour == 'B':
-                        self.deplacement_pion(x, y, b_king_x, b_king_y)
-                        self.deplacement_tour(x, y, b_king_x, b_king_y)
-                        self.deplacement_cavalier(x, y, b_king_x, b_king_y)
-                        self.deplacement_dame(x, y, b_king_x, b_king_y)
-                        self.deplacement_roi(x, y, b_king_x, b_king_y)
-                        self.deplacement_fou(x, y, b_king_x, b_king_y)
+        if self.board[king_x][king_y].colour == 'W':
+            enemy_colour = 'B'
+        if self.board[king_x][king_y].colour == 'B':
+            enemy_colour = 'W'
 
+        print(king_x, king_y)
+
+        for x in range(8):
+            for y in range(8):
+                if self.board[x][y].colour == enemy_colour:
+                    check += self.deplacement_pion(x, y, king_x, king_y)
+                    check += self.deplacement_tour(x, y, king_x, king_y)
+                    check += self.deplacement_cavalier(x, y, king_x, king_y)
+                    check += self.deplacement_dame(x, y, king_x, king_y)
+                    check += self.deplacement_roi(x, y, king_x, king_y)
+                    check += self.deplacement_fou(x, y, king_x, king_y)
+                    match self.board[king_x][king_y].type:
+                        case 'P':
+                            self.board[x][y] = Pion(enemy_colour, x, y)
+                        case 'T':
+                            self.board[x][y] = Tour(enemy_colour, x, y)
+                        case 'C':
+                            self.board[x][y] = Cavalier(enemy_colour, x, y)
+                        case 'D':
+                            self.board[x][y] = Dame(enemy_colour, x, y)
+                        case 'R' if self.board[king_x][king_y].colour == enemy_colour:
+                            self.board[x][y] = Roi(enemy_colour, x, y)
+                        case 'F':
+                            self.board[x][y] = Fou(enemy_colour, x, y)
+                    self.board[king_x][king_y] = Roi(colour, king_x, king_y)
+                    print(self.board)
+                    if check == 1:
+                        return print(check)
+        return print(check)
+
+
+chessboard = Board()
+chessboard.board[4][5] = Roi('B',0,0)
+chessboard.board[3][0] = Vide(0,0)
+print(chessboard)
+chessboard.check('B')
+print(chessboard)
