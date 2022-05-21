@@ -49,22 +49,26 @@ class Board:
         return str
 
     def deplacement_cavalier(self, x, y, new_x, new_y):
-        check = (0 <= new_x < 8 and 0 <= new_y < 8)
-        if ((new_x == x + 1 and new_y == y + 2) or (new_x == x - 1 and new_y == y + 2) or (
-                new_x == x + 1 and new_y == y - 2) or (new_x == x - 1 and new_y == y - 2) or (
+        try:
+            if (new_x == x + 1 and new_y == y + 2) or (new_x == x - 1 and new_y == y + 2) or (
+                    new_x == x + 1 and new_y == y - 2) or (new_x == x - 1 and new_y == y - 2) or (
                     new_x == x + 2 and new_y == y - 1) or (new_x == x + 2 and new_y == y + 1) or (
-                    new_x == x - 2 and new_y == y - 1) or (new_x == x - 2 and new_y == y + 1)) and check:
-            if self.board[new_x][new_y].colour != self.board[x][y].colour:
-                if self.board[new_x][new_y].type != 'X':
-                    print(f"{self.board[new_x][new_y].type} a été mangé(e)")
-                self.board[new_x][new_y] = Cavalier(self.board[x][y].colour, new_x, new_y)
-                self.board[x][y] = Vide(x, y)
-                return 1
+                    new_x == x - 2 and new_y == y - 1) or (new_x == x - 2 and new_y == y + 1) and (
+                    (abs(x - new_x) == 2 and abs(y - new_y) == 1) or (abs(x - new_x) == 1 and abs(y - new_y) == 2)):
+                if self.board[new_x][new_y].colour != self.board[x][y].colour:
+                    # if self.board[new_x][new_y].type != 'X':
+                    # print(f"{self.board[new_x][new_y].type} a été mangé(e)")
+                    self.board[new_x][new_y] = Cavalier(self.board[x][y].colour, new_x, new_y)
+                    self.board[x][y] = Vide(x, y)
+                    return 1
+                else:
+                    # print('La case est prise')
+                    return 0
             else:
-                #print('La case est prise')
+                # print("Deplacement non valide")
                 return 0
-        else:
-            #print("Deplacement non valide")
+        except Exception as e:
+            # print(e)
             return 0
 
     def deplacement_roi(self, x, y, new_x, new_y):
@@ -77,10 +81,10 @@ class Board:
                 self.board[x][y] = Vide(x, y)
                 return 1
             else:
-                #print('La case est prise')
+                # print('La case est prise')
                 return 0
         else:
-            #print("Deplacement non valide")
+            # print("Deplacement non valide")
             return 0
 
     def deplacement_pion(self, x, y, new_x, new_y):
@@ -97,7 +101,7 @@ class Board:
                     self.board[x][y] = Vide(x, y)
                     return 1
                 else:
-                    #print('La case est prise')
+                    # print('La case est prise')
                     return 0
             else:
                 # print('La case est prise')
@@ -107,7 +111,8 @@ class Board:
             if ((new_x == x and new_y == y + 1 and self.board[new_x][new_y].type == 'X') or (
                     new_x == x and new_y == 3 and y == 1 and self.board[new_x][new_y].type == 'X') or (
                         self.board[new_x][new_y].colour == "W" and (
-                        new_x == x + 1 or new_x == x - 1) and new_y == y + 1)) and self.board[x][y].type == 'P' and check:
+                        new_x == x + 1 or new_x == x - 1) and new_y == y + 1)) and self.board[x][
+                y].type == 'P' and check:
                 if self.board[new_x][new_y].colour != self.board[x][y].colour:
                     if self.board[new_x][new_y].type != 'X':
                         print(f"{self.board[new_x][new_y].type} a été mangé(e)")
@@ -115,7 +120,7 @@ class Board:
                     self.board[x][y] = Vide(x, y)
                     return 1
                 else:
-                    #print('La case est prise')
+                    # print('La case est prise')
                     return 0
             else:
                 # print('La case est prise')
@@ -154,10 +159,10 @@ class Board:
                 self.board[x][y] = Vide(x, y)
                 return 1
             else:
-                #print('La case est prise')
+                # print('La case est prise')
                 return 0
         else:
-            #print("Deplacement non valide")
+            # print("Deplacement non valide")
             return 0
 
     def deplacement_fou(self, x, y, new_x, new_y):
@@ -199,7 +204,7 @@ class Board:
                     self.board[old_x][old_y] = Fou(old_colour, old_x, old_y)
                     self.board[x + k1 * (int((new_x - old_x) / (new_x - old_x)))][
                         y + k2 * (int((new_y - old_y) / (new_y - old_y)))] = Vide(x - 1, y - 1)
-                    #print('Cette case est déjà prise')
+                    # print('Cette case est déjà prise')
                     return 0
                 else:
                     self.board[x + k1 * (int((new_x - old_x) / (new_x - old_x)))][
@@ -207,72 +212,74 @@ class Board:
                     self.board[x][y] = Fou(old_colour, new_x, new_y)
 
         elif (new_y - (new_y - y) != y) or (new_x - (new_x - x) != x) or abs(new_x - x) != abs(new_y - y):
-             #print('Deplacement invalide')
+            # print('Deplacement invalide')
             return 0
         elif self.board[x][y].type != "F":
-            #print('Ce deplacement est unique au Fou')
+            # print('Ce deplacement est unique au Fou')
             return 0
         elif new_x > 7 or new_x < 0 or new_y > 7 or new_y < 0:
-            #print('La case destination est inappropriee')
+            # print('La case destination est inappropriee')
             return 0
 
     def deplacement_dame(self, x, y, new_x, new_y):
         blocking = 0
-        check = new_x >= 0 and new_y >= 0 and new_x < 8 and new_y < 8
+        try:
+            if new_x == x and new_y > y:
+                for i in range(1, abs(new_y - y)):
+                    if self.board[x][y + i].type != "X":
+                        blocking = 1
 
-        if new_x == x and new_y > y:
-            for i in range(1, abs(new_y - y)):
-                if self.board[x][y + i].type != "X":
-                    blocking = 1
+            if new_x == x and new_y < y:
+                for i in range(1, abs(new_y - y)):
+                    if self.board[x][y - i].type != "X":
+                        blocking = 1
 
-        if new_x == x and new_y < y:
-            for i in range(1, abs(new_y - y)):
-                if self.board[x][y - i].type != "X":
-                    blocking = 1
+            if new_y == y and new_x > x:
+                for i in range(1, abs(new_x - x)):
+                    if self.board[x + i][y].type != "X":
+                        blocking = 1
 
-        if new_y == y and new_x > x:
-            for i in range(1, abs(new_x - x)):
-                if self.board[x + i][y].type != "X":
-                    blocking = 1
+            if new_y == y and new_x < x:
+                for i in range(1, abs(new_x - x)):
+                    if self.board[x - i][y].type != "X":
+                        blocking = 1
 
-        if new_y == y and new_x < x:
-            for i in range(1, abs(new_x - x)):
-                if self.board[x - i][y].type != "X":
-                    blocking = 1
+            if (new_x - x) == (new_y - y) and (new_y - y) >= 0:
+                for i in range(1, abs(new_y - y)):
+                    if self.board[x + i][y + i].type != "X":
+                        blocking = 1
 
-        if (new_x - x) == (new_y - y) and (new_y - y) >= 0:
-            for i in range(1, abs(new_y - y)):
-                if self.board[x + i][y + i].type != "X":
-                    blocking = 1
+            if (new_x - x) == (new_y - y) and (new_y - y) <= 0:
+                for i in range(1, abs(new_y - y)):
+                    if self.board[x - i][y - i].type != "X":
+                        blocking = 1
 
-        if (new_x - x) == (new_y - y) and (new_y - y) <= 0:
-            for i in range(1, abs(new_y - y)):
-                if self.board[x - i][y - i].type != "X":
-                    blocking = 1
+            if (new_x - x) == -(new_y - y) and (new_y - y) >= 0:
+                for i in range(1, abs(new_y - y)):
+                    if self.board[x + i][y - i].type != "X":
+                        blocking = 1
 
-        if (new_x - x) == -(new_y - y) and (new_y - y) >= 0:
-            for i in range(1, abs(new_y - y)):
-                if self.board[x + i][y - i].type != "X":
-                    blocking = 1
-
-        if (new_x - x) == -(new_y - y) and (new_y - y) <= 0:
-            for i in range(1, abs(new_y - y)):
-                if self.board[x - i][y + i].type != "X":
-                    blocking = 1
+            if (new_x - x) == -(new_y - y) and (new_y - y) <= 0:
+                for i in range(1, abs(new_y - y)):
+                    if self.board[x - i][y + i].type != "X":
+                        blocking = 1
+        except Exception as e:
+            # print(e)
+            return 0
 
         if (((new_x == x and new_y != y) or (new_y == y and new_x != x)) or (new_y - (new_y - y) == y) and (
-                new_x - (new_x - x) == x)) and blocking == 0 and check and self.board[x][y].type == 'D':
+                new_x - (new_x - x) == x)) and blocking == 0 and self.board[x][y].type == 'D':
             if self.board[new_x][new_y].colour != self.board[x][y].colour:
                 if self.board[new_x][new_y].type != 'X':
-                    print(f"{  self.board[new_x][new_y].type} a été mangé(e)")
+                    print(f"{self.board[new_x][new_y].type} a été mangé(e)")
                 self.board[new_x][new_y] = Dame(self.board[x][y].colour, new_x, new_y)
                 self.board[x][y] = Vide(x, y)
                 return 1
             else:
-                #print('La case est prise')
+                # print('La case est prise')
                 return 0
         else:
-            #print("Deplacement non valide")
+            # print("Deplacement non valide")
             return 0
 
     def check(self, colour):
@@ -302,26 +309,29 @@ class Board:
                     match self.board[king_x][king_y].type:
                         case 'P':
                             self.board[x][y] = Pion(enemy_colour, x, y)
+                            print("P")
                         case 'T':
                             self.board[x][y] = Tour(enemy_colour, x, y)
+                            print('T')
                         case 'C':
                             self.board[x][y] = Cavalier(enemy_colour, x, y)
                         case 'D':
                             self.board[x][y] = Dame(enemy_colour, x, y)
-                        case 'R' if self.board[king_x][king_y].colour == enemy_colour:
-                            self.board[x][y] = Roi(enemy_colour, x, y)
+                            print("D")
+                        case 'R':
+                            if self.board[king_x][king_y].colour == enemy_colour:
+                                self.board[x][y] = Roi(enemy_colour, x, y)
                         case 'F':
                             self.board[x][y] = Fou(enemy_colour, x, y)
                     self.board[king_x][king_y] = Roi(colour, king_x, king_y)
-                    print(self.board)
-                    if check == 1:
-                        return print(check)
+                if check == 1:
+                    return print(check)
         return print(check)
 
 
 chessboard = Board()
-chessboard.board[4][5] = Roi('B',0,0)
-chessboard.board[3][0] = Vide(0,0)
+chessboard.board[5][5] = Roi('B', 0, 0)
+chessboard.board[3][0] = Vide(0, 0)
 print(chessboard)
 chessboard.check('B')
 print(chessboard)
