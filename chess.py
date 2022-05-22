@@ -1,6 +1,13 @@
 from board import Board
+from piece import Pion
 from piece import Roi
+from piece import Dame
+from piece import Fou
+from piece import Tour
+from piece import Cavalier
 from piece import Vide
+
+
 class Player:
     def __init__(self, name):
         self.name = name
@@ -17,8 +24,7 @@ class Chess:
         self.game_over = 0
         self.fin_tour = 0
         self.tour = "W"
-        self.check_b = 0
-        self.check_w = 0
+        self.check = 0
 
     def chessgame(self):
 
@@ -45,10 +51,10 @@ class Chess:
                         self.fin_tour += self.chessboard.deplacement_dame(x, y, new_x, new_y)
                         self.fin_tour += self.chessboard.deplacement_roi(x, y, new_x, new_y)
                         self.fin_tour += self.chessboard.deplacement_fou(x, y, new_x, new_y)
-                        if self.fin_tour == 1 and self.chessboard.check('W') == 0:
+                        if self.fin_tour == 1 and self.chessboard.ischeck('W') == 0:
                             self.tour = "B"
-                        print(self.chessboard.check('W'))
-                        if self.chessboard.check('W') == 1:
+                        print(self.chessboard.ischeck('W'))
+                        if self.chessboard.ischeck('W') == 1:
                             self.chessboard = self.old_chessboard
                             self.chessgame()
 
@@ -91,17 +97,11 @@ class Chess:
                     print(self.chessboard)
                     self.tour = "W"
 
-    def ischeckmate(self):
-        for k in range(8):
-            for j in range(8):
-                if self.board[j][k].type == "R" and self.board[j][k].colour == "B":
-                    return 0
-
 
 chess = Chess()
 chess.chessboard.board[4][5] = Roi('W',0,0)
-chess.chessboard.board[3][0] = Vide(0,0)
-chess.chessgame()
+chess.chessboard.board[0][0] = Cavalier('W',0,0)
+#chess.chessgame()
 
 
 
