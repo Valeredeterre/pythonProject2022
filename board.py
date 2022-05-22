@@ -9,12 +9,12 @@ from piece import Vide
 
 class Board:
     board = [["" for i in range(8)] for j in range(8)]
+    index_range = [k for k in range(8)]
     for i in range(8):
         board[i][2] = Vide(i, 2)
         board[i][3] = Vide(i, 3)
         board[i][4] = Vide(i, 4)
         board[i][5] = Vide(i, 5)
-
     for i in range(8):
         board[i][1] = Pion("B", i, 1)
         board[i][6] = Pion("W", i, 6)
@@ -48,13 +48,25 @@ class Board:
                 str += self.board[j][k].type
         return str
 
+    def isdeplacement_cavalier(self, x, y, new_x, new_y):
+
+        for k in [x, y, new_x, new_y]:
+            if k not in self.index_range:
+                raise IndexError
+
+
+        if (new_x == x + 1 and new_y == y + 2) or (new_x == x - 1 and new_y == y + 2) or (
+                new_x == x + 1 and new_y == y - 2) or (new_x == x - 1 and new_y == y - 2) or (
+                new_x == x + 2 and new_y == y - 1) or (new_x == x + 2 and new_y == y + 1) or (
+                new_x == x - 2 and new_y == y - 1) or (new_x == x - 2 and new_y == y + 1) and (
+                (abs(x - new_x) == 2 and abs(y - new_y) == 1) or (abs(x - new_x) == 1 and abs(y - new_y) == 2)):
+            return 1
+        else:
+            return 0
+
     def deplacement_cavalier(self, x, y, new_x, new_y):
         try:
-            if (new_x == x + 1 and new_y == y + 2) or (new_x == x - 1 and new_y == y + 2) or (
-                    new_x == x + 1 and new_y == y - 2) or (new_x == x - 1 and new_y == y - 2) or (
-                    new_x == x + 2 and new_y == y - 1) or (new_x == x + 2 and new_y == y + 1) or (
-                    new_x == x - 2 and new_y == y - 1) or (new_x == x - 2 and new_y == y + 1) and (
-                    (abs(x - new_x) == 2 and abs(y - new_y) == 1) or (abs(x - new_x) == 1 and abs(y - new_y) == 2)):
+            if self.isdeplacement_cavalier(x, y, new_x, new_y) == 1:
                 if self.board[new_x][new_y].colour != self.board[x][y].colour:
                     # if self.board[new_x][new_y].type != 'X':
                     # print(f"{self.board[new_x][new_y].type} a été mangé(e)")
@@ -93,7 +105,8 @@ class Board:
             if ((new_x == x and new_y == y - 1 and self.board[new_x][new_y].type == 'X') or (
                     new_x == x and new_y == 4 and y == 6 and self.board[new_x][new_y].type == 'X') or (
                         self.board[new_x][new_y].colour == "B" and (
-                        new_x == x + 1 or new_x == x - 1) and new_y == y - 1)) and self.board[x][y].type == 'P' and check:
+                        new_x == x + 1 or new_x == x - 1) and new_y == y - 1)) and self.board[x][
+                y].type == 'P' and check:
                 if self.board[new_x][new_y].colour != self.board[x][y].colour:
                     if self.board[new_x][new_y].type != 'X':
                         print(f"{self.board[new_x][new_y].type} a été mangé(e)")
@@ -282,7 +295,7 @@ class Board:
             # print("Deplacement non valide")
             return 0
 
-    def check(self, colour):
+    def ischeck(self, colour):
         check = 0
         for j in range(8):
             for k in range(8):
@@ -294,9 +307,7 @@ class Board:
             enemy_colour = 'B'
         if self.board[king_x][king_y].colour == 'B':
             enemy_colour = 'W'
-
         print(king_x, king_y)
-
         for x in range(8):
             for y in range(8):
                 if self.board[x][y].colour == enemy_colour:
@@ -328,10 +339,3 @@ class Board:
                     return print(check)
         return print(check)
 
-
-chessboard = Board()
-chessboard.board[5][5] = Roi('B', 0, 0)
-chessboard.board[3][0] = Vide(0, 0)
-print(chessboard)
-chessboard.check('B')
-print(chessboard)
