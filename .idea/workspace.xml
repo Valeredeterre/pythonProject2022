@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="bc002ee0-b2c1-496f-9201-a310b93c1959" name="Changes" comment="workspace.xml update">
+    <list default="true" id="bc002ee0-b2c1-496f-9201-a310b93c1959" name="Changes" comment="optimisation chessgame">
+      <change afterPath="$PROJECT_DIR$/test_Board.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/board.py" beforeDir="false" afterPath="$PROJECT_DIR$/board.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/chess.py" beforeDir="false" afterPath="$PROJECT_DIR$/chess.py" afterDir="false" />
@@ -15,6 +16,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Python Script" />
+        <option value="Python Unit Test" />
       </list>
     </option>
   </component>
@@ -53,13 +55,12 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">
-    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
-    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
-    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/chess.py" />
-  </component>
-  <component name="RunManager" selected="Python.chess">
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "last_opened_file_path": "C:/Users/benam/PycharmProjects/pythonProject2022/test_Board.py"
+  }
+}]]></component>
+  <component name="RunManager" selected="Python.board">
     <configuration name="board" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="pythonProject" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -123,8 +124,30 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="test_Board" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
+      <module name="pythonProject" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="C:\Users\benam\PycharmProjects\pythonProject2022\venv\Scripts\python.exe" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test_Board.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <list>
       <item itemvalue="Python.board" />
+      <item itemvalue="Python.test_Board" />
       <item itemvalue="Python.piece" />
       <item itemvalue="Python.chess" />
     </list>
@@ -278,7 +301,84 @@
       <option name="project" value="LOCAL" />
       <updated>1652708965793</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="Chaque méthode deplacement_XXXXX retourne (class Board) maintenant 1 ou 0 // Initialisation de class Chess">
+      <created>1652722734704</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1652722734704</updated>
+    </task>
+    <task id="LOCAL-00022" summary="try except pour input de x et y">
+      <created>1652723377478</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1652723377478</updated>
+    </task>
+    <task id="LOCAL-00023" summary="Ajout de conditions afin de ne rien modifier lors d'un déplacement interdit et return 0">
+      <created>1652723441589</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1652723441589</updated>
+    </task>
+    <task id="LOCAL-00024" summary="workspace.xml update">
+      <created>1652723478701</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1652723478701</updated>
+    </task>
+    <task id="LOCAL-00025" summary="chessgame / la méthode est maintenant récursive et s'appelle à chaque exception au niveau du input de x et y">
+      <created>1652791260179</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1652791260179</updated>
+    </task>
+    <task id="LOCAL-00026" summary="ajout du tour des noirs">
+      <created>1652793760261</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1652793760261</updated>
+    </task>
+    <task id="LOCAL-00027" summary="exception Index out of range handled">
+      <created>1652887245415</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1652887245415</updated>
+    </task>
+    <task id="LOCAL-00028" summary="check_black now find the location of the black king">
+      <created>1652887310807</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1652887310807</updated>
+    </task>
+    <task id="LOCAL-00029" summary="One check method with a colour argument that returns either 1 or 0">
+      <created>1653150767379</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1653150767379</updated>
+    </task>
+    <task id="LOCAL-00030" summary="match case dans méthode check">
+      <created>1653159610652</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1653159610653</updated>
+    </task>
+    <task id="LOCAL-00031" summary="optimisation chessgame">
+      <created>1653159670103</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1653159670103</updated>
+    </task>
+    <option name="localTasksCounter" value="32" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -304,8 +404,18 @@
     <MESSAGE value="correctif sur deplacement_fou&#10;Les cases vides ont la couleur &quot;V&quot;" />
     <MESSAGE value="correctif sur deplacement_fou" />
     <MESSAGE value="correctif fou (pb changement de couleur)" />
+    <MESSAGE value="Chaque méthode deplacement_XXXXX retourne (class Board) maintenant 1 ou 0 // Initialisation de class Chess" />
+    <MESSAGE value="try except pour input de x et y" />
+    <MESSAGE value="Ajout de conditions afin de ne rien modifier lors d'un déplacement interdit et return 0" />
     <MESSAGE value="workspace.xml update" />
-    <option name="LAST_COMMIT_MESSAGE" value="workspace.xml update" />
+    <MESSAGE value="chessgame / la méthode est maintenant récursive et s'appelle à chaque exception au niveau du input de x et y" />
+    <MESSAGE value="ajout du tour des noirs" />
+    <MESSAGE value="exception Index out of range handled" />
+    <MESSAGE value="check_black now find the location of the black king" />
+    <MESSAGE value="One check method with a colour argument that returns either 1 or 0" />
+    <MESSAGE value="match case dans méthode check" />
+    <MESSAGE value="optimisation chessgame" />
+    <option name="LAST_COMMIT_MESSAGE" value="optimisation chessgame" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -314,6 +424,16 @@
           <url>file://$PROJECT_DIR$/main.py</url>
           <line>8</line>
           <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/board.py</url>
+          <line>309</line>
+          <option name="timeStamp" value="8" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/board.py</url>
+          <line>50</line>
+          <option name="timeStamp" value="11" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
