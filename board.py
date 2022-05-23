@@ -90,7 +90,22 @@ class Board:
                 if self.board[new_x][new_y].colour != self.board[x][y].colour:
                     if self.board[new_x][new_y].type != 'X':
                         print(f"{self.board[new_x][new_y].type} a été mangé(e)")
-                    self.board[new_x][new_y] = Pion(self.board[x][y].colour, new_x, new_y)
+                    if new_y == 0:
+                        n_piece = str(input("En quoi transformer le pion ?"))
+
+                        if n_piece == "T":
+                            self.board[new_x][new_y] = Tour(self.board[x][y].colour, new_x, new_y)
+
+                        if n_piece == "C":
+                            self.board[new_x][new_y] = Cavalier(self.board[x][y].colour, new_x, new_y)
+
+                        if n_piece == "F":
+                            self.board[new_x][new_y] = Fou(self.board[x][y].colour, new_x, new_y)
+
+                        if n_piece == "D":
+                            self.board[new_x][new_y] = Dame(self.board[x][y].colour, new_x, new_y)
+                    else:
+                        self.board[new_x][new_y] = Pion(self.board[x][y].colour, new_x, new_y)
                     self.board[x][y] = Vide(x, y)
                 else:
                     return 0
@@ -102,7 +117,22 @@ class Board:
                 if self.board[new_x][new_y].colour != self.board[x][y].colour:
                     if self.board[new_x][new_y].type != 'X':
                         print(f"{self.board[new_x][new_y].type} a été mangé(e)")
-                    self.board[new_x][new_y] = Pion(self.board[x][y].colour, new_x, new_y)
+                    if new_y == 7:
+                        n_piece = str(input("En quoi transformer le pion ?"))
+
+                        if n_piece == "T":
+                            self.board[new_x][new_y] = Tour(self.board[x][y].colour, new_x, new_y)
+
+                        if n_piece == "C":
+                            self.board[new_x][new_y] = Cavalier(self.board[x][y].colour, new_x, new_y)
+
+                        if n_piece == "F":
+                            self.board[new_x][new_y] = Fou(self.board[x][y].colour, new_x, new_y)
+
+                        if n_piece == "D":
+                            self.board[new_x][new_y] = Dame(self.board[x][y].colour, new_x, new_y)
+                    else:
+                        self.board[new_x][new_y] = Pion(self.board[x][y].colour, new_x, new_y)
                     self.board[x][y] = Vide(x, y)
                 else:
                     return 0
@@ -252,7 +282,7 @@ class Board:
         else:
             return print("Deplacement non valide")
 
-    def print_board(self,screen):
+    def board_display(self,screen):
         screen.blit(pygame.image.load("ImagesPieces/chess.jpg"), (0, 0))
         for i in range(8):
             for j in range(8):
