@@ -8,8 +8,8 @@ from piece import Vide
 
 
 class Board:
-    board = [["" for i in range(8)] for j in range(8)]
-    index_range = [k for k in range(8)]
+    board = [["" for i in range(8)] for j in range(8)]  # initialisation of a list of string list
+    index_range = [k for k in range(8)]     # used to know if an index is out of range
     for i in range(8):
         board[i][2] = Vide(i, 2)
         board[i][3] = Vide(i, 3)
@@ -48,40 +48,57 @@ class Board:
                 str += self.board[j][k].type
         return str
 
-    def isdeplacement_cavalier(self, x, y, new_x, new_y):
-
-        for k in [x, y, new_x, new_y]:
-            if k not in self.index_range:
+    def isinrange(self, x, y, new_x, new_y):  # return value is boolean, raise an index error if one of the
+        # positional values is out of range
+        for k in [x, y, new_x, new_y]:  # k take each value of the list from first to last
+            if k not in self.index_range:  # only raise an error when k is not in the interval [0,7]
                 raise IndexError
+                return 0
+        return 1
 
-
+    def isdeplacement_cavalier(self, x, y, new_x,
+                               new_y):  # return value is boolean, verify if the positional values match a knight move
+        self.isinrange(self, x, y, new_x, new_y)  # c.f the method in question
         if (new_x == x + 1 and new_y == y + 2) or (new_x == x - 1 and new_y == y + 2) or (
                 new_x == x + 1 and new_y == y - 2) or (new_x == x - 1 and new_y == y - 2) or (
                 new_x == x + 2 and new_y == y - 1) or (new_x == x + 2 and new_y == y + 1) or (
                 new_x == x - 2 and new_y == y - 1) or (new_x == x - 2 and new_y == y + 1) and (
-                (abs(x - new_x) == 2 and abs(y - new_y) == 1) or (abs(x - new_x) == 1 and abs(y - new_y) == 2)):
+                (abs(x - new_x) == 2 and abs(y - new_y) == 1) or (abs(x - new_x) == 1 and abs(y - new_y) == 2))\
+                and (x != new_x and y != new_y):
             return 1
         else:
             return 0
 
-    def deplacement_cavalier(self, x, y, new_x, new_y):
+    def isdeplacement_fou(self, x, y, new_x, new_y):  # return value is boolean, verify if the positional values
+        # match a bishop move
+        self.isinrange(x, y, new_x, new_y)
+        if (new_y - (new_y - y) == y) and abs(new_x - x) == abs(new_y - y) and (
+                new_x - (new_x - x) == x) and self.board[x][y].type == "F" and (x != new_x and y != new_y):
+            # conditions that are unique to the bishop
+            return 1
+        else:
+            return 0
+
+    def deplacement_cavalier(self, x, y, new_x, new_y):  # move the piece to the appropriate positional values
         try:
-            if self.isdeplacement_cavalier(x, y, new_x, new_y) == 1:
-                if self.board[new_x][new_y].colour != self.board[x][y].colour:
-                    # if self.board[new_x][new_y].type != 'X':
-                    # print(f"{self.board[new_x][new_y].type} a été mangé(e)")
-                    self.board[new_x][new_y] = Cavalier(self.board[x][y].colour, new_x, new_y)
-                    self.board[x][y] = Vide(x, y)
-                    return 1
+            if self.isdeplacement_cavalier(x, y, new_x, new_y) == 1:  # used to know if the move is legitimate
+                if self.board[new_x][new_y].colour != self.board[x][
+                    y].colour:  # in this case our piece would "eat" the enemy piece
+                    # if self.board[new_x][new_y].type != 'X': # Void case has no color, so we make sure to don't let the player know if he ate nothing
+                    # print(f"{self.board[new_x][new_y].type} a été mangé(e)") # let the player know what he has just eaten
+                    self.board[new_x][new_y] = Cavalier(self.board[x][y].colour, new_x,
+                                                        new_y)  # place the appropriate piece on the destination positional values
+                    self.board[x][y] = Vide(x, y)  # empty the previous piece location
+                    return 1  # return 1 when a move has been played
                 else:
                     # print('La case est prise')
-                    return 0
+                    return 0  # return 0 and print the reason the move didn't happen
             else:
                 # print("Deplacement non valide")
-                return 0
+                return 0  # return 0 and print the reason the move didn't happen
         except Exception as e:
             # print(e)
-            return 0
+            return 0  # return 0 and print the raised errors
 
     def deplacement_roi(self, x, y, new_x, new_y):
         check = (new_x >= 0 and new_y >= 0 and new_x < 8 and new_y < 8)
@@ -179,12 +196,10 @@ class Board:
             return 0
 
     def deplacement_fou(self, x, y, new_x, new_y):
-        old_x = x
-        old_y = y
+        old_x = x  # store initial x value
+        old_y = y  # store initial y value
         old_colour = self.board[x][y].colour
-        if 0 <= new_x < 8 and 0 <= new_y < 8 and (new_y - (new_y - y) == y) and abs(new_x - x) == abs(new_y - y) and (
-                new_x - (new_x - x) == x) and \
-                self.board[x][y].type == "F":
+        if self.isdeplacement_fou(self, x, y, new_x, new_y) == 1:
             while x != new_x and y != new_y:
                 if new_x > old_x and new_y > old_y:
                     x = x + 1
@@ -207,7 +222,7 @@ class Board:
                     k1 = 1
                     k2 = 1
                 if self.board[x][y].type != 'X' and self.board[x][y].colour != old_colour:
-                    print(f"{self.board[x][y].type} a été mangé(e)")
+                    # print(f"{self.board[x][y].type} a été mangé(e)")
                     self.board[x + k1 * (int((new_x - old_x) / (new_x - old_x)))][
                         y + k2 * (int((new_y - old_y) / (new_y - old_y)))] = Vide(x - 1, y - 1)
                     self.board[x][y] = Fou(old_colour, new_x, new_y)
@@ -223,16 +238,6 @@ class Board:
                     self.board[x + k1 * (int((new_x - old_x) / (new_x - old_x)))][
                         y + k2 * (int((new_y - old_y) / (new_y - old_y)))] = Vide(x, y)
                     self.board[x][y] = Fou(old_colour, new_x, new_y)
-
-        elif (new_y - (new_y - y) != y) or (new_x - (new_x - x) != x) or abs(new_x - x) != abs(new_y - y):
-            # print('Deplacement invalide')
-            return 0
-        elif self.board[x][y].type != "F":
-            # print('Ce deplacement est unique au Fou')
-            return 0
-        elif new_x > 7 or new_x < 0 or new_y > 7 or new_y < 0:
-            # print('La case destination est inappropriee')
-            return 0
 
     def deplacement_dame(self, x, y, new_x, new_y):
         blocking = 0
@@ -339,3 +344,7 @@ class Board:
                     return print(check)
         return print(check)
 
+board = Board()
+print(board)
+a = board.isdeplacement_fou(0,0,1,0)
+print(a)
