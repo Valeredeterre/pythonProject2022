@@ -58,7 +58,7 @@ class Board:
 
     def isdeplacement_cavalier(self, x, y, new_x,
                                new_y):  # return value is boolean, verify if the positional values match a knight move
-        self.isinrange(self, x, y, new_x, new_y)  # c.f the method in question
+        self.isinrange(x, y, new_x, new_y)  # c.f the method in question
         if (new_x == x + 1 and new_y == y + 2) or (new_x == x - 1 and new_y == y + 2) or (
                 new_x == x + 1 and new_y == y - 2) or (new_x == x - 1 and new_y == y - 2) or (
                 new_x == x + 2 and new_y == y - 1) or (new_x == x + 2 and new_y == y + 1) or (
@@ -344,7 +344,3 @@ class Board:
                     return print(check)
         return print(check)
 
-board = Board()
-print(board)
-a = board.isdeplacement_fou(0,0,1,0)
-print(a)
