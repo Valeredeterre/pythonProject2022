@@ -9,7 +9,7 @@ from piece import Vide
 
 class Board:
     board = [["" for i in range(8)] for j in range(8)]  # initialisation of a list of string list
-    index_range = [k for k in range(8)]     # used to know if an index is out of range
+    index_range = [k for k in range(8)]  # used to know if an index is out of range
     for i in range(8):
         board[i][2] = Vide(i, 2)
         board[i][3] = Vide(i, 3)
@@ -56,15 +56,46 @@ class Board:
                 return 0
         return 1
 
+    def deplacement(self,x ,y ,new_x ,new_y):
+        match self.board[x][y].type:
+            case 'P':
+                move = bool(self.deplacement_pion(x, y, new_x, new_y))
+            case 'T':
+                move = bool(self.deplacement_tour(x, y, new_x, new_y))
+            case 'C':
+                move = bool(self.deplacement_cavalier(x, y, new_x, new_y))
+            case 'D':
+                move = bool(self.deplacement_dame(x, y, new_x, new_y))
+            case 'R':
+                move = bool(self.deplacement_roi(x, y, new_x, new_y))
+            case 'F':
+                move = bool(self.deplacement_fou(x, y, new_x, new_y))
+        return move
 
+    def isdeplacement(self,x ,y ,new_x ,new_y):
+        match self.board[x][y].type:
+            #case 'P':
+                #ismove = bool(self.isdeplacement_pion(x, y, new_x, new_y))
+            #case 'T':
+                #ismove = bool(self.isdeplacement_tour(x, y, new_x, new_y))
+            case 'C':
+                ismove = bool(self.isdeplacement_cavalier(x, y, new_x, new_y))
+            #case 'D':
+                #ismove = bool(self.isdeplacement_dame(x, y, new_x, new_y))
+            #case 'R':
+                #ismove = bool(self.isdeplacement_roi(x, y, new_x, new_y))
+            case 'F':
+                ismove = bool(self.isdeplacement_fou(x, y, new_x, new_y))
+        return ismove
 
-    def isdeplacement_cavalier(self, x, y, new_x, new_y):  # return value is boolean, verify if the positional values match a knight move
+    def isdeplacement_cavalier(self, x, y, new_x, new_y):
+        # return value is boolean, verify if the positional values match a knight move
         self.isinrange(x, y, new_x, new_y)  # c.f the method in question
         if ((new_x == x + 1 and new_y == y + 2) or (new_x == x - 1 and new_y == y + 2) or (
                 new_x == x + 1 and new_y == y - 2) or (new_x == x - 1 and new_y == y - 2) or (
-                new_x == x + 2 and new_y == y - 1) or (new_x == x + 2 and new_y == y + 1) or (
-                new_x == x - 2 and new_y == y - 1) or (new_x == x - 2 and new_y == y + 1)) and (
-                (abs(x - new_x) == 2 and abs(y - new_y) == 1) or (abs(x - new_x) == 1 and abs(y - new_y) == 2))\
+                    new_x == x + 2 and new_y == y - 1) or (new_x == x + 2 and new_y == y + 1) or (
+                    new_x == x - 2 and new_y == y - 1) or (new_x == x - 2 and new_y == y + 1)) and (
+                (abs(x - new_x) == 2 and abs(y - new_y) == 1) or (abs(x - new_x) == 1 and abs(y - new_y) == 2)) \
                 and (x != new_x and y != new_y) and self.board[x][y].type == 'C':
             return 1
         else:
@@ -82,13 +113,12 @@ class Board:
 
     def deplacement_cavalier(self, x, y, new_x, new_y):  # move the piece to the appropriate positional values
         try:
-            if self.isdeplacement_cavalier(x, y, new_x, new_y) == 1:  # used to know if the move is legitimate
-                if self.board[new_x][new_y].colour != self.board[x][
-                    y].colour:  # in this case our piece would "eat" the enemy piece
+            if bool(self.isdeplacement(x, y, new_x, new_y)):  # used to know if the move is legitimate
+                if self.board[new_x][new_y].colour != self.board[x][y].colour:
+                    # in this case our piece would "eat" the enemy piece
                     # if self.board[new_x][new_y].type != 'X': # Void case has no color, so we make sure to don't let the player know if he ate nothing
                     # print(f"{self.board[new_x][new_y].type} a été mangé(e)") # let the player know what he has just eaten
-                    self.board[new_x][new_y] = Cavalier(self.board[x][y].colour, new_x,
-                                                        new_y)  # place the appropriate piece on the destination positional values
+                    self.board[new_x][new_y] = Cavalier(self.board[x][y].colour, new_x, new_y)  # place the appropriate piece on the destination positional values
                     self.board[x][y] = Vide(x, y)  # empty the previous piece location
                     return 1  # return 1 when a move has been played
                 else:
@@ -105,8 +135,8 @@ class Board:
         check = (new_x >= 0 and new_y >= 0 and new_x < 8 and new_y < 8)
         if (abs(new_x - x) <= 1 and abs(new_y - y) <= 1) and self.board[x][y].type == 'R' and check:
             if self.board[new_x][new_y].colour != self.board[x][y].colour:
-                #if self.board[new_x][new_y].type != 'X':
-                    #print(f"{self.board[new_x][new_y].type} a été mangé(e)")
+                # if self.board[new_x][new_y].type != 'X':
+                # print(f"{self.board[new_x][new_y].type} a été mangé(e)")
                 self.board[new_x][new_y] = Roi(self.board[x][y].colour, new_x, new_y)
                 self.board[x][y] = Vide(x, y)
                 return 1
@@ -126,8 +156,8 @@ class Board:
                         new_x == x + 1 or new_x == x - 1) and new_y == y - 1)) and self.board[x][
                 y].type == 'P' and check:
                 if self.board[new_x][new_y].colour != self.board[x][y].colour:
-                    #if self.board[new_x][new_y].type != 'X':
-                        #print(f"{self.board[new_x][new_y].type} a été mangé(e)")
+                    # if self.board[new_x][new_y].type != 'X':
+                    # print(f"{self.board[new_x][new_y].type} a été mangé(e)")
                     self.board[new_x][new_y] = Pion(self.board[x][y].colour, new_x, new_y)
                     self.board[x][y] = Vide(x, y)
                     return 1
@@ -142,11 +172,10 @@ class Board:
             if ((new_x == x and new_y == y + 1 and self.board[new_x][new_y].type == 'X') or (
                     new_x == x and new_y == 3 and y == 1 and self.board[new_x][new_y].type == 'X') or (
                         self.board[new_x][new_y].colour == "W" and (
-                        new_x == x + 1 or new_x == x - 1) and new_y == y + 1)) and self.board[x][
-                y].type == 'P' and check:
+                        new_x == x + 1 or new_x == x - 1) and new_y == y + 1)) and self.board[x][y].type == 'P' and check:
                 if self.board[new_x][new_y].colour != self.board[x][y].colour:
-                    #if self.board[new_x][new_y].type != 'X':
-                        #print(f"{self.board[new_x][new_y].type} a été mangé(e)")
+                    # if self.board[new_x][new_y].type != 'X':
+                    # print(f"{self.board[new_x][new_y].type} a été mangé(e)")
                     self.board[new_x][new_y] = Pion(self.board[x][y].colour, new_x, new_y)
                     self.board[x][y] = Vide(x, y)
                     return 1
@@ -184,8 +213,8 @@ class Board:
                 new_y == y and new_x < x)) and blocking == 0 and (
                 new_x >= 0 and new_y >= 0 and new_x < 8 and new_y < 8) and self.board[x][y].type == 'T':
             if self.board[new_x][new_y].colour != self.board[x][y].colour:
-                #if self.board[new_x][new_y].type != 'X':
-                    #print(f"{self.board[new_x][new_y].type} a été mangé(e)")
+                # if self.board[new_x][new_y].type != 'X':
+                # print(f"{self.board[new_x][new_y].type} a été mangé(e)")
                 self.board[new_x][new_y] = Tour(self.board[x][y].colour, new_x, new_y)
                 self.board[x][y] = Vide(x, y)
                 return 1
@@ -200,7 +229,7 @@ class Board:
         old_x = x  # store initial x value
         old_y = y  # store initial y value
         old_colour = self.board[x][y].colour
-        if self.isdeplacement_fou(x, y, new_x, new_y) == 1:
+        if self.isdeplacement(x, y, new_x, new_y) == 1:
             while x != new_x and y != new_y:
                 if new_x > old_x and new_y > old_y:
                     x = x + 1
@@ -230,10 +259,13 @@ class Board:
                     self.board[x][y] = Fou(old_colour, new_x, new_y)
                     if x == new_x or y == new_y:
                         return 1
-                elif self.board[x][y].type != 'X' and self.board[x][y].colour == old_colour:    # if an ally piece block the move
-                    self.board[old_x][old_y] = Fou(old_colour, old_x, old_y)    # place a bishop on starting position
-                    if x + k1 * (int((new_x - old_x) / (new_x - old_x))) != old_x and y + k2 * (int((new_y - old_y) / (new_y - old_y))) != old_y:
-                        self.board[x + k1 * (int((new_x - old_x) / (new_x - old_x)))][y + k2 * (int((new_y - old_y) / (new_y - old_y)))] = Vide(x - 1, y - 1)
+                elif self.board[x][y].type != 'X' and self.board[x][
+                    y].colour == old_colour:  # if an ally piece block the move
+                    self.board[old_x][old_y] = Fou(old_colour, old_x, old_y)  # place a bishop on starting position
+                    if x + k1 * (int((new_x - old_x) / (new_x - old_x))) != old_x and y + k2 * (
+                            int((new_y - old_y) / (new_y - old_y))) != old_y:
+                        self.board[x + k1 * (int((new_x - old_x) / (new_x - old_x)))][
+                            y + k2 * (int((new_y - old_y) / (new_y - old_y)))] = Vide(x - 1, y - 1)
                     # print('Cette case est déjà prise')
                     return 0
                 else:
@@ -291,7 +323,7 @@ class Board:
                 new_x - (new_x - x) == x)) and blocking == 0 and self.board[x][y].type == 'D':
             if self.board[new_x][new_y].colour != self.board[x][y].colour:
                 if self.board[new_x][new_y].type != 'X':
-                    #print(f"{self.board[new_x][new_y].type} a été mangé(e)")
+                    # print(f"{self.board[new_x][new_y].type} a été mangé(e)")
                     self.board[new_x][new_y] = Dame(self.board[x][y].colour, new_x, new_y)
                     self.board[x][y] = Vide(x, y)
                 return 1
@@ -314,58 +346,49 @@ class Board:
             enemy_colour = 'B'
         if self.board[king_x][king_y].colour == 'B':
             enemy_colour = 'W'
-        #print(king_x, king_y)
+        # print(king_x, king_y)
         for x in range(8):
             for y in range(8):
                 if self.board[x][y].colour == enemy_colour:
                     try:
-                        check = 0
-                        #print(self.board[4][5].type)
-                        check += bool(self.deplacement_pion(x, y, king_x, king_y))
-                        check += bool(self.deplacement_tour(x, y, king_x, king_y))
-                        check += bool(self.isdeplacement_cavalier(x, y, king_x, king_y))
-                        check += bool(self.deplacement_dame(x, y, king_x, king_y))
-                        check += bool(self.deplacement_roi(x, y, king_x, king_y))
-                        check += bool(self.deplacement_fou(x, y, king_x, king_y))
-
+                        # print(self.board[4][5].type)
+                        check = self.deplacement(x, y, king_x, king_y)
                         match self.board[king_x][king_y].type:
                             case 'P':
                                 self.board[x][y] = Pion(enemy_colour, x, y)
-                                print(self.board[2][7].type)
-                                print("P")
+                                #print("P")
                             case 'T':
                                 self.board[x][y] = Tour(enemy_colour, x, y)
-                                print('T')
+                                #print('T')
                             case 'C':
                                 self.board[x][y] = Cavalier(enemy_colour, x, y)
-                                print('C')
+                                #print('C')
                             case 'D':
                                 self.board[x][y] = Dame(enemy_colour, x, y)
-                                print("D")
+                                #print("D")
                             case 'R':
                                 if self.board[king_x][king_y].colour == enemy_colour:
                                     self.board[x][y] = Roi(enemy_colour, x, y)
-                                    print('R')
+                                    #print('R')
                             case 'F':
                                 self.board[x][y] = Fou(enemy_colour, x, y)
-                                print('F')
+                                #print('F')
+
                         self.board[king_x][king_y] = Roi(colour, king_x, king_y)
+
                     except Exception as e:
                         print(e)
-                if check == 1:
+                if check:
                     return check
         return check
 
-
 board = Board()
-#board.board[1][7] = Vide(0,0)
-#board.board[6][7] = Vide(0,0)
-board.board[3][0] = Vide(0,0)
-board.board[4][4] = Roi('B',0,0)
+# board.board[1][7] = Vide(0,0)
+# board.board[6][7] = Vide(0,0)
+board.board[3][0] = Vide(0, 0)
+board.board[4][5] = Roi('B', 0, 0)
 print(board)
-
 
 a = board.ischeck('B')
 print(board)
 print(a)
-
