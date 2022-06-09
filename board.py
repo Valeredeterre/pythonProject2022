@@ -1,11 +1,4 @@
-from piece import Pion
-from piece import Roi
-from piece import Dame
-from piece import Fou
-from piece import Tour
-from piece import Cavalier
-from piece import Vide
-
+from piece import *
 
 class Board:
     board = [["" for i in range(8)] for j in range(8)]  # initialisation of a list of string list
@@ -334,19 +327,22 @@ class Board:
             # print("Deplacement non valide")
             return 0
 
-    def ischeck(self, colour):
-        check = bool(0)
+    def get_king_positional_arguments(self, colour: str):
         for j in range(8):
             for k in range(8):
                 if self.board[k][j].type == 'R' and self.board[k][j].colour == colour:
                     king_x = k
                     king_y = j
+        return king_x, king_y
 
+    def ischeck(self, colour: str):
+        check = bool(0)
+        king_x, king_y = self.get_king_positional_arguments(colour)
         if self.board[king_x][king_y].colour == 'W':
             enemy_colour = 'B'
         if self.board[king_x][king_y].colour == 'B':
             enemy_colour = 'W'
-        # print(king_x, king_y)
+        print(king_x, king_y)
         for x in range(8):
             for y in range(8):
                 if self.board[x][y].colour == enemy_colour:
@@ -382,13 +378,8 @@ class Board:
                     return check
         return check
 
-board = Board()
-# board.board[1][7] = Vide(0,0)
-# board.board[6][7] = Vide(0,0)
-board.board[3][0] = Vide(0, 0)
-board.board[4][5] = Roi('B', 0, 0)
-print(board)
 
-a = board.ischeck('B')
-print(board)
-print(a)
+
+
+board = Board()
+board.ischeck("B")
