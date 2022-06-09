@@ -15,13 +15,13 @@ class Player:
 
 
 class Chess:
+
     chessboard = Board()
-    old_chessboard = Board()
 
     def __init__(self):
         self.player1 = Player("Player1")
         self.player2 = Player("Player2")
-        self.game_over = 0
+        self.game_over = bool(0)
         self.fin_tour = 0
         self.tour = "W"
         self.check_w = 0
@@ -29,9 +29,12 @@ class Chess:
 
     def chessgame(self):
 
-        while self.game_over != 1:
+        while not self.game_over:
+
+            self.game_over = bool(self.chessboard.ischeck_mate('W')) or bool(self.chessboard.ischeck_mate('B'))
 
             while self.tour == "W":
+                self.game_over = bool(self.chessboard.ischeck_mate('W'))
                 self.check_w == self.chessboard.ischeck('W')
                 print(self.chessboard)
                 print(f'Aux {self.tour} de jouer')
@@ -53,6 +56,7 @@ class Chess:
                     self.chessgame()
 
             while self.tour == "B":
+                self.game_over = bool(self.chessboard.ischeck_mate('B'))
                 self.check_b == self.chessboard.ischeck('B')
                 print(self.chessboard)
                 print(f'Aux {self.tour} de jouer')
@@ -65,7 +69,6 @@ class Chess:
                     print(e)
                     self.chessgame()
                 try:
-                    self.old_chessboard = self.chessboard
                     if self.chessboard.board[x][y].colour == self.tour:
                         self.fin_tour = self.chessboard.deplacement(x, y, new_x, new_y)
                         if self.fin_tour and self.chessboard.ischeck('B') == 0:
