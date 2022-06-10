@@ -1,5 +1,6 @@
 from piece import *
 
+
 class Board:
     board = [["" for i in range(8)] for j in range(8)]  # initialisation of a list of string list
     index_range = [k for k in range(8)]  # used to know if an index is out of range
@@ -50,6 +51,20 @@ class Board:
         return 1
 
     def deplacement(self,x ,y ,new_x ,new_y):
+		"""Make a piece move
+		
+		This method will take two starting and two ending  positional arguments and make the move if it is legitimate for its type.
+		The starting position piece type is predetermined and only the appropriate move method will be applied.
+		
+		:param x: Array positional argument to locate the piece location.
+		:param y: Array positional argument to locate the piece location.
+		:param new_x: Array positional argument to locate the piece ending location.
+		:param new_y: Array positional argument to locate the piece ending location.
+		:return: A boolean value of 1 when a movement is done, a boolean value of 0 otherwise.
+		:rtype: bool
+		
+		"""
+
         match self.board[x][y].type:
             case 'P':
                 move = bool(self.deplacement_pion(x, y, new_x, new_y))
@@ -66,6 +81,19 @@ class Board:
         return move
 
     def isdeplacement(self,x ,y ,new_x ,new_y):
+		"""Verify if a move is legitimate
+		
+		This method will take two starting and two ending  positional arguments and verify if the move is legitimate for its type.
+		The starting position piece type is predetermined and only the appropriate move verification method will be applied.
+
+		:param x: Array positional argument to locate the piece location.
+		:param y: Array positional argument to locate the piece location.
+		:param new_x: Array positional argument to locate the piece ending location.
+		:param new_y: Array positional argument to locate the piece ending location.
+		:return: A boolean value of 1 when a movement is legitimate, a boolean value of 0 otherwise.
+		:rtype: bool
+		
+		"""
         match self.board[x][y].type:
             #case 'P':
                 #ismove = bool(self.isdeplacement_pion(x, y, new_x, new_y))
@@ -82,6 +110,18 @@ class Board:
         return ismove
 
     def isdeplacement_cavalier(self, x, y, new_x, new_y):
+		"""Verify if a move is legitimate for a knight
+		
+		This method will take two starting and two ending  positional arguments and verify if it is legitimate.
+		
+		:param x: Array positional argument to locate the piece location.
+		:param y: Array positional argument to locate the piece location.
+		:param new_x: Array positional argument to locate the piece ending location.
+		:param new_y: Array positional argument to locate the piece ending location.
+		:return: A boolean value of 1 when a movement is legitimate, a boolean value of 0 otherwise.
+		:rtype: bool
+		
+		"""
         # return value is boolean, verify if the positional values match a knight move
         self.isinrange(x, y, new_x, new_y)  # c.f the method in question
         if ((new_x == x + 1 and new_y == y + 2) or (new_x == x - 1 and new_y == y + 2) or (
