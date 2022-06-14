@@ -19,8 +19,8 @@ class Board:
             board[0][i] = Tour(colour, 0, i)
             board[1][i] = Cavalier(colour, 1, i)
             board[2][i] = Fou(colour, 2, i)
-            board[3][i] = Roi(colour, 3, i)
-            board[4][i] = Dame(colour, 4, i)
+            board[3][i] = Dame(colour, 3, i)
+            board[4][i] = Roi(colour, 4, i)
             board[5][i] = Fou(colour, 5, i)
             board[6][i] = Cavalier(colour, 6, i)
             board[7][i] = Tour(colour, 7, i)
@@ -29,8 +29,8 @@ class Board:
             board[0][i] = Tour(colour, 0, i)
             board[1][i] = Cavalier(colour, 1, i)
             board[2][i] = Fou(colour, 2, i)
-            board[3][i] = Roi(colour, 3, i)
-            board[4][i] = Dame(colour, 4, i)
+            board[3][i] = Dame(colour, 3, i)
+            board[4][i] = Roi(colour, 4, i)
             board[5][i] = Fou(colour, 5, i)
             board[6][i] = Cavalier(colour, 6, i)
             board[7][i] = Tour(colour, 7, i)
@@ -62,17 +62,18 @@ class Board:
         return move
 
     def isdeplacement(self,x ,y ,new_x ,new_y):
+        ismove = bool()
         match self.board[x][y].type:
-            #case 'P':
-                #ismove = bool(self.isdeplacement_pion(x, y, new_x, new_y))
-            #case 'T':
-                #ismove = bool(self.isdeplacement_tour(x, y, new_x, new_y))
+            case 'P':
+                ismove = bool(self.isdeplacement_pion(x, y, new_x, new_y))
+            case 'T':
+                ismove = bool(self.isdeplacement_tour(x, y, new_x, new_y))
             case 'C':
                 ismove = bool(self.isdeplacement_cavalier(x, y, new_x, new_y))
-            #case 'D':
-                #ismove = bool(self.isdeplacement_dame(x, y, new_x, new_y))
-            #case 'R':
-                #ismove = bool(self.isdeplacement_roi(x, y, new_x, new_y))
+            case 'D':
+                ismove = bool(self.isdeplacement_dame(x, y, new_x, new_y))
+            case 'R':
+                ismove = bool(self.isdeplacement_roi(x, y, new_x, new_y))
             case 'F':
                 ismove = bool(self.isdeplacement_fou(x, y, new_x, new_y))
         return ismove
@@ -120,12 +121,15 @@ class Board:
             return 1
         else : return 0
 
-    def isdeplacement_cavalier(self, x, y, new_x, new_y):  # return value is boolean, verify if the positional values match a knight move
+    def isdeplacement_cavalier(self, x, y, new_x, new_y):
+        # return value is boolean, verify if the positional values match a knight move
         self.isinrange(x, y, new_x, new_y)  # c.f the method in question
-        if (new_x == x + 1 and new_y == y + 2) or (new_x == x - 1 and new_y == y + 2) or (
+        if ((new_x == x + 1 and new_y == y + 2) or (new_x == x - 1 and new_y == y + 2) or (
                 new_x == x + 1 and new_y == y - 2) or (new_x == x - 1 and new_y == y - 2) or (
-                new_x == x + 2 and new_y == y - 1) or (new_x == x + 2 and new_y == y + 1) or (
-                new_x == x - 2 and new_y == y - 1) or (new_x == x - 2 and new_y == y + 1) and self.board[x][y].type == 'R':
+                    new_x == x + 2 and new_y == y - 1) or (new_x == x + 2 and new_y == y + 1) or (
+                    new_x == x - 2 and new_y == y - 1) or (new_x == x - 2 and new_y == y + 1)) and (
+                (abs(x - new_x) == 2 and abs(y - new_y) == 1) or (abs(x - new_x) == 1 and abs(y - new_y) == 2)) \
+                and (x != new_x and y != new_y) and self.board[x][y].type == 'C':
             return 1
         else:
             return 0
@@ -309,7 +313,6 @@ class Board:
 
 
     def deplacement_dame(self, x, y, new_x, new_y):
-        print(self.isdeplacement_dame(x, y, new_x, new_y) , self.isdeplacement_tour(x, y, new_x, new_y) , self.isdeplacement_fou(x, y, new_x, new_y))
         if self.isdeplacement_dame(x, y, new_x, new_y) and (self.isdeplacement_tour(x, y, new_x, new_y) == 2 or self.isdeplacement_diagonal(x, y, new_x, new_y)):
             if self.board[new_x][new_y].colour != self.board[x][y].colour:
                 if self.board[new_x][new_y].type != 'X':
@@ -325,55 +328,59 @@ class Board:
             return 0
 
 
-    def board_display(self,screen):
+    def board_display(self,screen,colour):
         screen.blit(pygame.image.load("ImagesPieces/chess.jpg"), (0, 0))
         for i in range(8):
             for j in range(8):
+                if self.board[i][j].colour == colour:
+                    screen.blit(pygame.image.load("ImagesPieces/colour.png"), (50 * i, 50 * j))
                 screen.blit(self.board[i][j].image, (50 * i, 50 * j))
         pygame.display.update()
 
-    def ischeck(self, colour):
-        check = bool(0)
+
+    def get_king_positional_arguments(self, colour: str):
+        king_x = int()
+        king_y = int()
         for j in range(8):
             for k in range(8):
-                print(self.board[k][j].type == 'R' and self.board[k][j].colour == colour)
                 if self.board[k][j].type == 'R' and self.board[k][j].colour == colour:
                     king_x = k
                     king_y = j
+        return king_x, king_y
 
-        print("position", king_x,king_y)
-
+    def ischeck(self, colour: str):
+        check = False
+        enemy_colour = str()
+        king_x, king_y = self.get_king_positional_arguments(colour)
         if self.board[king_x][king_y].colour == 'W':
             enemy_colour = 'B'
         if self.board[king_x][king_y].colour == 'B':
             enemy_colour = 'W'
-        # print(king_x, king_y)
         for x in range(8):
             for y in range(8):
                 if self.board[x][y].colour == enemy_colour:
                     try:
-                        # print(self.board[4][5].type)
                         check = self.deplacement(x, y, king_x, king_y)
                         match self.board[king_x][king_y].type:
                             case 'P':
                                 self.board[x][y] = Pion(enemy_colour, x, y)
-                                # print("P")
+                                #print("P")
                             case 'T':
                                 self.board[x][y] = Tour(enemy_colour, x, y)
-                                # print('T')
+                                #print('T')
                             case 'C':
                                 self.board[x][y] = Cavalier(enemy_colour, x, y)
-                                # print('C')
+                                #print('C')
                             case 'D':
                                 self.board[x][y] = Dame(enemy_colour, x, y)
-                                # print("D")
+                                #print("D")
                             case 'R':
                                 if self.board[king_x][king_y].colour == enemy_colour:
                                     self.board[x][y] = Roi(enemy_colour, x, y)
-                                    # print('R')
+                                    #print('R')
                             case 'F':
                                 self.board[x][y] = Fou(enemy_colour, x, y)
-                                # print('F')
+                                #print('F')
 
                         self.board[king_x][king_y] = Roi(colour, king_x, king_y)
 
@@ -383,60 +390,62 @@ class Board:
                     return check
         return check
 
-
     def ischeck_mate(self, colour):
 
         checkMate = True
+        enemy_colour = str()
+
+        if colour == "W":
+            enemy_colour = "B"
+        else:
+            enemy_colour = "W"
 
         for x in range(8):
             for y in range(8):
-                if checkMate == True:
-                    if self.board[x][y].colour == colour:
-                        for new_x in range(8):
-                            for new_y in range(8):
+                if checkMate is True and self.board[x][y].colour == colour:
+                    for new_x in range(8):
+                        for new_y in range(8):
+                            mouved = False
 
-                                old_piece = self.board[new_x][new_y].type
-                                self.deplacement(x, y, new_x, new_y)
+                            old_piece = self.board[new_x][new_y].type
+                            piece = self.board[x][y].type
 
-                                checkMate = self.ischeck(colour)
+                            if old_piece != "R":
+                                if self.isdeplacement(x, y, new_x, new_y) is True:
+                                    self.deplacement(x, y, new_x, new_y)
+                                    mouved = True
 
-                                match self.board[new_x][new_y].type:
+
+                            checkMate =  self.ischeck(colour)
+
+                            if mouved is True:
+                                match piece:
                                     case 'P':
                                         self.board[x][y] = Pion(colour, x, y)
-                                        # print("P")
                                     case 'T':
                                         self.board[x][y] = Tour(colour, x, y)
-                                        # print('T')
                                     case 'C':
                                         self.board[x][y] = Cavalier(colour, x, y)
-                                        # print('C')
                                     case 'D':
                                         self.board[x][y] = Dame(colour, x, y)
-                                        # print("D")
                                     case 'R':
                                         self.board[x][y] = Roi(colour, x, y)
                                     case 'F':
                                         self.board[x][y] = Fou(colour, x, y)
-                                        # print('F')
 
                                 match old_piece:
                                     case 'P':
-                                        self.board[new_x][new_y] = Pion(colour, x, y)
-                                        # print("P")
+                                        self.board[new_x][new_y] = Pion(enemy_colour, x, y)
                                     case 'T':
-                                        self.board[new_x][new_y] = Tour(colour, x, y)
-                                        # print('T')
+                                        self.board[new_x][new_y] = Tour(enemy_colour, x, y)
                                     case 'C':
-                                        self.board[new_x][new_y]= Cavalier(colour, x, y)
-                                        # print('C')
+                                        self.board[new_x][new_y]= Cavalier(enemy_colour, x, y)
                                     case 'D':
-                                        self.board[new_x][new_y] = Dame(colour, x, y)
-                                        # print("D")
+                                        self.board[new_x][new_y] = Dame(enemy_colour, x, y)
                                     case 'R':
-                                        self.board[new_x][new_y] = Roi(colour, x, y)
+                                        self.board[new_x][new_y] = Roi(enemy_colour, x, y)
                                     case 'F':
-                                        self.board[new_x][new_y] = Fou(colour, x, y)
-                                        # print('F')
+                                        self.board[new_x][new_y] = Fou(enemy_colour, x, y)
                                     case 'X':
                                         self.board[new_x][new_y] = Vide(x, y)
         return checkMate

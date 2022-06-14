@@ -1,90 +1,73 @@
-from piece import Piece
-from piece import Pion
-from piece import Roi
-from piece import Dame
-from piece import Fou
-from piece import Tour
-from piece import Cavalier
-from piece import Vide
+from piece import *
 from board import Board
 import pygame
 import math
-from CheckMate import *
 
-chessboard = Board()
+
+def deplacement_piece(chess, turn, colour, select=None):
+    if event.type == pygame.MOUSEBUTTONDOWN:
+        chess.board_display(screen, colour)
+        mouse_end = pygame.mouse.get_pos()
+        local_new_x = math.floor(mouse_end[0] / 50)
+        local_new_y = math.floor(mouse_end[1] / 50)
+        if select is not None:
+
+            if chess.isdeplacement(select[0],select[1],local_new_x, local_new_y) and chess.board[select[0]][select[1]].colour == colour:
+                chess.deplacement(select[0],select[1],local_new_x, local_new_y)
+                if turn == "Black":
+                    turn = "White"
+                elif turn == "White":
+                    turn = "Black"
+            else:
+                return None, turn
+        else:
+            if chess.board[local_new_x][local_new_y].type != "X" and chess.board[local_new_x][local_new_y].colour == colour:
+                select = (local_new_x, local_new_y)
+    return select, turn
+
+
+chess = Board()
+chess_turn_start = Board()
 pygame.display.set_caption('Chess')
 screen = pygame.display.set_mode((400, 400))
-
-chessboard.ischeck("W")
-chessboard.ischeck("B")
-chessboard.ischeck_mate("W")
-chessboard.ischeck_mate("B")
-
-def deplacement_piece():
-    mouse_start = (-1, -1)
-    mouse_end = (-1, -1)
-    cases = (-1, -1, -1, -1)
-    local_x = -1
-    local_y = -1
-    local_new_x = -1
-    local_new_y = -1
-
-    if event.type == pygame.MOUSEBUTTONDOWN:
-        if event.button == 1:
-
-            mouse_start = pygame.mouse.get_pos()
-            local_x = math.floor(mouse_start[0]/50)
-            local_y = math.floor(mouse_start[1]/50)
-            print("base = ", local_x, local_y)
-
-    if event.type == pygame.MOUSEBUTTONUP:
-        if event.button == 1:
-
-            mouse_end = pygame.mouse.get_pos()
-            local_new_x = math.floor(mouse_end[0]/50)
-            local_new_y = math.floor(mouse_end[1]/50)
-            print("fin = ", local_new_x, local_new_y)
-
-    cases = (local_x, local_y, local_new_x, local_new_y)
-    return cases
-
-
+screen.blit(pygame.image.load("ImagesPieces/start_screen.png"), (0, 0))
+pygame.display.flip()
 running = True
+select = None
+turn = "White"
+n = 1
+game_over = False
+
 while running:
     for event in pygame.event.get():
 
-        depl = deplacement_piece()
+        print(turn, n)
+        print(select)
+        n += 1
 
-        if depl[0] != -1:
-            x = depl[0]
-            y = depl[1]
-        if depl[2] != -1:
-            new_x = depl[2]
-            new_y = depl[3]
-            print(x, y, new_x, new_y)
-            piece = chessboard.board[x][y].type
-            print(piece)
+        if game_over is not True:
+            chess_turn_start.board = chess.board
 
-            if piece == "P":
-                chessboard.deplacement_pion(x, y, new_x, new_y)
+            if turn == "White":
+                (select, turn) = deplacement_piece(chess, turn, 'W', select)
 
-            if piece == "T":
-                chessboard.deplacement_tour(x, y, new_x, new_y)
+            elif turn == "Black":
+                (select, turn) = deplacement_piece(chess, turn, 'B', select)
 
-            if piece == "C":
-                chessboard.deplacement_cavalier(x, y, new_x, new_y)
+            if chess.ischeck("W"):
+                chess.board = chess_turn_start.board
+                print("les blancs sont echec")
+                turn = "White"
 
-            if piece == "F":
-                chessboard.deplacement_fou(x, y, new_x, new_y)
+            if chess.ischeck("B"):
+                chess.board = chess_turn_start.board
+                print("les noirs sont echec")
+                turn = "Black"
 
-            if piece == "R":
-                chessboard.deplacement_roi(x, y, new_x, new_y)
-
-            if piece == "D":
-                chessboard.deplacement_dame(x, y, new_x, new_y)
+            if select is not None:
+                screen.blit(pygame.image.load("ImagesPieces/select.png"), (50 * select[0], 50 * select[1]))
+                pygame.display.flip()
 
 
-
-        chessboard.board_display(screen)
         if event.type == pygame.QUIT:
             running = False

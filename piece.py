@@ -95,7 +95,6 @@ class Tour(Piece):
         super().__repr__(self)
 
 
-
 class Cavalier(Piece):
 
     value = 3
