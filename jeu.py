@@ -5,8 +5,9 @@ import math
 
 
 def deplacement_piece(chess, turn, colour, select=None):
+    chess.board_display(screen, colour)
+    pygame.display.flip()
     if event.type == pygame.MOUSEBUTTONDOWN:
-        chess.board_display(screen, colour)
         mouse_end = pygame.mouse.get_pos()
         local_new_x = math.floor(mouse_end[0] / 50)
         local_new_y = math.floor(mouse_end[1] / 50)
@@ -14,6 +15,7 @@ def deplacement_piece(chess, turn, colour, select=None):
 
             if chess.isdeplacement(select[0],select[1],local_new_x, local_new_y) and chess.board[select[0]][select[1]].colour == colour:
                 chess.deplacement(select[0],select[1],local_new_x, local_new_y)
+                select = None
                 if turn == "Black":
                     turn = "White"
                 elif turn == "White":
@@ -45,6 +47,7 @@ while running:
         print(select)
         n += 1
 
+
         if game_over is not True:
             chess_turn_start.board = chess.board
 
@@ -54,15 +57,19 @@ while running:
             elif turn == "Black":
                 (select, turn) = deplacement_piece(chess, turn, 'B', select)
 
+            pygame.display.flip()
+
             if chess.ischeck("W"):
                 chess.board = chess_turn_start.board
                 print("les blancs sont echec")
                 turn = "White"
+                pygame.display.flip()
 
             if chess.ischeck("B"):
                 chess.board = chess_turn_start.board
                 print("les noirs sont echec")
                 turn = "Black"
+                pygame.display.flip()
 
             if select is not None:
                 screen.blit(pygame.image.load("ImagesPieces/select.png"), (50 * select[0], 50 * select[1]))
