@@ -1,6 +1,5 @@
 from piece import *
 
-
 class Board:
     board = [["" for i in range(8)] for j in range(8)]  # initialisation of a list of string list
     index_range = [k for k in range(8)]  # used to know if an index is out of range
@@ -65,7 +64,7 @@ class Board:
 		
 		"""
 
-        match self.board[x][y].type:
+    match self.board[x][y].type:
             case 'P':
                 move = bool(self.deplacement_pion(x, y, new_x, new_y))
             case 'T':
