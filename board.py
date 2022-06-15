@@ -50,49 +50,50 @@ class Board:
         return 1
 
     def deplacement(self,x ,y ,new_x ,new_y):
-		"""Make a piece move
-		
-		This method will take two starting and two ending  positional arguments and make the move if it is legitimate for its type.
-		The starting position piece type is predetermined and only the appropriate move method will be applied.
-		
-		:param x: Array positional argument to locate the piece location.
-		:param y: Array positional argument to locate the piece location.
-		:param new_x: Array positional argument to locate the piece ending location.
-		:param new_y: Array positional argument to locate the piece ending location.
-		:return: A boolean value of 1 when a movement is done, a boolean value of 0 otherwise.
-		:rtype: bool
-		
-		"""
+        """Make a piece move
 
-    match self.board[x][y].type:
-            case 'P':
-                move = bool(self.deplacement_pion(x, y, new_x, new_y))
-            case 'T':
-                move = bool(self.deplacement_tour(x, y, new_x, new_y))
-            case 'C':
-                move = bool(self.deplacement_cavalier(x, y, new_x, new_y))
-            case 'D':
-                move = bool(self.deplacement_dame(x, y, new_x, new_y))
-            case 'R':
-                move = bool(self.deplacement_roi(x, y, new_x, new_y))
-            case 'F':
-                move = bool(self.deplacement_fou(x, y, new_x, new_y))
+        This method will take two starting and two ending  positional arguments and make the move if it is legitimate for its type.
+        The starting position piece type is predetermined and only the appropriate move method will be applied.
+
+        :param x: Array positional argument used to locate the piece.
+        :param y: Array positional argument used to locate the piece.
+        :param new_x: Array positional argument used to locate the piece ending position.
+        :param new_y: Array positional argument used to locate the piece ending position.
+        :return: A boolean value of 1 when a movement is done, a boolean value of 0 otherwise.
+        :rtype: bool
+
+        """
+
+        match self.board[x][y].type:
+                case 'P':
+                    move = bool(self.deplacement_pion(x, y, new_x, new_y))
+                case 'T':
+                    move = bool(self.deplacement_tour(x, y, new_x, new_y))
+                case 'C':
+                    move = bool(self.deplacement_cavalier(x, y, new_x, new_y))
+                case 'D':
+                    move = bool(self.deplacement_dame(x, y, new_x, new_y))
+                case 'R':
+                    move = bool(self.deplacement_roi(x, y, new_x, new_y))
+                case 'F':
+                    move = bool(self.deplacement_fou(x, y, new_x, new_y))
         return move
 
     def isdeplacement(self,x ,y ,new_x ,new_y):
-		"""Verify if a move is legitimate
-		
-		This method will take two starting and two ending  positional arguments and verify if the move is legitimate for its type.
-		The starting position piece type is predetermined and only the appropriate move verification method will be applied.
+        """Verify if a move is legitimate
 
-		:param x: Array positional argument to locate the piece location.
-		:param y: Array positional argument to locate the piece location.
-		:param new_x: Array positional argument to locate the piece ending location.
-		:param new_y: Array positional argument to locate the piece ending location.
-		:return: A boolean value of 1 when a movement is legitimate, a boolean value of 0 otherwise.
-		:rtype: bool
-		
-		"""
+        This method will take two starting and two ending  positional arguments and verify if the move is legitimate for its type.
+        The starting position piece type is predetermined and only the appropriate move verification method will be applied.
+
+        :param x: Array positional argument used to locate the piece.
+        :param y: Array positional argument used to locate the piece.
+        :param new_x: Array positional argument used to locate the piece ending position.
+        :param new_y: Array positional argument used to locate the piece ending position.
+        :return: A boolean value of 1 when a movement is legitimate, a boolean value of 0 otherwise.
+        :rtype: bool
+
+        """
+
         match self.board[x][y].type:
             #case 'P':
                 #ismove = bool(self.isdeplacement_pion(x, y, new_x, new_y))
@@ -109,18 +110,18 @@ class Board:
         return ismove
 
     def isdeplacement_cavalier(self, x, y, new_x, new_y):
-		"""Verify if a move is legitimate for a knight
-		
-		This method will take two starting and two ending  positional arguments and verify if it is legitimate.
-		
-		:param x: Array positional argument to locate the piece location.
-		:param y: Array positional argument to locate the piece location.
-		:param new_x: Array positional argument to locate the piece ending location.
-		:param new_y: Array positional argument to locate the piece ending location.
-		:return: A boolean value of 1 when a movement is legitimate, a boolean value of 0 otherwise.
-		:rtype: bool
-		
-		"""
+        """Verify if a move is legitimate for a bishop
+
+            This method will take two starting and two ending  positional arguments and verify if the move is legitimate.
+
+            :param x: Array positional argument used to locate the piece.
+            :param y: Array positional argument used to locate the piece.
+            :param new_x: Array positional argument used to locate the piece ending position.
+            :param new_y: Array positional argument used to locate the piece ending position.
+            :return: A boolean value of 1 when a movement is legitimate, a boolean value of 0 otherwise.
+            :rtype: bool
+
+        """
         # return value is boolean, verify if the positional values match a knight move
         self.isinrange(x, y, new_x, new_y)  # c.f the method in question
         if ((new_x == x + 1 and new_y == y + 2) or (new_x == x - 1 and new_y == y + 2) or (
@@ -135,6 +136,18 @@ class Board:
 
     def isdeplacement_fou(self, x, y, new_x, new_y):  # return value is boolean, verify if the positional values
         # match a bishop move
+        """Verify if a move is legitimate for a bishop
+
+            This method will take two starting and two ending  positional arguments and verify if the move is legitimate.
+
+            :param x: Array positional argument used to locate the piece.
+            :param y: Array positional argument used to locate the piece.
+            :param new_x: Array positional argument used to locate the piece ending position.
+            :param new_y: Array positional argument used to locate the piece ending position.
+            :return: A boolean value of 1 when a movement is legitimate, a boolean value of 0 otherwise.
+            :rtype: bool
+
+        """
         self.isinrange(x, y, new_x, new_y)
         if (new_y - (new_y - y) == y) and abs(new_x - x) == abs(new_y - y) and (
                 new_x - (new_x - x) == x) and self.board[x][y].type == "F" and (x != new_x and y != new_y):
@@ -144,6 +157,19 @@ class Board:
             return 0
 
     def deplacement_cavalier(self, x, y, new_x, new_y):  # move the piece to the appropriate positional values
+        """Make a piece move
+
+            This method will take two starting and two ending  positional arguments and make the move if it is legitimate for a knight.
+
+        :param x: Array positional argument used to locate the piece.
+        :param y: Array positional argument used to locate the piece.
+        :param new_x: Array positional argument used to locate the piece ending position.
+        :param new_y: Array positional argument used to locate the piece ending position.
+        :return: A boolean value of 1 when a movement is done, a boolean value of 0 otherwise.
+        :rtype: bool
+
+        """
+
         try:
             if bool(self.isdeplacement(x, y, new_x, new_y)):  # used to know if the move is legitimate
                 if self.board[new_x][new_y].colour != self.board[x][y].colour:
@@ -164,6 +190,18 @@ class Board:
             return 0  # return 0 and print the raised errors
 
     def deplacement_roi(self, x, y, new_x, new_y):
+        """Make a piece move
+
+            This method will take two starting and two ending  positional arguments and make the move if it is legitimate for a king.
+
+            :param x: Array positional argument used to locate the piece.
+            :param y: Array positional argument used to locate the piece.
+            :param new_x: Array positional argument used to locate the piece ending position.
+            :param new_y: Array positional argument used to locate the piece ending position.
+            :return: A boolean value of 1 when a movement is done, a boolean value of 0 otherwise.
+            :rtype: bool
+
+        """
         check = (new_x >= 0 and new_y >= 0 and new_x < 8 and new_y < 8)
         if (abs(new_x - x) <= 1 and abs(new_y - y) <= 1) and self.board[x][y].type == 'R' and check:
             if self.board[new_x][new_y].colour != self.board[x][y].colour:
@@ -180,6 +218,18 @@ class Board:
             return 0
 
     def deplacement_pion(self, x, y, new_x, new_y):
+        """Make a piece move
+
+            This method will take two starting and two ending  positional arguments and make the move if it is legitimate for a pawn.
+
+            :param x: Array positional argument used to locate the piece.
+            :param y: Array positional argument used to locate the piece.
+            :param new_x: Array positional argument used to locate the piece ending position.
+            :param new_y: Array positional argument used to locate the piece ending position.
+            :return: A boolean value of 1 when a movement is done, a boolean value of 0 otherwise.
+            :rtype: bool
+
+        """
         check = (8 > new_x >= 0 and 0 <= new_y < 8)
         if self.board[x][y].colour == "W":
             if ((new_x == x and new_y == y - 1 and self.board[new_x][new_y].type == 'X') or (
@@ -219,6 +269,18 @@ class Board:
                 return 0
 
     def deplacement_tour(self, x, y, new_x, new_y):
+        """Make a piece move
+
+            This method will take two starting and two ending  positional arguments and make the move if it is legitimate for a rook.
+
+            :param x: Array positional argument used to locate the piece.
+            :param y: Array positional argument used to locate the piece.
+            :param new_x: Array positional argument used to locate the piece ending position.
+            :param new_y: Array positional argument used to locate the piece ending position.
+            :return: A boolean value of 1 when a movement is done, a boolean value of 0 otherwise.
+            :rtype: bool
+
+        """
         blocking = 0
 
         if new_x == x and new_y > y:
@@ -258,6 +320,18 @@ class Board:
             return 0
 
     def deplacement_fou(self, x, y, new_x, new_y):
+        """Make a piece move
+
+            This method will take two starting and two ending  positional arguments and make the move if it is legitimate for a bishop.
+
+            :param x: Array positional argument used to locate the piece.
+            :param y: Array positional argument used to locate the piece.
+            :param new_x: Array positional argument used to locate the piece ending position.
+            :param new_y: Array positional argument used to locate the piece ending position.
+            :return: A boolean value of 1 when a movement is done, a boolean value of 0 otherwise.
+            :rtype: bool
+
+        """
         old_x = x  # store initial x value
         old_y = y  # store initial y value
         old_colour = self.board[x][y].colour
@@ -306,6 +380,18 @@ class Board:
                     self.board[x][y] = Fou(old_colour, new_x, new_y)
 
     def deplacement_dame(self, x, y, new_x, new_y):
+        """Make a piece move
+
+            This method will take two starting and two ending  positional arguments and make the move if it is legitimate for a queen.
+
+            :param x: Array positional argument used to locate the piece.
+            :param y: Array positional argument used to locate the piece.
+            :param new_x: Array positional argument used to locate the piece ending position.
+            :param new_y: Array positional argument used to locate the piece ending position.
+            :return: A boolean value of 1 when a movement is done, a boolean value of 0 otherwise.
+            :rtype: bool
+
+        """
         blocking = 0
         try:
             if new_x == x and new_y > y:
@@ -367,6 +453,16 @@ class Board:
             return 0
 
     def get_king_positional_arguments(self, colour: str):
+        """Get either a B or W king positional arguments
+
+            This method will read through the whole chessboard line by line until the element met is a King of the
+            requested colour.
+
+            :param colour: String value used to check if the piece colour attribute matches it.
+            :return: A tuple containing both positional arguments of the requested king.
+            :rtype: tuple
+
+        """
         for j in range(8):
             for k in range(8):
                 if self.board[k][j].type == 'R' and self.board[k][j].colour == colour:
@@ -375,13 +471,22 @@ class Board:
         return king_x, king_y
 
     def ischeck(self, colour: str):
+        """Get either a B or W king positional arguments
+
+            This method will read through the whole chessboard line by line until the element met is a King of the
+            requested colour.
+
+            :param colour: String value used to check if the piece colour attribute matches it.
+            :return: A tuple containing both positional arguments of the requested king.
+            :rtype: tuple
+
+        """
         check = bool(0)
         king_x, king_y = self.get_king_positional_arguments(colour)
         if self.board[king_x][king_y].colour == 'W':
             enemy_colour = 'B'
         if self.board[king_x][king_y].colour == 'B':
             enemy_colour = 'W'
-        print(king_x, king_y)
         for x in range(8):
             for y in range(8):
                 if self.board[x][y].colour == enemy_colour:
@@ -421,4 +526,4 @@ class Board:
 
 
 board = Board()
-board.ischeck("B")
+print(type(board.get_king_positional_arguments("B")))
