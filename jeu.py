@@ -12,14 +12,31 @@ def deplacement_piece(chess, turn, colour, select=None):
         local_new_x = math.floor(mouse_end[0] / 50)
         local_new_y = math.floor(mouse_end[1] / 50)
         if select is not None:
+            if chess.isdeplacement(select[0],select[1],local_new_x, local_new_y) and chess.board[select[0]][select[1]].colour == colour and (select[0] != local_new_x or select[1] != local_new_y):
 
-            if chess.isdeplacement(select[0],select[1],local_new_x, local_new_y) and chess.board[select[0]][select[1]].colour == colour:
+                piece = chess.board[select[0]][select[1]].type
                 chess.deplacement(select[0],select[1],local_new_x, local_new_y)
+
+                with open('logs.txt', 'a') as f:
+                    f.write(piece)
+                    f.write(", deplacement = ")
+                    f.write(str(select[0]))
+                    f.write(" ")
+                    f.write(str(select[1]))
+                    f.write(" ")
+                    f.write(str(local_new_x))
+                    f.write(" ")
+                    f.write(str(local_new_y))
+                    f.write("\n")
+                    f.write(chess.__repr__())
+                    f.write("\n \n \n \n")
+
                 select = None
-                if turn == "Black":
-                    turn = "White"
-                elif turn == "White":
-                    turn = "Black"
+                if turn == "B":
+                    turn = "W"
+                elif turn == "W":
+                    turn = "B"
+
             else:
                 return None, turn
         else:
@@ -29,16 +46,18 @@ def deplacement_piece(chess, turn, colour, select=None):
 
 
 chess = Board()
-chess_turn_start = Board()
+board_start_turn = Board()
 pygame.display.set_caption('Chess')
 screen = pygame.display.set_mode((400, 400))
 screen.blit(pygame.image.load("ImagesPieces/start_screen.png"), (0, 0))
 pygame.display.flip()
 running = True
 select = None
-turn = "White"
+turn = "W"
 n = 1
 game_over = False
+
+
 
 while running:
     for event in pygame.event.get():
@@ -47,33 +66,40 @@ while running:
         print(select)
         n += 1
 
-
         if game_over is not True:
-            chess_turn_start.board = chess.board
 
-            if turn == "White":
+            print("not check = ", chess.ischeck("W") is not True and chess.ischeck("B") is not True)
+
+            if turn == "W":
+                board_start_turn.copy_board(chess)
                 (select, turn) = deplacement_piece(chess, turn, 'W', select)
+                if chess.ischeck("W"):
+                    chess.copy_board(board_start_turn)
+                    print("les blancs sont echec")
+                    turn = "W"
 
-            elif turn == "Black":
+            elif turn == "B":
+                board_start_turn.copy_board(chess)
                 (select, turn) = deplacement_piece(chess, turn, 'B', select)
+                if chess.ischeck("B"):
+                    chess.copy_board(board_start_turn)
+                    print("les noirs sont echec")
+                    turn = "B"
+
+
 
             pygame.display.flip()
 
-            if chess.ischeck("W"):
-                chess.board = chess_turn_start.board
-                print("les blancs sont echec")
-                turn = "White"
-                pygame.display.flip()
+            if n == 150:
+                print(chess)
+                print(board_start_turn)
 
-            if chess.ischeck("B"):
-                chess.board = chess_turn_start.board
-                print("les noirs sont echec")
-                turn = "Black"
-                pygame.display.flip()
 
             if select is not None:
                 screen.blit(pygame.image.load("ImagesPieces/select.png"), (50 * select[0], 50 * select[1]))
                 pygame.display.flip()
+
+
 
 
         if event.type == pygame.QUIT:
