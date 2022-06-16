@@ -1,37 +1,40 @@
 from piece import *
 
+
 class Board:
-    board = [["" for i in range(8)] for j in range(8)]  # initialisation of a list of string list
     index_range = [k for k in range(8)]  # used to know if an index is out of range
-    for i in range(8):
-        board[i][2] = Vide(i, 2)
-        board[i][3] = Vide(i, 3)
-        board[i][4] = Vide(i, 4)
-        board[i][5] = Vide(i, 5)
-    for i in range(8):
-        board[i][1] = Pion("B", i, 1)
-        board[i][6] = Pion("W", i, 6)
-    for i in range(0, 8, 7):  # i = 0 then i = 0 + 7
-        if i == 0:
-            colour = "B"
-            board[0][i] = Tour(colour, 0, i)
-            board[1][i] = Cavalier(colour, 1, i)
-            board[2][i] = Fou(colour, 2, i)
-            board[3][i] = Roi(colour, 3, i)
-            board[4][i] = Dame(colour, 4, i)
-            board[5][i] = Fou(colour, 5, i)
-            board[6][i] = Cavalier(colour, 6, i)
-            board[7][i] = Tour(colour, 7, i)
-        else:
-            colour = "W"
-            board[0][i] = Tour(colour, 0, i)
-            board[1][i] = Cavalier(colour, 1, i)
-            board[2][i] = Fou(colour, 2, i)
-            board[3][i] = Roi(colour, 3, i)
-            board[4][i] = Dame(colour, 4, i)
-            board[5][i] = Fou(colour, 5, i)
-            board[6][i] = Cavalier(colour, 6, i)
-            board[7][i] = Tour(colour, 7, i)
+
+    def __init__(self):
+        self.board = [["" for i in range(8)] for j in range(8)]  # initialisation of a list of string list
+        for i in range(8):
+            self.board[i][2] = Vide(i, 2)
+            self.board[i][3] = Vide(i, 3)
+            self.board[i][4] = Vide(i, 4)
+            self.board[i][5] = Vide(i, 5)
+        for i in range(8):
+            self.board[i][1] = Pion("B", i, 1)
+            self.board[i][6] = Pion("W", i, 6)
+        for i in range(0, 8, 7):  # i = 0 then i = 0 + 7
+            if i == 0:
+                colour = "B"
+                self.board[0][i] = Tour(colour, 0, i)
+                self.board[1][i] = Cavalier(colour, 1, i)
+                self.board[2][i] = Fou(colour, 2, i)
+                self.board[3][i] = Roi(colour, 3, i)
+                self.board[4][i] = Dame(colour, 4, i)
+                self.board[5][i] = Fou(colour, 5, i)
+                self.board[6][i] = Cavalier(colour, 6, i)
+                self.board[7][i] = Tour(colour, 7, i)
+            else:
+                colour = "W"
+                self.board[0][i] = Tour(colour, 0, i)
+                self.board[1][i] = Cavalier(colour, 1, i)
+                self.board[2][i] = Fou(colour, 2, i)
+                self.board[3][i] = Roi(colour, 3, i)
+                self.board[4][i] = Dame(colour, 4, i)
+                self.board[5][i] = Fou(colour, 5, i)
+                self.board[6][i] = Cavalier(colour, 6, i)
+                self.board[7][i] = Tour(colour, 7, i)
 
     def __repr__(self):
         str = ""
@@ -49,7 +52,7 @@ class Board:
                 return 0
         return 1
 
-    def deplacement(self,x ,y ,new_x ,new_y):
+    def deplacement(self, x, y, new_x, new_y):
         """Make a piece move
 
         This method will take two starting and two ending  positional arguments and make the move if it is legitimate for its type.
@@ -65,21 +68,21 @@ class Board:
         """
 
         match self.board[x][y].type:
-                case 'P':
-                    move = bool(self.deplacement_pion(x, y, new_x, new_y))
-                case 'T':
-                    move = bool(self.deplacement_tour(x, y, new_x, new_y))
-                case 'C':
-                    move = bool(self.deplacement_cavalier(x, y, new_x, new_y))
-                case 'D':
-                    move = bool(self.deplacement_dame(x, y, new_x, new_y))
-                case 'R':
-                    move = bool(self.deplacement_roi(x, y, new_x, new_y))
-                case 'F':
-                    move = bool(self.deplacement_fou(x, y, new_x, new_y))
+            case 'P':
+                move = bool(self.deplacement_pion(x, y, new_x, new_y))
+            case 'T':
+                move = bool(self.deplacement_tour(x, y, new_x, new_y))
+            case 'C':
+                move = bool(self.deplacement_cavalier(x, y, new_x, new_y))
+            case 'D':
+                move = bool(self.deplacement_dame(x, y, new_x, new_y))
+            case 'R':
+                move = bool(self.deplacement_roi(x, y, new_x, new_y))
+            case 'F':
+                move = bool(self.deplacement_fou(x, y, new_x, new_y))
         return move
 
-    def isdeplacement(self,x ,y ,new_x ,new_y):
+    def isdeplacement(self, x, y, new_x, new_y):
         """Verify if a move is legitimate
 
         This method will take two starting and two ending  positional arguments and verify if the move is legitimate for its type.
@@ -95,16 +98,16 @@ class Board:
         """
 
         match self.board[x][y].type:
-            #case 'P':
-                #ismove = bool(self.isdeplacement_pion(x, y, new_x, new_y))
-            #case 'T':
-                #ismove = bool(self.isdeplacement_tour(x, y, new_x, new_y))
+            # case 'P':
+            # ismove = bool(self.isdeplacement_pion(x, y, new_x, new_y))
+            # case 'T':
+            # ismove = bool(self.isdeplacement_tour(x, y, new_x, new_y))
             case 'C':
                 ismove = bool(self.isdeplacement_cavalier(x, y, new_x, new_y))
-            #case 'D':
-                #ismove = bool(self.isdeplacement_dame(x, y, new_x, new_y))
-            #case 'R':
-                #ismove = bool(self.isdeplacement_roi(x, y, new_x, new_y))
+            # case 'D':
+            # ismove = bool(self.isdeplacement_dame(x, y, new_x, new_y))
+            # case 'R':
+            # ismove = bool(self.isdeplacement_roi(x, y, new_x, new_y))
             case 'F':
                 ismove = bool(self.isdeplacement_fou(x, y, new_x, new_y))
         return ismove
@@ -176,7 +179,8 @@ class Board:
                     # in this case our piece would "eat" the enemy piece
                     # if self.board[new_x][new_y].type != 'X': # Void case has no color, so we make sure to don't let the player know if he ate nothing
                     # print(f"{self.board[new_x][new_y].type} a été mangé(e)") # let the player know what he has just eaten
-                    self.board[new_x][new_y] = Cavalier(self.board[x][y].colour, new_x, new_y)  # place the appropriate piece on the destination positional values
+                    self.board[new_x][new_y] = Cavalier(self.board[x][y].colour, new_x,
+                                                        new_y)  # place the appropriate piece on the destination positional values
                     self.board[x][y] = Vide(x, y)  # empty the previous piece location
                     return 1  # return 1 when a move has been played
                 else:
@@ -254,7 +258,8 @@ class Board:
             if ((new_x == x and new_y == y + 1 and self.board[new_x][new_y].type == 'X') or (
                     new_x == x and new_y == 3 and y == 1 and self.board[new_x][new_y].type == 'X') or (
                         self.board[new_x][new_y].colour == "W" and (
-                        new_x == x + 1 or new_x == x - 1) and new_y == y + 1)) and self.board[x][y].type == 'P' and check:
+                        new_x == x + 1 or new_x == x - 1) and new_y == y + 1)) and self.board[x][
+                y].type == 'P' and check:
                 if self.board[new_x][new_y].colour != self.board[x][y].colour:
                     # if self.board[new_x][new_y].type != 'X':
                     # print(f"{self.board[new_x][new_y].type} a été mangé(e)")
@@ -496,23 +501,23 @@ class Board:
                         match self.board[king_x][king_y].type:
                             case 'P':
                                 self.board[x][y] = Pion(enemy_colour, x, y)
-                                #print("P")
+                                # print("P")
                             case 'T':
                                 self.board[x][y] = Tour(enemy_colour, x, y)
-                                #print('T')
+                                # print('T')
                             case 'C':
                                 self.board[x][y] = Cavalier(enemy_colour, x, y)
-                                #print('C')
+                                # print('C')
                             case 'D':
                                 self.board[x][y] = Dame(enemy_colour, x, y)
-                                #print("D")
+                                # print("D")
                             case 'R':
                                 if self.board[king_x][king_y].colour == enemy_colour:
                                     self.board[x][y] = Roi(enemy_colour, x, y)
-                                    #print('R')
+                                    # print('R')
                             case 'F':
                                 self.board[x][y] = Fou(enemy_colour, x, y)
-                                #print('F')
+                                # print('F')
 
                         self.board[king_x][king_y] = Roi(colour, king_x, king_y)
 
@@ -521,9 +526,3 @@ class Board:
                 if check:
                     return check
         return check
-
-
-
-
-board = Board()
-print(type(board.get_king_positional_arguments("B")))
