@@ -2,6 +2,7 @@ from piece import *
 
 
 class Board:
+
     index_range = [k for k in range(8)]  # used to know if an index is out of range
 
     def __init__(self):
@@ -20,8 +21,8 @@ class Board:
                 self.board[0][i] = Tour(colour, 0, i)
                 self.board[1][i] = Cavalier(colour, 1, i)
                 self.board[2][i] = Fou(colour, 2, i)
-                self.board[3][i] = Roi(colour, 3, i)
-                self.board[4][i] = Dame(colour, 4, i)
+                self.board[3][i] = Dame(colour, 3, i)
+                self.board[4][i] = Roi(colour, 4, i)
                 self.board[5][i] = Fou(colour, 5, i)
                 self.board[6][i] = Cavalier(colour, 6, i)
                 self.board[7][i] = Tour(colour, 7, i)
@@ -30,8 +31,8 @@ class Board:
                 self.board[0][i] = Tour(colour, 0, i)
                 self.board[1][i] = Cavalier(colour, 1, i)
                 self.board[2][i] = Fou(colour, 2, i)
-                self.board[3][i] = Roi(colour, 3, i)
-                self.board[4][i] = Dame(colour, 4, i)
+                self.board[3][i] = Dame(colour, 3, i)
+                self.board[4][i] = Roi(colour, 4, i)
                 self.board[5][i] = Fou(colour, 5, i)
                 self.board[6][i] = Cavalier(colour, 6, i)
                 self.board[7][i] = Tour(colour, 7, i)
