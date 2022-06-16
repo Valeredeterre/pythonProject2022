@@ -55,7 +55,7 @@ pygame.display.flip()
 running = True
 select = None
 turn = "W"
-n = 1
+frame = 1
 game_over = False
 
 
@@ -68,10 +68,9 @@ with open('logs.txt', 'a') as f:
 
 while running:
     for event in pygame.event.get():
-        time.sleep(1/15)
 
-        print(turn, n)
-        n += 1
+        print(turn, frame)
+        frame += 1
 
         if game_over is not True:
 
@@ -82,9 +81,9 @@ while running:
                     chess.copy_board(board_start_turn)
                     print("les blancs sont echec")
                     turn = "W"
-                    if chess.ischeck_mate("W",board_start_turn):
-
-                        game_over = True
+                    if frame %50 == 0:
+                        if chess.ischeck_mate("W",board_start_turn):
+                            game_over = True
 
             elif turn == "B":
                 board_start_turn.copy_board(chess)
@@ -93,25 +92,18 @@ while running:
                     chess.copy_board(board_start_turn)
                     print("les noirs sont echec")
                     turn = "B"
-                    if chess.ischeck_mate("B",board_start_turn):
-                        game_over = True
+                    if frame % 50 == 0:
+                        if chess.ischeck_mate("B",board_start_turn):
+                            game_over = True
 
 
 
 
             pygame.display.flip()
 
-            if n == 150:
-                print(chess)
-                print(board_start_turn)
-
-
             if select is not None:
                 screen.blit(pygame.image.load("ImagesPieces/select.png"), (50 * select[0], 50 * select[1]))
                 pygame.display.flip()
-
-
-
 
         if event.type == pygame.QUIT:
             running = False
