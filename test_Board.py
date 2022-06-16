@@ -4,7 +4,6 @@ from piece import *
 
 chessboard = Board()
 
-
 def chessboard_clear():
     for x in range(8):
         for y in range(8):
