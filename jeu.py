@@ -2,6 +2,7 @@ from piece import *
 from board import Board
 import pygame
 import math
+import time
 
 
 def deplacement_piece(chess, turn, colour, select=None):
@@ -59,16 +60,20 @@ game_over = False
 
 
 
+with open('logs.txt', 'a') as f:
+    f.write("\n\n\n--------------Nouvelle Partie-----------------\n")
+    f.write("----------------------------------------------\n\n")
+
+
+
 while running:
     for event in pygame.event.get():
+        time.sleep(1/15)
 
         print(turn, n)
-        print(select)
         n += 1
 
         if game_over is not True:
-
-            print("not check = ", chess.ischeck("W") is not True and chess.ischeck("B") is not True)
 
             if turn == "W":
                 board_start_turn.copy_board(chess)
@@ -77,6 +82,9 @@ while running:
                     chess.copy_board(board_start_turn)
                     print("les blancs sont echec")
                     turn = "W"
+                    if chess.ischeck_mate("W",board_start_turn):
+
+                        game_over = True
 
             elif turn == "B":
                 board_start_turn.copy_board(chess)
@@ -85,6 +93,9 @@ while running:
                     chess.copy_board(board_start_turn)
                     print("les noirs sont echec")
                     turn = "B"
+                    if chess.ischeck_mate("B",board_start_turn):
+                        game_over = True
+
 
 
 
