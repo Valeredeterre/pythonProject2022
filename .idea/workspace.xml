@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="bc002ee0-b2c1-496f-9201-a310b93c1959" name="Changes" comment="optimisation chessgame">
-      <change afterPath="$PROJECT_DIR$/test_Board.py" afterDir="false" />
+    <list default="true" id="bc002ee0-b2c1-496f-9201-a310b93c1959" name="Changes" comment="Swapped King and Queen places">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/board.py" beforeDir="false" afterPath="$PROJECT_DIR$/board.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/chess.py" beforeDir="false" afterPath="$PROJECT_DIR$/chess.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_Board.py" beforeDir="false" afterPath="$PROJECT_DIR$/test_Board.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -15,8 +15,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Python Script" />
         <option value="Python Unit Test" />
+        <option value="Python Script" />
       </list>
     </option>
   </component>
@@ -36,7 +36,7 @@
     </favorite-branches>
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="main" />
+        <entry key="$PROJECT_DIR$" value="Camil" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -55,12 +55,13 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "last_opened_file_path": "C:/Users/benam/PycharmProjects/pythonProject2022/test_Board.py"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/benam/PycharmProjects/pythonProject2022/euler.py&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
   }
-}]]></component>
-  <component name="RunManager" selected="Python.board">
+}</component>
+  <component name="RunManager" selected="Python.test_Board">
     <configuration name="board" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="pythonProject" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -378,7 +379,126 @@
       <option name="project" value="LOCAL" />
       <updated>1653159670103</updated>
     </task>
-    <option name="localTasksCounter" value="32" />
+    <task id="LOCAL-00032" summary="first commit">
+      <created>1653241939360</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1653241939360</updated>
+    </task>
+    <task id="LOCAL-00033" summary="ajout de isdeplacement_cavalier">
+      <created>1653242002051</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1653242002051</updated>
+    </task>
+    <task id="LOCAL-00034" summary="suppression de la méthode ischeckmate">
+      <created>1653242069166</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1653242069166</updated>
+    </task>
+    <task id="LOCAL-00035" summary="workspace.xml update">
+      <created>1653242088334</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1653242088334</updated>
+    </task>
+    <task id="LOCAL-00036" summary="switched bishop movement conditions into isdeplacement_fou">
+      <created>1653346333972</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1653346333972</updated>
+    </task>
+    <task id="LOCAL-00037" summary="isdeplacement_fou basics unit test added">
+      <created>1653346370344</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1653346370344</updated>
+    </task>
+    <task id="LOCAL-00038" summary="ischeck problem solving">
+      <created>1653480829068</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1653480829068</updated>
+    </task>
+    <task id="LOCAL-00039" summary="ischeck method is now working">
+      <created>1653604433904</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1653604433904</updated>
+    </task>
+    <task id="LOCAL-00040" summary="added a deplacement and its isdeplacement counterpart method">
+      <created>1653607526648</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1653607526648</updated>
+    </task>
+    <task id="LOCAL-00041" summary="used new methods to lighten the code in the loop">
+      <created>1653607611048</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1653607611048</updated>
+    </task>
+    <task id="LOCAL-00042" summary="setting up a testboard specifically for unittest">
+      <created>1654181388362</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1654181388362</updated>
+    </task>
+    <task id="LOCAL-00043" summary="ischeck uses a new method">
+      <created>1654757868514</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1654757868514</updated>
+    </task>
+    <task id="LOCAL-00044" summary="added ischeckmate conditions">
+      <created>1654784294967</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1654784294967</updated>
+    </task>
+    <task id="LOCAL-00045" summary="Update from pull">
+      <created>1655296094935</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1655296094935</updated>
+    </task>
+    <task id="LOCAL-00046" summary="Added docstring">
+      <created>1655300620932</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1655300620932</updated>
+    </task>
+    <task id="LOCAL-00047" summary="Attribute board is no longer a class attribute">
+      <created>1655380764692</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1655380764692</updated>
+    </task>
+    <task id="LOCAL-00048" summary="Swapped King and Queen places">
+      <created>1655381273694</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1655381273694</updated>
+    </task>
+    <option name="localTasksCounter" value="49" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -394,20 +514,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="Ajout d'une classe case vide et d'une méthode partielle de déplacement pour le cavalier" />
-    <MESSAGE value="Méthode deplacement_cavalier" />
-    <MESSAGE value="Méthode deplacement_cavalier précise si une pièce a été mangée" />
-    <MESSAGE value="méthode deplacement_fou" />
-    <MESSAGE value="Optimisation classe Piece et conditions de méthodes de déplacement" />
-    <MESSAGE value="initiation de class Player" />
-    <MESSAGE value="correctif sur deplacement_cavalier" />
-    <MESSAGE value="correctif sur deplacement_fou&#10;Les cases vides ont la couleur &quot;V&quot;" />
-    <MESSAGE value="correctif sur deplacement_fou" />
-    <MESSAGE value="correctif fou (pb changement de couleur)" />
-    <MESSAGE value="Chaque méthode deplacement_XXXXX retourne (class Board) maintenant 1 ou 0 // Initialisation de class Chess" />
-    <MESSAGE value="try except pour input de x et y" />
     <MESSAGE value="Ajout de conditions afin de ne rien modifier lors d'un déplacement interdit et return 0" />
-    <MESSAGE value="workspace.xml update" />
     <MESSAGE value="chessgame / la méthode est maintenant récursive et s'appelle à chaque exception au niveau du input de x et y" />
     <MESSAGE value="ajout du tour des noirs" />
     <MESSAGE value="exception Index out of range handled" />
@@ -415,7 +522,24 @@
     <MESSAGE value="One check method with a colour argument that returns either 1 or 0" />
     <MESSAGE value="match case dans méthode check" />
     <MESSAGE value="optimisation chessgame" />
-    <option name="LAST_COMMIT_MESSAGE" value="optimisation chessgame" />
+    <MESSAGE value="first commit" />
+    <MESSAGE value="ajout de isdeplacement_cavalier" />
+    <MESSAGE value="suppression de la méthode ischeckmate" />
+    <MESSAGE value="workspace.xml update" />
+    <MESSAGE value="switched bishop movement conditions into isdeplacement_fou" />
+    <MESSAGE value="isdeplacement_fou basics unit test added" />
+    <MESSAGE value="ischeck problem solving" />
+    <MESSAGE value="ischeck method is now working" />
+    <MESSAGE value="added a deplacement and its isdeplacement counterpart method" />
+    <MESSAGE value="used new methods to lighten the code in the loop" />
+    <MESSAGE value="setting up a testboard specifically for unittest" />
+    <MESSAGE value="ischeck uses a new method" />
+    <MESSAGE value="added ischeckmate conditions" />
+    <MESSAGE value="Update from pull" />
+    <MESSAGE value="Added docstring" />
+    <MESSAGE value="Attribute board is no longer a class attribute" />
+    <MESSAGE value="Swapped King and Queen places" />
+    <option name="LAST_COMMIT_MESSAGE" value="Swapped King and Queen places" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -424,16 +548,6 @@
           <url>file://$PROJECT_DIR$/main.py</url>
           <line>8</line>
           <option name="timeStamp" value="1" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/board.py</url>
-          <line>309</line>
-          <option name="timeStamp" value="8" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/board.py</url>
-          <line>50</line>
-          <option name="timeStamp" value="11" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

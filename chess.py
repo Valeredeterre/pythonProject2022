@@ -1,11 +1,5 @@
 from board import Board
-from piece import Pion
-from piece import Roi
-from piece import Dame
-from piece import Fou
-from piece import Tour
-from piece import Cavalier
-from piece import Vide
+
 
 
 class Player:
@@ -27,7 +21,7 @@ class Chess:
         self.check_w = 0
         self.check_b = 0
 
-    def chessgame(self):
+    def console_chessgame(self):
 
         while not self.game_over:
 
@@ -45,7 +39,7 @@ class Chess:
                     new_y = int(input('Entrez new_y :'))
                 except Exception as e:
                     print(e)
-                    self.chessgame()
+                    self.console_chessgame()
                 try:
                     if self.chessboard.board[x][y].colour == self.tour:
                         self.fin_tour = self.chessboard.deplacement(x, y, new_x, new_y)
@@ -53,7 +47,7 @@ class Chess:
                             self.tour = "B"
                 except Exception as e:
                     print(e)
-                    self.chessgame()
+                    self.console_chessgame()
 
             while self.tour == "B":
                 self.game_over = bool(self.chessboard.ischeck_mate('B'))
@@ -67,7 +61,7 @@ class Chess:
                     new_y = int(input('Entrez new_y :'))
                 except Exception as e:
                     print(e)
-                    self.chessgame()
+                    self.console_chessgame()
                 try:
                     if self.chessboard.board[x][y].colour == self.tour:
                         self.fin_tour = self.chessboard.deplacement(x, y, new_x, new_y)
@@ -75,11 +69,11 @@ class Chess:
                             self.tour = "W"
                 except Exception as e:
                     print(e)
-                    self.chessgame()
+                    self.console_chessgame()
 
 
 chess = Chess()
-chess.chessgame()
+chess.console_chessgame()
 
 
 

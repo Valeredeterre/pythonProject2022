@@ -1,8 +1,8 @@
 from piece import *
+import pygame
 
 
 class Board:
-
     index_range = [k for k in range(8)]  # used to know if an index is out of range
 
     def __init__(self):
@@ -45,29 +45,17 @@ class Board:
                 str += self.board[j][k].type
         return str
 
-    def isinrange(self, x, y, new_x, new_y):  # return value is boolean, raise an index error if one of the
-        # positional values is out of range
-        for k in [x, y, new_x, new_y]:  # k take each value of the list from first to last
-            if k not in self.index_range:  # only raise an error when k is not in the interval [0,7]
-                raise IndexError
-                return 0
-        return 1
-
-    def deplacement(self, x, y, new_x, new_y):
+    def deplacement(self,x ,y ,new_x ,new_y):
         """Make a piece move
-
         This method will take two starting and two ending  positional arguments and make the move if it is legitimate for its type.
         The starting position piece type is predetermined and only the appropriate move method will be applied.
-
         :param x: Array positional argument used to locate the piece.
         :param y: Array positional argument used to locate the piece.
         :param new_x: Array positional argument used to locate the piece ending position.
         :param new_y: Array positional argument used to locate the piece ending position.
         :return: A boolean value of 1 when a movement is done, a boolean value of 0 otherwise.
         :rtype: bool
-
         """
-
         match self.board[x][y].type:
             case 'P':
                 move = bool(self.deplacement_pion(x, y, new_x, new_y))
@@ -81,51 +69,81 @@ class Board:
                 move = bool(self.deplacement_roi(x, y, new_x, new_y))
             case 'F':
                 move = bool(self.deplacement_fou(x, y, new_x, new_y))
+            case 'X':
+                move = False
         return move
 
-    def isdeplacement(self, x, y, new_x, new_y):
+    def isdeplacement(self,x ,y ,new_x ,new_y):
         """Verify if a move is legitimate
-
         This method will take two starting and two ending  positional arguments and verify if the move is legitimate for its type.
         The starting position piece type is predetermined and only the appropriate move verification method will be applied.
-
         :param x: Array positional argument used to locate the piece.
         :param y: Array positional argument used to locate the piece.
         :param new_x: Array positional argument used to locate the piece ending position.
         :param new_y: Array positional argument used to locate the piece ending position.
         :return: A boolean value of 1 when a movement is legitimate, a boolean value of 0 otherwise.
         :rtype: bool
-
         """
-
+        ismove = bool()
         match self.board[x][y].type:
-            # case 'P':
-            # ismove = bool(self.isdeplacement_pion(x, y, new_x, new_y))
-            # case 'T':
-            # ismove = bool(self.isdeplacement_tour(x, y, new_x, new_y))
+            case 'P':
+                ismove = bool(self.isdeplacement_pion(x, y, new_x, new_y))
+            case 'T':
+                ismove = bool(self.isdeplacement_tour(x, y, new_x, new_y))
             case 'C':
                 ismove = bool(self.isdeplacement_cavalier(x, y, new_x, new_y))
-            # case 'D':
-            # ismove = bool(self.isdeplacement_dame(x, y, new_x, new_y))
-            # case 'R':
-            # ismove = bool(self.isdeplacement_roi(x, y, new_x, new_y))
+            case 'D':
+                ismove = bool(self.isdeplacement_dame(x, y, new_x, new_y))
+            case 'R':
+                ismove = bool(self.isdeplacement_roi(x, y, new_x, new_y))
             case 'F':
                 ismove = bool(self.isdeplacement_fou(x, y, new_x, new_y))
         return ismove
 
+    def isinrange(self, x, y, new_x, new_y):  # return value is boolean, raise an index error if one of the
+        # positional values is out of range
+        for k in [x, y, new_x, new_y]:  # k take each value of the list from first to last
+            if k not in self.index_range:  # only raise an error when k is not in the interval [0,7]
+                raise IndexError
+                return 0
+        return 1
+
+    def isdeplacement_diagonal(self, x, y, new_x, new_y):
+
+        blocking = 0
+
+        if (new_x - x) == (new_y - y) and (new_y - y) >= 0:
+            for i in range(1, abs(new_y - y)):
+                if self.board[x + i][y + i].type != "X":
+                    blocking = 1
+
+        if (new_x - x) == (new_y - y) and (new_y - y) <= 0:
+            for i in range(1, abs(new_y - y)):
+                if self.board[x - i][y - i].type != "X":
+                    blocking = 1
+
+        if (new_x - x) == -(new_y - y) and (new_y - y) >= 0:
+            for i in range(1, abs(new_y - y)):
+                if self.board[x + i][y - i].type != "X":
+                    blocking = 1
+
+        if (new_x - x) == -(new_y - y) and (new_y - y) <= 0:
+            for i in range(1, abs(new_y - y)):
+                if self.board[x - i][y + i].type != "X":
+                    blocking = 1
+
+        if ((new_y - y == new_x - x) or (-new_y + y == new_x - x)) and blocking == 0 and self.board[x][y].type == 'D':
+            return 1
+
+
+
+    def isdeplacement_roi(self, x, y, new_x, new_y):
+        self.isinrange(x, y, new_x, new_y)
+        if (abs(new_x - x) <= 1 and abs(new_y - y) <= 1) and self.board[x][y].type == 'R':
+            return 1
+        else : return 0
+
     def isdeplacement_cavalier(self, x, y, new_x, new_y):
-        """Verify if a move is legitimate for a bishop
-
-            This method will take two starting and two ending  positional arguments and verify if the move is legitimate.
-
-            :param x: Array positional argument used to locate the piece.
-            :param y: Array positional argument used to locate the piece.
-            :param new_x: Array positional argument used to locate the piece ending position.
-            :param new_y: Array positional argument used to locate the piece ending position.
-            :return: A boolean value of 1 when a movement is legitimate, a boolean value of 0 otherwise.
-            :rtype: bool
-
-        """
         # return value is boolean, verify if the positional values match a knight move
         self.isinrange(x, y, new_x, new_y)  # c.f the method in question
         if ((new_x == x + 1 and new_y == y + 2) or (new_x == x - 1 and new_y == y + 2) or (
@@ -140,153 +158,31 @@ class Board:
 
     def isdeplacement_fou(self, x, y, new_x, new_y):  # return value is boolean, verify if the positional values
         # match a bishop move
-        """Verify if a move is legitimate for a bishop
-
-            This method will take two starting and two ending  positional arguments and verify if the move is legitimate.
-
-            :param x: Array positional argument used to locate the piece.
-            :param y: Array positional argument used to locate the piece.
-            :param new_x: Array positional argument used to locate the piece ending position.
-            :param new_y: Array positional argument used to locate the piece ending position.
-            :return: A boolean value of 1 when a movement is legitimate, a boolean value of 0 otherwise.
-            :rtype: bool
-
-        """
         self.isinrange(x, y, new_x, new_y)
         if (new_y - (new_y - y) == y) and abs(new_x - x) == abs(new_y - y) and (
                 new_x - (new_x - x) == x) and self.board[x][y].type == "F" and (x != new_x and y != new_y):
             # conditions that are unique to the bishop
             return 1
+        elif (new_y - (new_y - y) == y) and abs(new_x - x) == abs(new_y - y) and (new_x - (new_x - x) == x) and self.board[x][y].type == "F" and (x != new_x and y != new_y):
+            return 2
+        else :
+            return 0
+
+    def isdeplacement_pion(self, x, y, new_x, new_y):
+        if self.board[x][y].type == 'P':
+            if self.board[x][y].colour == 'W':
+                if (x == new_x and y-1 == new_y and self.board[new_x][new_y].type == 'X')or(x == new_x and y == 6 and new_y == 4 and self.board[new_x][new_y].type == 'X')or(self.board[new_x][new_y].colour == 'B' and (x == new_x-1 or x == new_x+1) and y-1 == new_y):
+                    return 1
+            elif self.board[x][y].colour == 'B':
+                if (x == new_x and y+1 == new_y and self.board[new_x][new_y].type == 'X')or(x == new_x and y == 1 and new_y == 3 and self.board[new_x][new_y].type == 'X')or(self.board[new_x][new_y].colour == 'W'and (x == new_x-1 or x == new_x+1) and y+1 == new_y):
+                    return 1
+            else: return 0
+
         else:
             return 0
 
-    def deplacement_cavalier(self, x, y, new_x, new_y):  # move the piece to the appropriate positional values
-        """Make a piece move
-
-            This method will take two starting and two ending  positional arguments and make the move if it is legitimate for a knight.
-
-        :param x: Array positional argument used to locate the piece.
-        :param y: Array positional argument used to locate the piece.
-        :param new_x: Array positional argument used to locate the piece ending position.
-        :param new_y: Array positional argument used to locate the piece ending position.
-        :return: A boolean value of 1 when a movement is done, a boolean value of 0 otherwise.
-        :rtype: bool
-
-        """
-
-        try:
-            if bool(self.isdeplacement(x, y, new_x, new_y)):  # used to know if the move is legitimate
-                if self.board[new_x][new_y].colour != self.board[x][y].colour:
-                    # in this case our piece would "eat" the enemy piece
-                    # if self.board[new_x][new_y].type != 'X': # Void case has no color, so we make sure to don't let the player know if he ate nothing
-                    # print(f"{self.board[new_x][new_y].type} a été mangé(e)") # let the player know what he has just eaten
-                    self.board[new_x][new_y] = Cavalier(self.board[x][y].colour, new_x,
-                                                        new_y)  # place the appropriate piece on the destination positional values
-                    self.board[x][y] = Vide(x, y)  # empty the previous piece location
-                    return 1  # return 1 when a move has been played
-                else:
-                    # print('La case est prise')
-                    return 0  # return 0 and print the reason the move didn't happen
-            else:
-                # print("Deplacement non valide")
-                return 0  # return 0 and print the reason the move didn't happen
-        except Exception as e:
-            # print(e)
-            return 0  # return 0 and print the raised errors
-
-    def deplacement_roi(self, x, y, new_x, new_y):
-        """Make a piece move
-
-            This method will take two starting and two ending  positional arguments and make the move if it is legitimate for a king.
-
-            :param x: Array positional argument used to locate the piece.
-            :param y: Array positional argument used to locate the piece.
-            :param new_x: Array positional argument used to locate the piece ending position.
-            :param new_y: Array positional argument used to locate the piece ending position.
-            :return: A boolean value of 1 when a movement is done, a boolean value of 0 otherwise.
-            :rtype: bool
-
-        """
-        check = (new_x >= 0 and new_y >= 0 and new_x < 8 and new_y < 8)
-        if (abs(new_x - x) <= 1 and abs(new_y - y) <= 1) and self.board[x][y].type == 'R' and check:
-            if self.board[new_x][new_y].colour != self.board[x][y].colour:
-                # if self.board[new_x][new_y].type != 'X':
-                # print(f"{self.board[new_x][new_y].type} a été mangé(e)")
-                self.board[new_x][new_y] = Roi(self.board[x][y].colour, new_x, new_y)
-                self.board[x][y] = Vide(x, y)
-                return 1
-            else:
-                # print('La case est prise')
-                return 0
-        else:
-            # print("Deplacement non valide")
-            return 0
-
-    def deplacement_pion(self, x, y, new_x, new_y):
-        """Make a piece move
-
-            This method will take two starting and two ending  positional arguments and make the move if it is legitimate for a pawn.
-
-            :param x: Array positional argument used to locate the piece.
-            :param y: Array positional argument used to locate the piece.
-            :param new_x: Array positional argument used to locate the piece ending position.
-            :param new_y: Array positional argument used to locate the piece ending position.
-            :return: A boolean value of 1 when a movement is done, a boolean value of 0 otherwise.
-            :rtype: bool
-
-        """
-        check = (8 > new_x >= 0 and 0 <= new_y < 8)
-        if self.board[x][y].colour == "W":
-            if ((new_x == x and new_y == y - 1 and self.board[new_x][new_y].type == 'X') or (
-                    new_x == x and new_y == 4 and y == 6 and self.board[new_x][new_y].type == 'X') or (
-                        self.board[new_x][new_y].colour == "B" and (
-                        new_x == x + 1 or new_x == x - 1) and new_y == y - 1)) and self.board[x][
-                y].type == 'P' and check:
-                if self.board[new_x][new_y].colour != self.board[x][y].colour:
-                    # if self.board[new_x][new_y].type != 'X':
-                    # print(f"{self.board[new_x][new_y].type} a été mangé(e)")
-                    self.board[new_x][new_y] = Pion(self.board[x][y].colour, new_x, new_y)
-                    self.board[x][y] = Vide(x, y)
-                    return 1
-                else:
-                    # print('La case est prise')
-                    return 0
-            else:
-                # print('La case est prise')
-                return 0
-
-        if self.board[x][y].colour == "B":
-            if ((new_x == x and new_y == y + 1 and self.board[new_x][new_y].type == 'X') or (
-                    new_x == x and new_y == 3 and y == 1 and self.board[new_x][new_y].type == 'X') or (
-                        self.board[new_x][new_y].colour == "W" and (
-                        new_x == x + 1 or new_x == x - 1) and new_y == y + 1)) and self.board[x][
-                y].type == 'P' and check:
-                if self.board[new_x][new_y].colour != self.board[x][y].colour:
-                    # if self.board[new_x][new_y].type != 'X':
-                    # print(f"{self.board[new_x][new_y].type} a été mangé(e)")
-                    self.board[new_x][new_y] = Pion(self.board[x][y].colour, new_x, new_y)
-                    self.board[x][y] = Vide(x, y)
-                    return 1
-                else:
-                    # print('La case est prise')
-                    return 0
-            else:
-                # print('La case est prise')
-                return 0
-
-    def deplacement_tour(self, x, y, new_x, new_y):
-        """Make a piece move
-
-            This method will take two starting and two ending  positional arguments and make the move if it is legitimate for a rook.
-
-            :param x: Array positional argument used to locate the piece.
-            :param y: Array positional argument used to locate the piece.
-            :param new_x: Array positional argument used to locate the piece ending position.
-            :param new_y: Array positional argument used to locate the piece ending position.
-            :return: A boolean value of 1 when a movement is done, a boolean value of 0 otherwise.
-            :rtype: bool
-
-        """
+    def isdeplacement_tour(self, x,y,new_x,new_y):
+        self.isinrange(x, y, new_x, new_y)
         blocking = 0
 
         if new_x == x and new_y > y:
@@ -312,10 +208,44 @@ class Board:
         if ((new_x == x and new_y > y) or (new_x == x and new_y < y) or (new_y == y and new_x > x) or (
                 new_y == y and new_x < x)) and blocking == 0 and (
                 new_x >= 0 and new_y >= 0 and new_x < 8 and new_y < 8) and self.board[x][y].type == 'T':
+            return 1
+        elif ((new_x == x and new_y > y) or (new_x == x and new_y < y) or (new_y == y and new_x > x) or (
+                new_y == y and new_x < x)) and blocking == 0 and (
+                new_x >= 0 and new_y >= 0 and new_x < 8 and new_y < 8) and self.board[x][y].type == 'D':
+            return 2
+        else : return 0
+
+    def isdeplacement_dame(self,x,y,new_x,new_y):
+        self.isinrange(x,y,new_x,new_y)
+        return 1
+
+
+    def deplacement_cavalier(self, x, y, new_x, new_y):  # move the piece to the appropriate positional values
+        try:
+            if self.isdeplacement_cavalier(x, y, new_x, new_y) == 1:  # used to know if the move is legitimate
+                if self.board[new_x][new_y].colour != self.board[x][y].colour:  # in this case our piece would "eat" the enemy piece
+                    # if self.board[new_x][new_y].type != 'X': # Void case has no color, so we make sure to don't let the player know if he ate nothing
+                    # print(f"{self.board[new_x][new_y].type} a été mangé(e)") # let the player know what he has just eaten
+                    self.board[new_x][new_y] = Cavalier(self.board[x][y].colour, new_x, new_y)  # place the appropriate piece on the destination positional values
+                    self.board[x][y] = Vide(x, y)  # empty the previous piece location
+                    return 1  # return 1 when a move has been played
+                else:
+                    # print('La case est prise')
+                    return 0  # return 0 and print the reason the move didn't happen
+            else:
+                # print("Deplacement non valide")
+                return 0  # return 0 and print the reason the move didn't happen
+        except Exception as e:
+            # print(e)
+            return 0  # return 0 and print the raised errors
+
+    def deplacement_roi(self, x, y, new_x, new_y):
+        check = (new_x >= 0 and new_y >= 0 and new_x < 8 and new_y < 8)
+        if self.isdeplacement_roi(x, y, new_x, new_y):
             if self.board[new_x][new_y].colour != self.board[x][y].colour:
-                # if self.board[new_x][new_y].type != 'X':
-                # print(f"{self.board[new_x][new_y].type} a été mangé(e)")
-                self.board[new_x][new_y] = Tour(self.board[x][y].colour, new_x, new_y)
+                if self.board[new_x][new_y].type != 'X':
+                    print(f"{self.board[new_x][new_y].type} a été mangé(e)")
+                self.board[new_x][new_y] = Roi(self.board[x][y].colour, new_x, new_y)
                 self.board[x][y] = Vide(x, y)
                 return 1
             else:
@@ -325,22 +255,41 @@ class Board:
             # print("Deplacement non valide")
             return 0
 
+    def deplacement_pion(self, x, y, new_x, new_y):
+        if self.isdeplacement_pion(x, y, new_x, new_y):
+            if self.board[new_x][new_y].colour != self.board[x][y].colour:
+                if self.board[new_x][new_y].type != 'X':
+                    print(f"{self.board[new_x][new_y].type} a été mangé(e)")
+                self.board[new_x][new_y] = Pion(self.board[x][y].colour, new_x, new_y)
+                self.board[x][y] = Vide(x, y)
+                return 1
+            else:
+                # print('La case est prise')
+                return 0
+        else:
+            # print('La case est prise')
+            return 0
+
+    def deplacement_tour(self, x, y, new_x, new_y):
+       if self.isdeplacement_tour(x, y, new_x, new_y):
+            if self.board[new_x][new_y].colour != self.board[x][y].colour:
+                if self.board[new_x][new_y].type != 'X':
+                    print(f"{self.board[new_x][new_y].type} a été mangé(e)")
+                self.board[new_x][new_y] = Tour(self.board[x][y].colour, new_x, new_y)
+                self.board[x][y] = Vide(x, y)
+                return 1
+            else:
+                # print('La case est prise')
+                return 0
+       else:
+            # print("Deplacement non valide")
+            return 0
+
     def deplacement_fou(self, x, y, new_x, new_y):
-        """Make a piece move
-
-            This method will take two starting and two ending  positional arguments and make the move if it is legitimate for a bishop.
-
-            :param x: Array positional argument used to locate the piece.
-            :param y: Array positional argument used to locate the piece.
-            :param new_x: Array positional argument used to locate the piece ending position.
-            :param new_y: Array positional argument used to locate the piece ending position.
-            :return: A boolean value of 1 when a movement is done, a boolean value of 0 otherwise.
-            :rtype: bool
-
-        """
         old_x = x  # store initial x value
         old_y = y  # store initial y value
         old_colour = self.board[x][y].colour
+        old_piece = self.board[new_x][new_y]
         if self.isdeplacement(x, y, new_x, new_y) == 1:
             while x != new_x and y != new_y:
                 if new_x > old_x and new_y > old_y:
@@ -364,20 +313,27 @@ class Board:
                     k1 = 1
                     k2 = 1
                 if self.board[x][y].type != 'X' and self.board[x][y].colour != old_colour:
-                    print(self.board[x][y].type != 'X' and self.board[x][y].colour != old_colour)
+                    #if the destination is an enemy piece
                     # print(f"{self.board[x][y].type} a été mangé(e)")
                     self.board[x + k1 * (int((new_x - old_x) / (new_x - old_x)))][
                         y + k2 * (int((new_y - old_y) / (new_y - old_y)))] = Vide(x - 1, y - 1)
                     self.board[x][y] = Fou(old_colour, new_x, new_y)
-                    if x == new_x or y == new_y:
-                        return 1
-                elif self.board[x][y].type != 'X' and self.board[x][
-                    y].colour == old_colour:  # if an ally piece block the move
+                    if x != new_x and y != new_y:
+                        if x + k1 * (int((new_x - old_x) / (new_x - old_x))) != old_x and y + k2 * (
+                                int((new_y - old_y) / (
+                                        new_y - old_y))) != old_y:  # if the previous case isn't the starting case
+                            self.board[x + k1 * (int((new_x - old_x) / (new_x - old_x)))][
+                                y + k2 * (int((new_y - old_y) / (new_y - old_y)))] = Vide(x - 1,y - 1)  # empty the case
+                            self.board[new_x][new_y] = old_piece  # place the old piece
+                            self.board[old_x][old_y] = Fou(old_colour, old_x, old_y)  # place a bishop on starting position
+                        return 0
+                    return 1
+                elif self.board[x][y].type != 'X' and self.board[x][y].colour == old_colour:  # if an ally piece block the move
                     self.board[old_x][old_y] = Fou(old_colour, old_x, old_y)  # place a bishop on starting position
                     if x + k1 * (int((new_x - old_x) / (new_x - old_x))) != old_x and y + k2 * (
-                            int((new_y - old_y) / (new_y - old_y))) != old_y:
+                            int((new_y - old_y) / (new_y - old_y))) != old_y: # if the previous case isn't the starting case
                         self.board[x + k1 * (int((new_x - old_x) / (new_x - old_x)))][
-                            y + k2 * (int((new_y - old_y) / (new_y - old_y)))] = Vide(x - 1, y - 1)
+                            y + k2 * (int((new_y - old_y) / (new_y - old_y)))] = Vide(x - 1, y - 1) # empty the case
                     # print('Cette case est déjà prise')
                     return 0
                 else:
@@ -385,71 +341,14 @@ class Board:
                         y + k2 * (int((new_y - old_y) / (new_y - old_y)))] = Vide(x, y)
                     self.board[x][y] = Fou(old_colour, new_x, new_y)
 
+
     def deplacement_dame(self, x, y, new_x, new_y):
-        """Make a piece move
-
-            This method will take two starting and two ending  positional arguments and make the move if it is legitimate for a queen.
-
-            :param x: Array positional argument used to locate the piece.
-            :param y: Array positional argument used to locate the piece.
-            :param new_x: Array positional argument used to locate the piece ending position.
-            :param new_y: Array positional argument used to locate the piece ending position.
-            :return: A boolean value of 1 when a movement is done, a boolean value of 0 otherwise.
-            :rtype: bool
-
-        """
-        blocking = 0
-        try:
-            if new_x == x and new_y > y:
-                for i in range(1, abs(new_y - y)):
-                    if self.board[x][y + i].type != "X":
-                        blocking = 1
-
-            if new_x == x and new_y < y:
-                for i in range(1, abs(new_y - y)):
-                    if self.board[x][y - i].type != "X":
-                        blocking = 1
-
-            if new_y == y and new_x > x:
-                for i in range(1, abs(new_x - x)):
-                    if self.board[x + i][y].type != "X":
-                        blocking = 1
-
-            if new_y == y and new_x < x:
-                for i in range(1, abs(new_x - x)):
-                    if self.board[x - i][y].type != "X":
-                        blocking = 1
-
-            if (new_x - x) == (new_y - y) and (new_y - y) >= 0:
-                for i in range(1, abs(new_y - y)):
-                    if self.board[x + i][y + i].type != "X":
-                        blocking = 1
-
-            if (new_x - x) == (new_y - y) and (new_y - y) <= 0:
-                for i in range(1, abs(new_y - y)):
-                    if self.board[x - i][y - i].type != "X":
-                        blocking = 1
-
-            if (new_x - x) == -(new_y - y) and (new_y - y) >= 0:
-                for i in range(1, abs(new_y - y)):
-                    if self.board[x + i][y - i].type != "X":
-                        blocking = 1
-
-            if (new_x - x) == -(new_y - y) and (new_y - y) <= 0:
-                for i in range(1, abs(new_y - y)):
-                    if self.board[x - i][y + i].type != "X":
-                        blocking = 1
-        except Exception as e:
-            # print(e)
-            return 0
-
-        if (((new_x == x and new_y != y) or (new_y == y and new_x != x)) or (new_y - (new_y - y) == y) and (
-                new_x - (new_x - x) == x)) and blocking == 0 and self.board[x][y].type == 'D':
+        if self.isdeplacement_dame(x, y, new_x, new_y) and (self.isdeplacement_tour(x, y, new_x, new_y) == 2 or self.isdeplacement_diagonal(x, y, new_x, new_y)):
             if self.board[new_x][new_y].colour != self.board[x][y].colour:
                 if self.board[new_x][new_y].type != 'X':
-                    # print(f"{self.board[new_x][new_y].type} a été mangé(e)")
-                    self.board[new_x][new_y] = Dame(self.board[x][y].colour, new_x, new_y)
-                    self.board[x][y] = Vide(x, y)
+                    print(f"{self.board[new_x][new_y].type} a été mangé(e)")
+                self.board[new_x][new_y] = Dame(self.board[x][y].colour, new_x, new_y)
+                self.board[x][y] = Vide(x, y)
                 return 1
             else:
                 # print('La case est prise')
@@ -458,17 +357,20 @@ class Board:
             # print("Deplacement non valide")
             return 0
 
+
+    def board_display(self,screen,colour):
+        screen.blit(pygame.image.load("ImagesPieces/chess.jpg"), (0, 0))
+        for i in range(8):
+            for j in range(8):
+                if self.board[i][j].colour == colour:
+                    screen.blit(pygame.image.load("ImagesPieces/colour.png"), (50 * i, 50 * j))
+                screen.blit(self.board[i][j].image, (50 * i, 50 * j))
+        pygame.display.update()
+
+
     def get_king_positional_arguments(self, colour: str):
-        """Get either a B or W king positional arguments
-
-            This method will read through the whole chessboard line by line until the element met is a King of the
-            requested colour.
-
-            :param colour: String value used to check if the piece colour attribute matches it.
-            :return: A tuple containing both positional arguments of the requested king.
-            :rtype: tuple
-
-        """
+        king_x = int()
+        king_y = int()
         for j in range(8):
             for k in range(8):
                 if self.board[k][j].type == 'R' and self.board[k][j].colour == colour:
@@ -477,17 +379,8 @@ class Board:
         return king_x, king_y
 
     def ischeck(self, colour: str):
-        """Get either a B or W king positional arguments
-
-            This method will read through the whole chessboard line by line until the element met is a King of the
-            requested colour.
-
-            :param colour: String value used to check if the piece colour attribute matches it.
-            :return: A tuple containing both positional arguments of the requested king.
-            :rtype: tuple
-
-        """
-        check = bool(0)
+        check = False
+        enemy_colour = str()
         king_x, king_y = self.get_king_positional_arguments(colour)
         if self.board[king_x][king_y].colour == 'W':
             enemy_colour = 'B'
@@ -497,28 +390,27 @@ class Board:
             for y in range(8):
                 if self.board[x][y].colour == enemy_colour:
                     try:
-                        # print(self.board[4][5].type)
                         check = self.deplacement(x, y, king_x, king_y)
                         match self.board[king_x][king_y].type:
                             case 'P':
                                 self.board[x][y] = Pion(enemy_colour, x, y)
-                                # print("P")
+                                #print("P")
                             case 'T':
                                 self.board[x][y] = Tour(enemy_colour, x, y)
-                                # print('T')
+                                #print('T')
                             case 'C':
                                 self.board[x][y] = Cavalier(enemy_colour, x, y)
-                                # print('C')
+                                #print('C')
                             case 'D':
                                 self.board[x][y] = Dame(enemy_colour, x, y)
-                                # print("D")
+                                #print("D")
                             case 'R':
                                 if self.board[king_x][king_y].colour == enemy_colour:
                                     self.board[x][y] = Roi(enemy_colour, x, y)
-                                    # print('R')
+                                    #print('R')
                             case 'F':
                                 self.board[x][y] = Fou(enemy_colour, x, y)
-                                # print('F')
+                                #print('F')
 
                         self.board[king_x][king_y] = Roi(colour, king_x, king_y)
 
@@ -527,3 +419,63 @@ class Board:
                 if check:
                     return check
         return check
+
+    def ischeck_mate(self, colour):
+
+        checkMate = True
+        enemy_colour = str()
+
+        if colour == "W":
+            enemy_colour = "B"
+        else:
+            enemy_colour = "W"
+
+        for x in range(8):
+            for y in range(8):
+                if checkMate is True and self.board[x][y].colour == colour:
+                    for new_x in range(8):
+                        for new_y in range(8):
+                            mouved = False
+
+                            old_piece = self.board[new_x][new_y].type
+                            piece = self.board[x][y].type
+
+                            if old_piece != "R":
+                                if self.isdeplacement(x, y, new_x, new_y) is True:
+                                    self.deplacement(x, y, new_x, new_y)
+                                    mouved = True
+
+
+                            checkMate =  self.ischeck(colour)
+
+                            if mouved is True:
+                                match piece:
+                                    case 'P':
+                                        self.board[x][y] = Pion(colour, x, y)
+                                    case 'T':
+                                        self.board[x][y] = Tour(colour, x, y)
+                                    case 'C':
+                                        self.board[x][y] = Cavalier(colour, x, y)
+                                    case 'D':
+                                        self.board[x][y] = Dame(colour, x, y)
+                                    case 'R':
+                                        self.board[x][y] = Roi(colour, x, y)
+                                    case 'F':
+                                        self.board[x][y] = Fou(colour, x, y)
+
+                                match old_piece:
+                                    case 'P':
+                                        self.board[new_x][new_y] = Pion(enemy_colour, x, y)
+                                    case 'T':
+                                        self.board[new_x][new_y] = Tour(enemy_colour, x, y)
+                                    case 'C':
+                                        self.board[new_x][new_y]= Cavalier(enemy_colour, x, y)
+                                    case 'D':
+                                        self.board[new_x][new_y] = Dame(enemy_colour, x, y)
+                                    case 'R':
+                                        self.board[new_x][new_y] = Roi(enemy_colour, x, y)
+                                    case 'F':
+                                        self.board[new_x][new_y] = Fou(enemy_colour, x, y)
+                                    case 'X':
+                                        self.board[new_x][new_y] = Vide(x, y)
+        return checkMate

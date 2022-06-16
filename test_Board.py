@@ -3,6 +3,8 @@ from board import Board
 from piece import *
 
 chessboard = Board()
+chessboard1 = Board()
+
 
 
 def chessboard_clear():
@@ -61,3 +63,6 @@ test.test_boolean_ans_isdeplacementcavalier()
 test.test_values_isdeplacementcavalier()
 test.test_values_isdeplacementfou()
 test.test_boolean_ans_isdeplacementfou()
+
+
+
