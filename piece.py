@@ -1,6 +1,5 @@
 import pygame
 
-
 class Piece:
     def __init__(self, colour, x, y): #colour is either "B" or "W", case is x,y coordinates
         self.colour = colour
@@ -14,8 +13,6 @@ class Piece:
 
 
 class Pion(Piece):
-
-    value = 1
 
     def __init__(self, colour, x, y):
         super().__init__(colour, x, y)
@@ -32,8 +29,6 @@ class Pion(Piece):
 
 class Roi(Piece):
 
-    value = 0
-
     def __init__(self, colour, x, y):
         super().__init__(colour, x, y)
         self.type = "R"
@@ -48,7 +43,6 @@ class Roi(Piece):
 
 
 class Dame(Piece):
-    value = 9
 
     def __init__(self, colour, x, y):
         super().__init__(colour, x, y)
@@ -63,8 +57,6 @@ class Dame(Piece):
 
 
 class Fou(Piece):
-
-    value = 3
 
     def __init__(self, colour, x, y):
         super().__init__(colour, x, y)
@@ -81,8 +73,6 @@ class Fou(Piece):
 
 class Tour(Piece):
 
-    value = 5
-
     def __init__(self, colour, x, y):
         super().__init__(colour, x, y)
         self.type = "T"
@@ -95,10 +85,7 @@ class Tour(Piece):
         super().__repr__(self)
 
 
-
 class Cavalier(Piece):
-
-    value = 3
 
     def __init__(self, colour, x, y):
         super().__init__(colour, x, y)
@@ -112,8 +99,6 @@ class Cavalier(Piece):
         super().__repr__(self)
 
 class Vide(Piece):
-
-    value = 0
 
     def __init__(self, x, y):
         self.x = x
