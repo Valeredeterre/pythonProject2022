@@ -12,12 +12,15 @@ Créer un X bail en suivant ca:
 [board.py][Board python file]:
 
 This is the class than handle the chessboard, piece deplacement, checkmates etc...
+
 [jeu.py][Game python file]:
 
 This is the main loop which run the game using pygame.
+
 [piece][Pieces python file]:
 
 This is the file contained all the subclasses used to create our pieces objects.
+
 [test_Board.py][The test board.py file]:
 
 This the the file used to run unit test on Board methods.
