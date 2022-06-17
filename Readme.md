@@ -1,12 +1,8 @@
 # Python Project 2022 - ESIREM
 ![Banner](images/Banner.jpg)
 
-## Consignes :
-// Affiche tes consignes
-Créer un X bail en suivant ca:
- -
- -
- -
+## Documentation :
+[Online documentation](https://doc-jeu-python.vercel.app/)
 
 ### Files Plan
 [board.py][Board python file]:
