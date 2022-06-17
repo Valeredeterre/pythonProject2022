@@ -9,13 +9,17 @@ Créer un X bail en suivant ca:
  -
 
 ### Files Plan
-[board.py][Board python file]
+[board.py][Board python file]:
+
 This is the class than handle the chessboard, piece deplacement, checkmates etc...
-[jeu.py][Game python file]
+[jeu.py][Game python file]:
+
 This is the main loop which run the game using pygame.
-[piece][Pieces python file]
+[piece][Pieces python file]:
+
 This is the file contained all the subclasses used to create our pieces objects.
-[test_Board.py][The test board.py file]
+[test_Board.py][The test board.py file]:
+
 This the the file used to run unit test on Board methods.
 
 ### Management
@@ -40,7 +44,7 @@ A senior would have to pass aways the commentaries about them but as Juniors the
 
 
 #### Special thanks
-Valère and I were really grateful for this Python project, knowing it was the first one that 
+Valère and I were really grateful for this Python project, knowing it was our first one.
 
 
 #### Contributors
